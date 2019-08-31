@@ -1,0 +1,78 @@
+html, body, p, span, h1, h2, h3, h4, h5, h6, a {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #fafafa;
+}
+
+.menu_item {
+    width: 100%;
+}
+
+.menu-profile {
+    width: 80px;
+}
+
+.nav-link span, .nav-link {
+    color: #fff !important;
+}
+
+.bg-menu {
+    background-color: #535353;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.nav-link:active, .nav-link:hover {
+    color: black !important;
+    transition: color .2s;
+}
+
+.card {
+    border: 2px solid #cecece;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    background-color: #535353;
+}
+
+@media screen and (min-width: 992px) {
+    .menu-profile {
+        width: 180px;
+    }
+
+    .container-menu {
+        background-color: transparent;
+    }
+
+    #navbar-toggler-menu {
+        border: 1px solid #535353;
+        border-radius: 25px;
+    }
+
+    .navbar-nav.mr-auto.mt-2.mt-lg-0.w-100 {
+        justify-content: space-around;
+    }
+
+    .navbar-nav.mr-auto.mt-2.mt-lg-0.w-100 > .nav-item:hover {
+        background-color: #9D938B;
+        transform: translateY(1px);
+    }
+
+    .card {
+        max-width: 60%;
+    }
+
+}
+
