@@ -8,12 +8,9 @@ import com.metaxiii.escalade.controller.*;
 
 @Controller
 public class Index extends AbstractState{
-    private User user;
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("state", isConnected);
-        model.addAttribute("nom", "aze");
         return "index";
     }
 }

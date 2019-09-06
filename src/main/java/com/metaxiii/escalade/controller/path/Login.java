@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Login extends AbstractState {
     @RequestMapping("/login/new-user")
     public String create_user(Model model) {
-        model.addAttribute("state", isConnected);
-        model.addAttribute("user", "new");
         return "login";
     }
 
     @RequestMapping("/login/login")
     public String connect_user(Model model) {
-        model.addAttribute("state", isConnected);
-        model.addAttribute("user", "login");
         return "login";
     }
 }
