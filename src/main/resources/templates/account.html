@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/head::head">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
+</head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container mt-4">
+    <div class="row mb-4">
+        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white">
+            Proposer un nouveau site
+        </button>
+        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white">
+            Proposer un nouveau topo
+        </button>
+        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white overflow-hidden border-0">
+            <div class="notification bg-danger">1</div>
+            Réservation en cours
+        </button>
+    </div>
+    <form action="#" method="post" th:include="include/form/new-site::new-site" enctype="multipart/form-data"
+          class="form-component"></form>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+</body>
+</html>
