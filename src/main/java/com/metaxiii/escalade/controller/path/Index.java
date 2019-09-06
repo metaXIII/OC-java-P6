@@ -10,7 +10,7 @@ import com.metaxiii.escalade.controller.*;
 public class Index extends AbstractState{
 
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index() {
         return "index";
     }
 }

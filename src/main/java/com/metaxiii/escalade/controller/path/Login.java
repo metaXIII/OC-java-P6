@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Login extends AbstractState {
     @RequestMapping("/login/new-user")
-    public String create_user(Model model) {
+    public String create_user() {
         return "login";
     }
 
     @RequestMapping("/login/login")
-    public String connect_user(Model model) {
+    public String connect_user() {
         return "login";
     }
 }
