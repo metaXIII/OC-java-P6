@@ -19,4 +19,9 @@ public class Login extends AbstractState {
         model.addAttribute("user", "login");
         return "login";
     }
+
+    @RequestMapping("/forget-password")
+    public String forget_password() {
+        return "forget-password";
+    }
 }
