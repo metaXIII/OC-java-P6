@@ -9,21 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reservation")
-public class Reservation {
+@Table (name = "code_postal")
+public class CodePostal {
     @Getter
     @Setter
     @Id
-    @Column( name = "id")
-    private long id;
+    @Column (name = "id")
+    private byte id;
 
     @Getter
     @Setter
-    @Column (name = "topo_id")
-    private int topo_id;
-
-    @Getter
-    @Setter
-    @Column (name = "request_user_id")
-    private int request_user_id;
+    @Id
+    @Column (name = "departement")
+    private String departement;
 }
