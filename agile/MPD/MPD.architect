@@ -51,7 +51,7 @@
     <column id="COL12" populated="true" UUID="a740f5e5-7dde-4192-8743-b2f895876442" autoIncrement="false" autoIncrementSequenceName="Site_code_postal_id_seq" defaultValue="" name="code_postal_id" nullable="0" physicalName="code_postal_id" precision="3" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL13" populated="true" UUID="cbcb8514-1993-4718-b0d1-00b71bf72d33" autoIncrement="false" autoIncrementSequenceName="Site_Nom du site_seq" defaultValue="" name="Nom du site" nullable="0" physicalName="Nom du site" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL13" populated="true" UUID="cbcb8514-1993-4718-b0d1-00b71bf72d33" autoIncrement="false" autoIncrementSequenceName="Site_Nom du site_seq" defaultValue="" name="Nom_site" nullable="0" physicalName="Nom_site" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL14" populated="true" UUID="24537344-0c34-4727-a00a-668e5b584567" autoIncrement="false" autoIncrementSequenceName="Site_voies_seq" defaultValue="" name="voies" nullable="0" physicalName="voies" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
