@@ -127,9 +127,3 @@ ALTER TABLE Site ADD CONSTRAINT user_site_fk
         REFERENCES User (id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION;
-
-
-# Data insertion
-
-INSERT INTO parcours_java_escalade.commentaire (content, date, user_id, site_id)
-VALUES ('content', '2019-09-27', 1, 1);
