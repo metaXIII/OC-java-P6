@@ -1,7 +1,6 @@
 package com.metaxiii.escalade.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,41 +9,28 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table (name = "topo")
+@Data
+@Table(name = "topo")
 public class Topo {
-    @Getter
-    @Setter
     @Id
     @Column(name = "id")
     private long id;
 
-    @Getter
-    @Setter
-    @Column (name = "nom")
+    @Column(name = "nom")
     private String nom;
 
-    @Getter
-    @Setter
-    @Column (name = "description")
+    @Column(name = "description")
     private String description;
 
-    @Getter
-    @Setter
-    @Column (name = "lieu")
+    @Column(name = "lieu")
     private String lieu;
 
-    @Getter
-    @Setter
-    @Column (name = "date_parution")
+    @Column(name = "date_parution")
     private Date date_parution;
 
-    @Getter
-    @Setter
-    @Column (name = "user_id")
+    @Column(name = "user_id")
     private int user_id;
 
-    @Getter
-    @Setter
-    @Column (name = "available")
+    @Column(name = "available")
     private boolean available;
 }

@@ -6,16 +6,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "code_postal")
-public class CodePostal implements Serializable {
+@Table(name = "voies")
+public class Voies {
     @Id
     @Column(name = "id")
-    private byte id;
+    private long id;
 
-    @Column(name = "departement")
-    private String departement;
+    @Column(name = "cotation")
+    private String cotation;
+
+    @Column(name = "secteur_id")
+    private int secteur_id;
 }

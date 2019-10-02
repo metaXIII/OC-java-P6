@@ -1,7 +1,6 @@
 package com.metaxiii.escalade.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,21 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Data
 @Table(name = "reservation")
 public class Reservation {
-    @Getter
-    @Setter
     @Id
-    @Column( name = "id")
+    @Column(name = "id")
     private long id;
 
-    @Getter
-    @Setter
-    @Column (name = "topo_id")
+    @Column(name = "topo_id")
     private int topo_id;
 
-    @Getter
-    @Setter
-    @Column (name = "request_user_id")
+    @Column(name = "request_user_id")
     private int request_user_id;
 }
