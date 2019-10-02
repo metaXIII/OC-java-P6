@@ -1,3 +1,20 @@
+
+CREATE TABLE Voies (
+                       id INT AUTO_INCREMENT NOT NULL,
+                       cotation VARCHAR(2) NOT NULL,
+                       secteur_id INT NOT NULL,
+                       PRIMARY KEY (id)
+);
+
+
+CREATE TABLE Secteurs (
+                          id INT NOT NULL,
+                          voies TEXT NOT NULL,
+                          site_id INT NOT NULL,
+                          PRIMARY KEY (id)
+);
+
+
 CREATE TABLE Role (
                       id INT AUTO_INCREMENT NOT NULL,
                       role VARCHAR(30) NOT NULL,
@@ -17,7 +34,7 @@ CREATE TABLE Topo (
                       id INT NOT NULL,
                       nom VARCHAR(255) NOT NULL,
                       description TEXT NOT NULL,
-                      lieu VARCHAR(255) NOT NULL,
+                      lieu VARCHAR(200) NOT NULL,
                       date_parution DATE NOT NULL,
                       user_id INT NOT NULL,
                       available BOOLEAN DEFAULT true NOT NULL,
@@ -54,16 +71,26 @@ CREATE TABLE User (
 
 CREATE TABLE Site (
                       id INT NOT NULL,
-                      pays VARCHAR(255) DEFAULT 'FRANCE' NOT NULL,
+                      pays VARCHAR(30) DEFAULT 'FRANCE' NOT NULL,
                       code_postal_id VARCHAR(3) NOT NULL,
                       nom_site VARCHAR(255) NOT NULL,
-                      voies INT NOT NULL,
-                      cotation VARCHAR(2) NOT NULL,
-                      secteurs INT NOT NULL,
                       officiel BOOLEAN DEFAULT false NOT NULL,
+                      secteurs TEXT NOT NULL,
                       PRIMARY KEY (id)
 );
 
+
+ALTER TABLE Secteurs ADD CONSTRAINT voies_secteurs_fk
+    FOREIGN KEY (id)
+        REFERENCES Voies (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION;
+
+ALTER TABLE Site ADD CONSTRAINT secteurs_site_fk
+    FOREIGN KEY (id)
+        REFERENCES Secteurs (id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION;
 
 ALTER TABLE User ADD CONSTRAINT role_user_fk
     FOREIGN KEY (id)
@@ -100,3 +127,9 @@ ALTER TABLE Site ADD CONSTRAINT user_site_fk
         REFERENCES User (id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION;
+
+
+# Data insertion
+
+INSERT INTO parcours_java_escalade.commentaire (content, date, user_id, site_id)
+VALUES ('content', '2019-09-27', 1, 1);
