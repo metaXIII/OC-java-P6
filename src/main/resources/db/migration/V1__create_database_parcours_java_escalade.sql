@@ -8,7 +8,7 @@ CREATE TABLE Voies (
 
 
 CREATE TABLE Secteurs (
-                          id INT NOT NULL,
+                          id INT AUTO_INCREMENT NOT NULL,
                           voies TEXT NOT NULL,
                           site_id INT NOT NULL,
                           PRIMARY KEY (id)
@@ -31,7 +31,7 @@ CREATE TABLE Reservation (
 
 
 CREATE TABLE Topo (
-                      id INT NOT NULL,
+                      id INT AUTO_INCREMENT NOT NULL,
                       nom VARCHAR(255) NOT NULL,
                       description TEXT NOT NULL,
                       lieu VARCHAR(200) NOT NULL,
@@ -60,17 +60,17 @@ CREATE TABLE Code_postal (
 
 
 CREATE TABLE User (
-                      id INT NOT NULL,
-                      username VARCHAR(30) NOT NULL,
-                      email VARCHAR(255) NOT NULL,
-                      password TEXT NOT NULL,
+                      id INT AUTO_INCREMENT NOT NULL,
+                      username VARCHAR(30),
+                      email VARCHAR(255),
+                      password TEXT,
                       role_id INT DEFAULT 0 NOT NULL,
                       PRIMARY KEY (id)
 );
 
 
 CREATE TABLE Site (
-                      id INT NOT NULL,
+                      id INT AUTO_INCREMENT NOT NULL,
                       pays VARCHAR(30) DEFAULT 'FRANCE' NOT NULL,
                       code_postal_id VARCHAR(3) NOT NULL,
                       nom_site VARCHAR(255) NOT NULL,
