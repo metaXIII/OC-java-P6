@@ -4,8 +4,9 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <form th:if="${user} == 'new'" th:include="include/form/new-user::new-user"></form>
-    <form th:unless="${user} == 'new'" th:include="include/form/connect::connect">Connexion</form>
+    <form action="" method="post"
+          th:include="include/form/new-user::new-user"></form>
+    <form th:if="${user} == 'new'" th:include="include/form/connect::connect">Connexion</form>
 </main>
 <footer th:replace="include/footer::footer"></footer>
 </body>

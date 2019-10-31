@@ -16,5 +16,5 @@ public class Role {
     private short id;
 
     @Column(name = "role")
-    private String role;
+    private int role;
 }
