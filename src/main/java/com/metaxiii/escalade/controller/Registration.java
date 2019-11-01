@@ -1,6 +1,7 @@
 package com.metaxiii.escalade.controller;
 
 import com.metaxiii.escalade.dto.UserDto;
+import com.metaxiii.escalade.exceptions.UserAlreadyExistException;
 import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +25,8 @@ public class Registration {
 
     @Autowired
     private IUserService userService;
+
+    private Set<String> errors = new HashSet<>();
 
     @GetMapping("/user/new-user")
     public String create_user(Model model) {
@@ -30,7 +37,9 @@ public class Registration {
 
     @GetMapping("/user/login")
     public String connect_user(Model model) {
-        model.addAttribute("user", "login");
+        UserDto userDto = new UserDto();
+        userDto.setUsername("aze");
+        model.addAttribute("user", userDto);
         return "user";
     }
 
@@ -40,29 +49,30 @@ public class Registration {
     }
 
     @PostMapping(value = "/user/new-user")
-    public String post_create_user(@ModelAttribute("user") UserDto accountDto,
-                                   BindingResult result, WebRequest request, Errors errors) {
-        User user = new User();
-        try {
-            user = createUserAccount(accountDto, result);
-
-        } catch (Exception exception) {
-            System.out.println("Request: " + request);
-            System.out.println("Errors : " + errors);
-            System.out.println("Exception: " + exception.getMessage());
+    public ModelAndView post_create_user(@ModelAttribute("user") UserDto accountDto,
+                                         BindingResult result, WebRequest request, Errors errors) {
+        User register = new User();
+        if (!result.hasErrors()) {
+            register = createUserAccount(accountDto, result);
         }
-        System.out.println("User is connected" + user);
-        return "index";
+        if (register == null) {
+            result.rejectValue("email", "message.regError");
+        }
+        if (result.hasErrors())
+            return new ModelAndView("user", "user", accountDto);
+        else
+            return new ModelAndView("index");
     }
 
     private User createUserAccount(UserDto accountDto, BindingResult result) {
-        User registered = null;
+        User registered;
         try {
             registered = userService.registerNewUserAccount(accountDto);
-        } catch (Exception e) {
-            System.out.println("There is an exception");
+        } catch (UserAlreadyExistException e) {
+            this.errors.add("L'email existe déjà dans la base de donnée");
+            accountDto.setErrors(this.errors);
+            return null;
         }
-        System.out.println("result : " + result);
         return registered;
     }
 }
