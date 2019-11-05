@@ -26,8 +26,6 @@ public class Registration {
     @Autowired
     private IUserService userService;
 
-    private Set<String> errors = new HashSet<>();
-
     @GetMapping("/user/new-user")
     public String create_user(Model model) {
         UserDto userDto = new UserDto();
@@ -69,8 +67,9 @@ public class Registration {
         try {
             registered = userService.registerNewUserAccount(accountDto);
         } catch (UserAlreadyExistException e) {
-            this.errors.add("L'email existe déjà dans la base de donnée");
-            accountDto.setErrors(this.errors);
+            Set<String> errors = new HashSet<>();
+            errors.add("L'email existe déjà dans la base de donnée");
+            accountDto.setErrors(errors);
             return null;
         }
         return registered;
