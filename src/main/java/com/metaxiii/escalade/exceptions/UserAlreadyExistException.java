@@ -1,7 +1,7 @@
 package com.metaxiii.escalade.exceptions;
 
 public final class UserAlreadyExistException extends RuntimeException {
-    private static final long serialVersionUID = 5861310537366287163L;
+    private static final long serialVersionUID = 1911057558926080778L;
 
     public UserAlreadyExistException() {
         super();
