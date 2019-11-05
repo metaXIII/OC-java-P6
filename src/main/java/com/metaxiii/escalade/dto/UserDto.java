@@ -23,10 +23,10 @@ public class UserDto {
     @ValidEmail
     private String email;
     private String check_email;
-    private int role;
+    private String role;
     private Set<String> errors;
 
     public UserDto() {
-        this.role = 1;
+        this.role = "";
     }
 }

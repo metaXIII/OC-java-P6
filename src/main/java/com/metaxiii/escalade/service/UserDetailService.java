@@ -5,6 +5,8 @@ import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.model.UserDetails;
 import com.metaxiii.escalade.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,13 +37,12 @@ public class UserDetailService {
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-        return new User
-                (user.getEmail(),
-                        user.getPassword().toLowerCase(),
-                        enabled,
-                        accountNonExpired,
-                        credentialsNonExpired,
-                        accountNonLocked,
-                        getAuthorities(user.getRole()));
+        return new User(user.getEmail(),
+                user.getPassword().toLowerCase(),
+                enabled,
+                accountNonExpired,
+                credentialsNonExpired,
+                accountNonLocked,
+                getAuthorities(user.getRole()));
     }
 }

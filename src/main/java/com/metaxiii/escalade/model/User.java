@@ -25,5 +25,5 @@ public class User {
     private String password;
 
     @Column(name = "role_id")
-    private int role;
+    private String role;
 }
