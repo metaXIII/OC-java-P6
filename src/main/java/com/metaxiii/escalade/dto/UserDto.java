@@ -25,12 +25,9 @@ public class UserDto {
     @ValidEmail
     private String email;
     private String check_email;
-    private List<String> role;
     private Set<String> errors;
 
     public UserDto() {
-        List<String> list = new ArrayList<>();
-        list.add("USER");
-        this.role = list;
+
     }
 }
