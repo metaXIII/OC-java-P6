@@ -4,7 +4,7 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert" th:if="${user.errors}">
         <span th:text="${user.errors}">Attention</span>
     </div>
     <form action="" method="post" th:include="include/form/new-user::new-user" id="form_create_user"

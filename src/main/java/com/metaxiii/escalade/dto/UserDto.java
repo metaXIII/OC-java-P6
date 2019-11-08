@@ -6,6 +6,8 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,10 +25,12 @@ public class UserDto {
     @ValidEmail
     private String email;
     private String check_email;
-    private int role;
+    private List<String> role;
     private Set<String> errors;
 
     public UserDto() {
-        this.role = 1;
+        List<String> list = new ArrayList<>();
+        list.add("USER");
+        this.role = list;
     }
 }

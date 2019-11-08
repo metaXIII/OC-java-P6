@@ -134,6 +134,6 @@ ALTER TABLE Site
 
 # INSERT DATA
 INSERT into Role (role)
-values ('ROLE_USER');
+values ('USER');
 INSERT into Role (role)
-values ('ROLE_ADMIN');
+values ('ADMIN');
