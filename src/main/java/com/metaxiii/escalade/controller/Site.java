@@ -1,4 +1,4 @@
-package com.metaxiii.escalade.controller.path.search;
+package com.metaxiii.escalade.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

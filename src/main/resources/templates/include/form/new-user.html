@@ -2,26 +2,33 @@
     <h2 class="h2 text-center">S'inscrire sur le site</h2>
     <div class="form-group">
         <label for="username">Nom d'utilisateur : </label>
-        <input type="username" class="form-control" id="username" placeholder="Votre nom d'utilisateur">
+        <input type="text" class="form-control" id="username" placeholder="Votre nom d'utilisateur" name="username">
     </div>
     <div class="form-group">
         <label for="password">Mot de passe : </label>
-        <input type="password" class="form-control" id="password" placeholder="Mot de passe">
+        <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
     </div>
     <div class="form-group">
-        <label for="verifyPassword">Confirmez le mot de passe : </label>
-        <input type="password" class="form-control" id="verifyPassword" placeholder="Confirmez le mot de passe">
+        <label for="check_password">Confirmez le mot de passe : </label>
+        <input type="password" class="form-control" id="check_password" placeholder="Confirmez le mot de passe"
+               name="check_password">
     </div>
     <div class="form-group">
         <label for="email">Votre email : </label>
-        <input type="email" class="form-control" id="email" placeholder="Email">
+        <input type="email" class="form-control" id="email" placeholder="Email" name="email">
     </div>
     <div class="form-group">
-        <label for="emailVerify">Confirmez votre email : </label>
-        <input type="email" class="form-control" id="emailVerify" placeholder="Confirmez votre mail">
+        <label for="check_email">Confirmez votre email : </label>
+        <input type="email" class="form-control" id="check_email" placeholder="Confirmez votre mail" name="check_email">
+    </div>
+    <div class="form-check">
+        <input type="checkbox" id="valid" name="valid" class="form-check-input">
+        <label for="valid" class="form-check-label">Valider</label>
     </div>
     <br>
-    <button type="submit" class="btn btn-primary" disabled="true" id="buttonSubmitted">S'inscrire</button>
+    <button type="submit" class="btn btn-primary" id="register">S'inscrire</button>
 
-    <script src="/js/validateInscription.js"></script>
+    <script src="/js/validate_inscription.js" type="text/javascript"></script>
 </form>
+
+
