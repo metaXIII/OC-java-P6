@@ -21,29 +21,15 @@ import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
-public class Registration {
+public class Registrate {
 
     @Autowired
     private IUserService userService;
 
     @GetMapping("/user/new-user")
-    public String create_user(Model model) {
+    public ModelAndView create_user(Model model) {
         UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
-        return "user";
-    }
-
-    @GetMapping("/user/login")
-    public String connect_user(Model model) {
-        UserDto userDto = new UserDto();
-        userDto.setUsername("aze");
-        model.addAttribute("user", userDto);
-        return "user";
-    }
-
-    @GetMapping("/forget-password")
-    public String forget_password() {
-        return "forget-password";
+        return new ModelAndView("registrate", "user", userDto);
     }
 
     @PostMapping(value = "/user/new-user")

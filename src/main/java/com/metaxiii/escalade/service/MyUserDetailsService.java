@@ -14,37 +14,38 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Service
+@Service("userDetailsService")
 @Transactional
 public class MyUserDetailsService implements UserDetailsService {
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    private static List<GrantedAuthority> getAuthorities(Role role) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getRole()));
+        return authorities;
+    }
 
-	private static List<GrantedAuthority> getAuthorities(Role role) {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(role.getRole()));
-		return authorities;
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email);
-		if (user == null) {
-			throw new UsernameNotFoundException("Il n'existe pas d'utilisateurs avec le nom d'utilisateur " + email);
-		}
-		boolean enabled = true;
-		boolean accountNonExpired = true;
-		boolean credentialsNonExpired = true;
-		boolean accounNotLock = true;
-		return new org.springframework.security.core.userdetails.User(
-				user.getEmail(),
-				user.getPassword().toLowerCase(),
-				enabled,
-				accountNonExpired,
-				credentialsNonExpired,
-				accounNotLock,
-				getAuthorities(user.getRole()));
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUsername(username);
+        return user
+                .map((u) -> {
+                    boolean enabled = true;
+                    boolean accountNonExpired = true;
+                    boolean credentialsNonExpired = true;
+                    boolean accounNotLock = true;
+                    return new org.springframework.security.core.userdetails.User(
+                            u.getEmail(),
+                            u.getPassword().toLowerCase(),
+                            enabled,
+                            accountNonExpired,
+                            credentialsNonExpired,
+                            accounNotLock,
+                            getAuthorities(u.getRole()));
+                })
+                .orElseThrow(() -> new UsernameNotFoundException("Il n'existe pas d'utilisateurs avec le nom d'utilisateur " + username));
+    }
 }

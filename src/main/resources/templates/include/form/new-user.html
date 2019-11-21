@@ -25,6 +25,7 @@
         <input type="checkbox" id="valid" name="valid" class="form-check-input">
         <label for="valid" class="form-check-label">Valider</label>
     </div>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <br>
     <button type="submit" class="btn btn-primary" id="register">S'inscrire</button>
 

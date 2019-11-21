@@ -8,9 +8,10 @@
                 </li>
             </ul>
         </div>
-
     </div>
-
+    <div>
+        <span th:text="${userCache} != null ? ${userCache} : 'none'"></span>
+    </div>
     <script src="/vendor/jquery_3.4.1/jquery_3.4.1.min.js"></script>
     <script src="/vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>

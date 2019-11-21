@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/head::head"></head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container">
+    <form action="#" th:include="include/form/connect::connect" method="post">Connexion</form>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+</body>
+</html>

@@ -9,7 +9,6 @@
     </div>
     <form action="" method="post" th:include="include/form/new-user::new-user" id="form_create_user"
           th:if="${user.username} == null"></form>
-    <form th:if="${user.username} != null" th:include="include/form/connect::connect">Connexion</form>
 </main>
 <footer th:replace="include/footer::footer"></footer>
 </body>
