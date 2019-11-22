@@ -2,12 +2,8 @@ package com.metaxiii.escalade.service;
 
 import com.metaxiii.escalade.dto.UserDto;
 import com.metaxiii.escalade.exceptions.UserAlreadyExistException;
-import com.metaxiii.escalade.exceptions.UsernameNotFoundException;
 import com.metaxiii.escalade.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUserService {
-    User registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException;
-
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+	User registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException;
 }

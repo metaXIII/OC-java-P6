@@ -7,26 +7,22 @@ import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.repository.UserRepository;
 import com.metaxiii.escalade.service.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements IUserService {
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+@Transactional
+public class UserServiceImpl implements IUserService, UserDetailsService {
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	@Transactional
 	public User registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException {
 		if (emailExist(accountDto.getEmail()))
 			throw new UserAlreadyExistException("There is an account with that email adress : " + accountDto.getEmail());
@@ -38,16 +34,14 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.save(user);
 	}
 
-	private boolean emailExist(String email) {
-		return userRepository.findByEmail(email) != null;
-	}
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Objects.requireNonNull(username);
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-		return user;
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Il n'existe pas d'utilisateurs avec le nom d'utilisateur " + username));
+	}
+
+	private boolean emailExist(String email) {
+		return userRepository.findByEmail(email) != null;
 	}
 
 }
