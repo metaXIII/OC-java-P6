@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Index extends AbstractState {
+public class Index  {
 
-    @RequestMapping("/")
-    public ModelAndView index() {
-        return new ModelAndView("index", "userCache", getRole());
-    }
+	@RequestMapping("/")
+	public ModelAndView index() {
+		return new ModelAndView("index");
+	}
 }

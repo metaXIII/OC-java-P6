@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "role")
+@Table(name = "Role")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role {
