@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginPage("/user/login") //
 			.failureUrl("/user/login?error")// L'url de la page de login
-			.defaultSuccessUrl("/") // L'url de redirection après authentification
+			.defaultSuccessUrl("/welcome") // L'url de redirection après authentification
 			.usernameParameter("username") // Le name de l'input du form correspond au login
 			.passwordParameter("password") //// Le name de l'input du form correspond au password
 		.and()

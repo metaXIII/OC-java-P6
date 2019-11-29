@@ -25,7 +25,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 	@Override
 	public User registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException {
 		if (emailExist(accountDto.getEmail()))
-			throw new UserAlreadyExistException("There is an account with that email adress : " + accountDto.getEmail());
+			throw new UserAlreadyExistException("Il exite déjà un utilisateur avec cette adresse mail : " + accountDto.getEmail());
+		if (userExist(accountDto.getUsername())) {
+			throw new UserAlreadyExistException("Ce nom d'utilisateur est déjà utilisé : " + accountDto.getUsername());
+		}
 		final User user = new User();
 		user.setUsername(accountDto.getUsername());
 		user.setEmail(accountDto.getEmail());
@@ -42,6 +45,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	private boolean emailExist(String email) {
 		return userRepository.findByEmail(email) != null;
+	}
+
+	private boolean userExist(String username) {
+		return userRepository.findByUsername(username).isPresent();
 	}
 
 }

@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Controller
 @RequiredArgsConstructor
 public class Registrate {
@@ -35,17 +32,31 @@ public class Registrate {
     @PostMapping(value = "/user/new-user")
     public ModelAndView post_create_user(@ModelAttribute("user") UserDto accountDto,
                                          BindingResult result, WebRequest request, Errors errors) {
-        User register = new User();
-        if (!result.hasErrors()) {
-            register = createUserAccount(accountDto, result);
+        if (checkFieldIsValid(accountDto)) {
+            User register = new User();
+            if (!result.hasErrors()) {
+                register = createUserAccount(accountDto, result);
+            }
+            if (register == null) {
+                result.rejectValue("email", "message.regError");
+            }
+            if (result.hasErrors())
+                return new ModelAndView("registrate", "user", accountDto);
+            else
+                return new ModelAndView("index");
+        } else {
+            accountDto.setErrors("Certains champs ne sont pas identiques !");
+            return new ModelAndView("registrate", "user", accountDto);
         }
-        if (register == null) {
-            result.rejectValue("email", "message.regError");
+    }
+
+    private boolean checkFieldIsValid(UserDto accountDto) {
+        if (accountDto.getEmail().equals(accountDto.getCheck_email())) {
+            if (accountDto.getPassword().equals(accountDto.getCheck_password()))
+                return true;
+            return false;
         }
-        if (result.hasErrors())
-            return new ModelAndView("user", "user", accountDto);
-        else
-            return new ModelAndView("index");
+        return false;
     }
 
     private User createUserAccount(UserDto accountDto, BindingResult result) {
@@ -53,9 +64,7 @@ public class Registrate {
         try {
             registered = userService.registerNewUserAccount(accountDto);
         } catch (UserAlreadyExistException e) {
-            Set<String> errors = new HashSet<>();
-            errors.add("L'email existe déjà dans la base de donnée");
-            accountDto.setErrors(errors);
+            accountDto.setErrors(e.getMessage());
             return null;
         }
         return registered;

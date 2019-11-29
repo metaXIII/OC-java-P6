@@ -1,9 +1,12 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head th:replace="include/head::head"></head>
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
+    <div class="alert alert-success temporal_message" th:if="${welcome}">
+        Bonjour <span sec:authentication="name"></span>
+    </div>
     <h2 class="h2 text-center">&nbsp;</h2>
     <div class="card m-auto">
         <img src="/img/other/article-card.jpg" class="card-img-top" alt="image card principale">
@@ -13,8 +16,8 @@
                 Bonjour et bienvenue sur notre site, nous sommes fiers de représenter une communauté active. <br>
                 Pour bénéficier de tous nos services, connectez-vous !
             </p>
-            <a href="/user/login" class="btn btn-primary">S'inscrire</a>
-            <a href="/user/new-user" class="btn btn-success">Se connecter</a>
+            <a href="/user/new-user" class="btn btn-primary">S'inscrire</a>
+            <a href="/user/login" class="btn btn-success">Se connecter</a>
         </div>
     </div>
 </main>

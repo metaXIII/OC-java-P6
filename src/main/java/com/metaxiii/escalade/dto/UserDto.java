@@ -3,15 +3,14 @@ package com.metaxiii.escalade.dto;
 import com.metaxiii.escalade.validation.email.ValidEmail;
 import com.metaxiii.escalade.validation.password.PasswordMatches;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @PasswordMatches
+@NoArgsConstructor
 public class UserDto {
     @NotNull
     @NotEmpty
@@ -24,10 +23,8 @@ public class UserDto {
     @NotEmpty
     @ValidEmail
     private String email;
+    @NotNull
+    @NotEmpty
     private String check_email;
-    private Set<String> errors;
-
-    public UserDto() {
-
-    }
+    private String errors;
 }
