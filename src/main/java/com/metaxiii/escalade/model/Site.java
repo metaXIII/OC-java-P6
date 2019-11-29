@@ -20,7 +20,7 @@ public class Site {
     @Column(name = "pays")
     private String pays;
 
-    @Column(name = "codePostal")
+    @Column(name = "code_postal_id")
     private String codePostal;
 
     @Column(name = "nom_site")

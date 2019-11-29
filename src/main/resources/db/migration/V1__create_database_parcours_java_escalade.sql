@@ -59,8 +59,8 @@ CREATE TABLE Commentaire
 
 CREATE TABLE Code_postal
 (
-    id          INT          NOT NULL,
-    departement VARCHAR(255) NOT NULL,
+    id          INT AUTO_INCREMENT NOT NULL,
+    departement VARCHAR(255)       NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -80,56 +80,12 @@ CREATE TABLE Site
 (
     id             INT AUTO_INCREMENT           NOT NULL,
     pays           VARCHAR(30) DEFAULT 'FRANCE' NOT NULL,
-    code_postal_id VARCHAR(3)                   NOT NULL,
+    code_postal_id INT                          NOT NULL,
     nom_site       VARCHAR(255)                 NOT NULL,
     officiel       BOOLEAN     DEFAULT false    NOT NULL,
     secteurs       TEXT                         NOT NULL,
     PRIMARY KEY (id)
 );
-
-ALTER TABLE Secteurs
-    ADD CONSTRAINT voies_secteurs_fk
-        FOREIGN KEY (id)
-            REFERENCES Voies (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
-ALTER TABLE Site
-    ADD CONSTRAINT secteurs_site_fk
-        FOREIGN KEY (id)
-            REFERENCES Secteurs (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
-ALTER TABLE User
-    ADD CONSTRAINT role_user_fk
-        FOREIGN KEY (role_id)
-            REFERENCES Role (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
-ALTER TABLE Topo
-    ADD CONSTRAINT reservation_topo_fk
-        FOREIGN KEY (id)
-            REFERENCES Reservation (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
-
-
-ALTER TABLE Site
-    ADD CONSTRAINT commentaire_site_fk
-        FOREIGN KEY (id)
-            REFERENCES Commentaire (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
-
-ALTER TABLE Site
-    ADD CONSTRAINT code_postal_site_fk
-        FOREIGN KEY (id)
-            REFERENCES Code_postal (id)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
 
 
 # INSERT DATA
@@ -137,3 +93,17 @@ INSERT into Role (role)
 values ('USER');
 INSERT into Role (role)
 values ('ADMIN');
+
+#USER
+INSERT into user (username, email, password, role_id)
+values ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
+INSERT into user (username, email, password, role_id)
+values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
+
+#codePostal
+insert into Code_postal (departement)
+values ('departement');
+
+#site
+insert into Site (code_postal_id, nom_site, secteurs)
+VALUES (1, 'narnia', 'secteur');
