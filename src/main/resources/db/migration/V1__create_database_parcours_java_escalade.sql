@@ -107,6 +107,9 @@ values ('Narnia', 1, 'Falaise');
 insert into Site(nom, secteur_id, type, officiel)
 values ('Poudlard', 2, 'bloc', 1);
 
+insert into site (nom, secteur_id, type, officiel)
+values ('DisneyLand', 1, 'Magic', 1);
+
 # Departement
 insert into departement(id, nom)
 values (77, 'Seine et marne');
