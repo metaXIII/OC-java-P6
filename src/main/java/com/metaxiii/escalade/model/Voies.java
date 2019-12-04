@@ -18,6 +18,6 @@ public class Voies {
     @Column(name = "cotation")
     private String cotation;
 
-    @Column(name = "secteur_id")
-    private int secteur_id;
+    @Column(name = "site_id")
+    private int site;
 }

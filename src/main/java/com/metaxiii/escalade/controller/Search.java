@@ -1,23 +1,31 @@
 package com.metaxiii.escalade.controller;
 
+import com.metaxiii.escalade.service.IDepartementService;
 import com.metaxiii.escalade.service.ISiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Search  {
+public class Search {
     @Autowired
     private ISiteService siteService;
+
+    @Autowired
+    private IDepartementService departementService;
+
     @RequestMapping("/search")
-    public String search() {
+    public String search(Model model) {
+        model.addAttribute("departements", departementService.findAllDepartement());
         return "search";
     }
 
     @PostMapping("/search")
-    public ModelAndView search_site() {
-        return new ModelAndView("search", "result", siteService.findAllSite());
+    public String search_site(Model model) {
+        model.addAttribute("results", siteService.findAllSite());
+        model.addAttribute("departements", departementService.findAllDepartement());
+        return "search";
     }
 }

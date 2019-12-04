@@ -8,16 +8,16 @@
         <label class="form-check-label" for="search_topos">Topos</label>
     </div>
     <div class="form-group">
-        <label for="location">Lieu :</label>
-        <input type="text" class="form-control" id="location" placeholder="Lieu" name="location">
+        <label for="secteur">Secteur :</label>
+        <input type="text" class="form-control" id="secteur" placeholder="Secteur" name="secteur">
     </div>
     <div class="form-group">
-        <label for="cotation">Cotation</label>
-        <input type="text" class="form-control" id="cotation" placeholder="Cotation" name="cotation">
-    </div>
-    <div class="form-group">
-        <label for="secteur">Nombre de secteurs</label>
-        <input type="number" class="form-control" id="secteur" placeholder="Secteur" name="secteur">
+        <label for="departement">Département :</label>
+        <select name="departement" id="departement" class="form-control">
+            <option></option>
+            <option th:each="departement : ${departements}" th:value="${departement.id}"
+                    th:text="${departement.nom}"></option>
+        </select>
     </div>
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Rechercher</button>

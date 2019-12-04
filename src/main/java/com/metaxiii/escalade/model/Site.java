@@ -15,20 +15,20 @@ import javax.persistence.Table;
 public class Site {
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "pays")
     private String pays;
 
-    @Column(name = "code_postal_id")
-    private String codePostal;
+    @Column(name = "nom")
+    private String nom;
 
-    @Column(name = "nom_site")
-    private String nom_site;
+    @Column(name = "secteur_id")
+    private int secteur;
 
     @Column(name = "officiel")
     private boolean officiel;
 
-    @Column(name = "secteurs")
-    private String secteurs;
+    @Column(name = "type")
+    private String type;
 }

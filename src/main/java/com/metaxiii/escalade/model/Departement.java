@@ -11,12 +11,11 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "Departement")
-public class Departement implements Serializable {
+public class Departement {
     @Id
     @Column(name = "id")
     private int id;
 
-    @Id
-    @Column(name = "departement")
-    private String departement;
+    @Column(name = "nom")
+    private String nom;
 }

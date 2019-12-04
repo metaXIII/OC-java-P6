@@ -1,17 +1,8 @@
 CREATE TABLE Voies
 (
-    id         INT AUTO_INCREMENT NOT NULL,
-    cotation   VARCHAR(2)         NOT NULL,
-    secteur_id INT                NOT NULL,
-    PRIMARY KEY (id)
-);
-
-
-CREATE TABLE Secteurs
-(
-    id      INT AUTO_INCREMENT NOT NULL,
-    voies   TEXT               NOT NULL,
-    site_id INT                NOT NULL,
+    id       INT AUTO_INCREMENT NOT NULL,
+    cotation VARCHAR(2)         NOT NULL,
+    site_id  INT                NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -35,10 +26,10 @@ CREATE TABLE Reservation
 
 CREATE TABLE Topo
 (
-    id            INT AUTO_INCREMENT   NOT NULL,
+    id            INT                  NOT NULL,
     nom           VARCHAR(255)         NOT NULL,
     description   TEXT                 NOT NULL,
-    lieu          VARCHAR(200)         NOT NULL,
+    lieu          VARCHAR(255)         NOT NULL,
     date_parution DATE                 NOT NULL,
     user_id       INT                  NOT NULL,
     available     BOOLEAN DEFAULT true NOT NULL,
@@ -48,19 +39,28 @@ CREATE TABLE Topo
 
 CREATE TABLE Commentaire
 (
-    id      INT AUTO_INCREMENT NOT NULL,
-    content TEXT               NOT NULL,
-    date    DATE               NOT NULL,
-    user_id INT                NOT NULL,
-    site_id INT                NOT NULL,
+    id      INT AUTO_INCREMENT                 NOT NULL,
+    content TEXT                               NOT NULL,
+    date    DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    user_id INT                                NOT NULL,
+    site_id INT                                NOT NULL,
     PRIMARY KEY (id)
 );
 
 
-CREATE TABLE Code_postal
+CREATE TABLE Departement
 (
-    id          INT AUTO_INCREMENT NOT NULL,
-    departement VARCHAR(255)       NOT NULL,
+    id  INT          NOT NULL,
+    nom VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE Secteurs
+(
+    id             INT NOT NULL,
+    site_id        INT NOT NULL,
+    departement_id INT NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -68,22 +68,22 @@ CREATE TABLE Code_postal
 CREATE TABLE User
 (
     id       INT AUTO_INCREMENT NOT NULL,
-    username VARCHAR(30),
-    email    VARCHAR(255),
-    password TEXT,
-    role_id  INT DEFAULT 1      NOT NULL,
+    username VARCHAR(30)        NOT NULL,
+    email    VARCHAR(255)       NOT NULL,
+    password TEXT               NOT NULL,
+    role_id  INT DEFAULT 0      NOT NULL,
     PRIMARY KEY (id)
 );
 
 
 CREATE TABLE Site
 (
-    id             INT AUTO_INCREMENT           NOT NULL,
-    pays           VARCHAR(30) DEFAULT 'FRANCE' NOT NULL,
-    code_postal_id INT                          NOT NULL,
-    nom_site       VARCHAR(255)                 NOT NULL,
-    officiel       BOOLEAN     DEFAULT false    NOT NULL,
-    secteurs       TEXT                         NOT NULL,
+    id         INT AUTO_INCREMENT            NOT NULL,
+    pays       VARCHAR(255) DEFAULT 'FRANCE' NOT NULL,
+    nom        VARCHAR(255)                  NOT NULL,
+    secteur_id INT                           NOT NULL,
+    officiel   BOOLEAN      DEFAULT false    NOT NULL,
+    type       VARCHAR(40),
     PRIMARY KEY (id)
 );
 
@@ -94,16 +94,22 @@ values ('USER');
 INSERT into Role (role)
 values ('ADMIN');
 
-#USER
+# USER
 INSERT into user (username, email, password, role_id)
 values ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
 INSERT into user (username, email, password, role_id)
 values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
 
-#codePostal
-insert into Code_postal (departement)
-values ('departement');
+# #site
+insert into site(nom, secteur_id, type)
+values ('Narnia', 1, 'Falaise');
 
-#site
-insert into Site (code_postal_id, nom_site, secteurs)
-VALUES (1, 'narnia', 'secteur');
+insert into Site(nom, secteur_id, type)
+values ('Poudlard', 2, 'bloc');
+
+# Departement
+insert into departement(id, nom)
+values (77, 'Seine et marne');
+
+insert into departement(id, nom)
+values (56, 'Morbihan');

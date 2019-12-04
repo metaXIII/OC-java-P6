@@ -15,9 +15,9 @@ public class Secteurs {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "voies")
-    private String voies;
-
     @Column(name = "site_id")
-    private int site_id;
+    private int site;
+
+    @Column(name = "departement_id")
+    private int departement;
 }
