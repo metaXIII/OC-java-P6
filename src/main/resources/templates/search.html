@@ -6,51 +6,29 @@
 <main class="container">
     <h2 class="h2 text-center">Rechercher sur le site</h2>
     <form th:include="form/search-component::search-component" class="form-component" method="post"></form>
-
-    <span th:text="${result}"></span>
-    <div class="result-component">
-        <!--todo-->
-                <h2 class="h2 text-underline" th:if="${results}">Liste des résultats :</h2>
-                <div th:each="result : ${results}" class="row result">
-                    <img src="/img/other/article-card.jpg" alt="Resultat" width="100%" class="col-12 col-md-3">
-                    <div class="col-12 offset-md-2 col-md-7">
-                        <h3 th:text="${result.nom}"></h3>
-                        <div>
-                            <ul>
-                                <li>
-                                    Location
-                                </li>
-                                <li class="text-right">
-                                    <button type="button" class="btn btn-success">
-                                        <a th:href="${result.id}" class="text-black">Voir le site</a>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="result-component" th:if="${search_component.containsKey('results')}">
+        <h2 class="h2 text-underline">Liste des résultats :</h2>
+        <div th:if="${search_component.results.isEmpty()}">
+            NO results
+        </div>
+        <div th:each="result : ${search_component.results}" class="row result">
+            <img src="/img/other/article-card.jpg" alt="Resultat" width="100%" class="col-12 col-md-3">
+            <div class="col-12 offset-md-2 col-md-7">
+                <h3 th:text="${result.nom}"></h3>
+                <div>
+                    <ul>
+                        <li>
+                            Location
+                        </li>
+                        <li class="text-right">
+                            <button type="button" class="btn btn-success">
+                                <a th:href="${result.id}" class="text-black">Voir le site</a>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-        <!--        <hr class="hr">-->
-        <!--        <div class="row result">-->
-        <!--            <img src="/img/other/article-card.jpg" alt="Resultat" width="100%" class="col-12 col-md-3">-->
-        <!--            <div class="col-12 offset-md-2 col-md-7">-->
-        <!--                <h3>Nom du site</h3>-->
-        <!--                <div>-->
-        <!--                    <ul>-->
-        <!--                        <li>-->
-        <!--                            Titre-->
-        <!--                        </li>-->
-        <!--                        <li>-->
-        <!--                            Location-->
-        <!--                        </li>-->
-        <!--                        <li class="text-right">-->
-        <!--                            <button type="button" class="btn btn-success">-->
-        <!--                                <a href="/detail" class="text-black">Voir le site</a>-->
-        <!--                            </button>-->
-        <!--                        </li>-->
-        <!--                    </ul>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
+            </div>
+        </div>
     </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>

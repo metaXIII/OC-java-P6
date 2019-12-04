@@ -12,8 +12,8 @@ public class SearchDto {
     @NotNull
     @NotEmpty
     private String element;
-    private String secteur;
+    private int secteur;
     private int departement;
     private String type;
-    private char officiel;
+    private boolean officiel;
 }

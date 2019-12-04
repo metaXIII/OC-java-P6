@@ -22,7 +22,27 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
+    public Set<Site> findAllBySecteur(int secteur) {
+        return siteRepository.findAllBySecteur(secteur);
+    }
+
+    @Override
+    public Set<Site> findAllByDepartement(int departement) {
+        return siteRepository.findAllByDepartement(departement);
+    }
+
+    @Override
+    public Set<Site> findAllByType(String type) {
+        return siteRepository.findAllByType(type);
+    }
+
+    @Override
     public Set<String> findAllType() {
         return siteRepository.findType();
+    }
+
+    @Override
+    public Set<Site> findAllByOfficiel() {
+        return siteRepository.findAllByOfficiel(true);
     }
 }

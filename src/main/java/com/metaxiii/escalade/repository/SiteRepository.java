@@ -11,13 +11,20 @@ import java.util.Set;
 @Repository
 public interface SiteRepository extends JpaRepository<Site, Long> {
     List<Site> findAll();
-    List<Site> findAllBySecteur(int secteur);
 
-    List<Site> findAllByOfficiel(char officiel);
+    Set<Site> findAllBySecteur(int secteur);
 
-    List<Site> findAllByType(String type);
+    @Query(value = "SELECT * " +
+            "FROM site " +
+            "INNER JOIN secteur on site.secteur_id = secteur.id " +
+            "WHERE secteur.departement_id LIKE ?1", nativeQuery = true)
+    Set<Site> findAllByDepartement(int departement);
 
-    List<Site> findAllByPays(String pays);
+    Set<Site> findAllByType(String type);
+
+    Set<Site> findAllByOfficiel(boolean officiel);
+
+    Set<Site> findAllByPays(String pays);
 
     @Query(value = "select distinct Site.type from Site", nativeQuery = true)
     Set<String> findType();
