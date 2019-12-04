@@ -56,11 +56,11 @@ CREATE TABLE Departement
 );
 
 
-CREATE TABLE Secteurs
+CREATE TABLE Secteur
 (
-    id             INT NOT NULL,
-    site_id        INT NOT NULL,
-    departement_id INT NOT NULL,
+    id             INT AUTO_INCREMENT NOT NULL,
+    nom            VARCHAR(30)        NOT NULL,
+    departement_id INT                NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -104,8 +104,8 @@ values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4Kmohqdcp
 insert into site(nom, secteur_id, type)
 values ('Narnia', 1, 'Falaise');
 
-insert into Site(nom, secteur_id, type)
-values ('Poudlard', 2, 'bloc');
+insert into Site(nom, secteur_id, type, officiel)
+values ('Poudlard', 2, 'bloc', 1);
 
 # Departement
 insert into departement(id, nom)
@@ -113,3 +113,7 @@ values (77, 'Seine et marne');
 
 insert into departement(id, nom)
 values (56, 'Morbihan');
+
+#secteur
+insert into secteur(nom, departement_id)
+VALUES ('DC Universe', 77)
