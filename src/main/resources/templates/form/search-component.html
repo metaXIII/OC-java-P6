@@ -1,23 +1,40 @@
 <form action="#" method="post" th:fragment="search-component" xmlns:th="http://www.thymeleaf.org">
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="search_type" id="search_site" value="site" checked>
-        <label class="form-check-label" for="search_site">Sites</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="search_type" id="search_topos" value="topos">
-        <label class="form-check-label" for="search_topos">Topos</label>
+    <div class="form-group">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="element" id="search_site" value="site" checked>
+            <label class="form-check-label" for="search_site">Sites</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="element" id="search_topos" value="topos">
+            <label class="form-check-label" for="search_topos">Topos</label>
+        </div>
     </div>
     <div class="form-group">
         <label for="secteur">Secteur :</label>
-        <input type="text" class="form-control" id="secteur" placeholder="Secteur" name="secteur">
+        <select name="secteur" id="secteur" class="form-control">
+            <option></option>
+            <option th:each="secteur : ${search_component.all_secteur_list}" th:value="${secteur.id}"
+                    th:text="${secteur.nom}"></option>
+        </select>
     </div>
     <div class="form-group">
         <label for="departement">Département :</label>
         <select name="departement" id="departement" class="form-control">
             <option></option>
-            <option th:each="departement : ${departements}" th:value="${departement.id}"
+            <option th:each="departement : ${search_component.departement_list}" th:value="${departement.id}"
                     th:text="${departement.nom}"></option>
         </select>
+    </div>
+    <div class="form-group">
+        <label for="type">Type :</label>
+        <select name="type" id="type" class="form-control">
+            <option value=""></option>
+            <option th:each="type : ${search_component.all_type_list}" th:value="${type}" th:text="${type}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="officiel">Officiel :</label>
+        <input type="checkbox" value="O" class="form-check-inline">
     </div>
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Rechercher</button>

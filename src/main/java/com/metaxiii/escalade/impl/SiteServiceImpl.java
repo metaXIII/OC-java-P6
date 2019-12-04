@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -18,5 +19,10 @@ public class SiteServiceImpl implements ISiteService {
     @Override
     public List<Site> findAllSite() {
         return siteRepository.findAll();
+    }
+
+    @Override
+    public Set<String> findAllType() {
+        return siteRepository.findType();
     }
 }
