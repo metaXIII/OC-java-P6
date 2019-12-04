@@ -204,10 +204,10 @@
     <column id="COL53" populated="true" UUID="1e2ca4a8-9edd-4236-9f21-b0e50e080bb8" autoIncrement="false" autoIncrementSequenceName="Secteurs_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL54" populated="true" UUID="aedb790e-d720-44f6-97de-f39f7b287d5a" autoIncrement="false" autoIncrementSequenceName="Secteurs_departement_id_seq" defaultValue="" name="departement_id" nullable="0" physicalName="departement_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL54" populated="true" UUID="67bebfdb-67b2-4993-aea4-25f737605ced" autoIncrement="false" autoIncrementSequenceName="Secteurs_nom_seq" defaultValue="" name="nom" nullable="0" physicalName="nom" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL55" populated="true" UUID="67bebfdb-67b2-4993-aea4-25f737605ced" autoIncrement="false" autoIncrementSequenceName="Secteurs_nom_seq" defaultValue="" name="nom" nullable="0" physicalName="nom" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL55" populated="true" UUID="aedb790e-d720-44f6-97de-f39f7b287d5a" autoIncrement="false" autoIncrementSequenceName="Secteurs_departement_id_seq" defaultValue="" name="departement_id" nullable="0" physicalName="departement_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -249,7 +249,7 @@
     <column-mapping id="CMP65" populated="true" UUID="ec66626c-7280-43a5-8a05-7ddc14d22670" fk-column-ref="COL10" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
    <relationship id="REL66" populated="true" UUID="fd6386ad-3a26-44b7-9a0a-1910568f6b3e" deferrability="7" deleteRule="3" fk-table-ref="TAB52" fkCardinality="7" identifying="true" name="Code_postal_Secteurs_fk" physicalName="Code_postal_Secteurs_fk" pk-table-ref="TAB18" pkCardinality="2" updateRule="3" >
-    <column-mapping id="CMP67" populated="true" UUID="17a03972-82c8-4ff8-86a9-362802315eca" fk-column-ref="COL54" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
+    <column-mapping id="CMP67" populated="true" UUID="17a03972-82c8-4ff8-86a9-362802315eca" fk-column-ref="COL55" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
    </relationship>
    <relationship id="REL68" populated="true" UUID="f3e9defe-6eec-4de3-a5b0-fe5ad7419339" deferrability="7" deleteRule="3" fk-table-ref="TAB9" fkCardinality="7" identifying="true" name="Commentaire_Site_fk" physicalName="Commentaire_Site_fk" pk-table-ref="TAB23" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP69" populated="true" UUID="ed7b0cc2-2fec-4868-bcff-a7c0bd48ea2d" fk-column-ref="COL10" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL24" />
