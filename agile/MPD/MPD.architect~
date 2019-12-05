@@ -123,7 +123,7 @@
   <table id="TAB31" populated="true" UUID="d7d6f4cc-a0db-4230-983d-3d25d419048d" name="Topo" objectType="TABLE" physicalName="Topo" >
    <remarks></remarks>
    <folder id="FOLTAB311" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL32" populated="true" UUID="41ad93fe-5d75-4021-a358-a389dbec5091" autoIncrement="false" autoIncrementSequenceName="Topo_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL32" populated="true" UUID="41ad93fe-5d75-4021-a358-a389dbec5091" autoIncrement="true" autoIncrementSequenceName="Topo_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL33" populated="true" UUID="5edff111-d832-4bef-97ad-16f42e056ad2" autoIncrement="false" autoIncrementSequenceName="Topo_nom_seq" defaultValue="" name="nom" nullable="0" physicalName="nom" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -201,7 +201,7 @@
   <table id="TAB52" populated="true" UUID="d85ad4f6-ae55-4fc2-b262-1414708eb56d" name="Secteurs" objectType="TABLE" physicalName="Secteurs" >
    <remarks></remarks>
    <folder id="FOLTAB521" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL53" populated="true" UUID="1e2ca4a8-9edd-4236-9f21-b0e50e080bb8" autoIncrement="false" autoIncrementSequenceName="Secteurs_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL53" populated="true" UUID="1e2ca4a8-9edd-4236-9f21-b0e50e080bb8" autoIncrement="true" autoIncrementSequenceName="Secteurs_id_seq" defaultValue="" name="id" nullable="0" physicalName="id" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL54" populated="true" UUID="67bebfdb-67b2-4993-aea4-25f737605ced" autoIncrement="false" autoIncrementSequenceName="Secteurs_nom_seq" defaultValue="" name="nom" nullable="0" physicalName="nom" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
