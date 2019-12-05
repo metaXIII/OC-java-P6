@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/head::head"></head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container">
+    <div class="row justify-content-between">
+        <h2 class="h2 text-underline col-6">Liste des Topos :</h2>
+        <form action="#">
+            <div class="form-group">
+                <select name="topo_selection" id="topo_selection" class="form-control">
+                    <option value="1" id="topo_selection_dispo">Disponibles</option>
+                    <option value="0" id="topo_selection_all">Tous</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div th:if="${results}" th:each="result : ${results}">
+        <div class="row result_topos hide_element" th:classappend="${result.available} ? available : not_available">
+            <div class="col-12 col-md-3">
+                <img src="/img/background/topo.jpg" alt="Resultat" width="100%" height="200">
+            </div>
+            <div class="col-12 offset-md-1 col-md-8">
+                <h3 th:text="${result.nom}"></h3>
+                <div>
+                    <ul>
+                        <li>
+                            Location
+                        </li>
+                        <li class="text-right">
+                            <button type="button" class="btn btn-success">
+                                <a th:href="${result.id}" class="text-black">Réserver</a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr class="hr" th:classappend="${result.available} ? available : not_available"/>
+    </div>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+<script src="/js/topo.js"></script>
+</body>
+</html>
