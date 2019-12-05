@@ -9,11 +9,11 @@
     <div class="result-component" th:if="${search_component.containsKey('results')}">
         <h2 class="h2 text-underline">Liste des résultats :</h2>
         <div th:if="${search_component.results.isEmpty()}">
-            NO results
+            <h6>Malheureusement, aucun résultat n'a été trouvé avec les critères de recherches sélectionnés !</h6>
         </div>
         <div th:each="result : ${search_component.results}" class="row result">
-            <img src="/img/other/article-card.jpg" alt="Resultat" width="100%" class="col-12 col-md-3">
-            <div class="col-12 offset-md-2 col-md-7">
+            <img src="/img/background/site.jpg" alt="Resultat" width="100%" class="col-12 col-md-3 rounded">
+            <div class="col-12 offset-md-1 col-md-8">
                 <h3 th:text="${result.nom}"></h3>
                 <div>
                     <ul>
@@ -22,7 +22,7 @@
                         </li>
                         <li class="text-right">
                             <button type="button" class="btn btn-success">
-                                <a th:href="${result.id}" class="text-black">Voir le site</a>
+                                <a th:href="@{'/details-site?' + ${result.id}}" class="text-black">Voir le site</a>
                             </button>
                         </li>
                     </ul>

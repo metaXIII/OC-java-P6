@@ -110,6 +110,11 @@ main {
     margin-top: 15px;
 }
 
+.label_validation {
+    padding-left: 2.3rem;
+}
+
+
 @media screen and (min-width: 992px) {
     .menu-profile {
         width: 180px;
@@ -146,5 +151,10 @@ main {
 
     .result-component {
         margin-top: 40px;
+    }
+
+    .label_validation {
+        padding-top: 3.5%;
+        text-align: center;
     }
 }

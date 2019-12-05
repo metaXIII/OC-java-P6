@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,7 +28,7 @@ public class Search {
     @Autowired
     private IDepartementService departementService;
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public ModelAndView search(@ModelAttribute("search") SearchDto searchDto,
                                BindingResult result, WebRequest request, Errors errors) {
         Map<String, Object> search_component = new HashMap<>();
@@ -50,31 +50,26 @@ public class Search {
     }
 
     private Object getResult(SearchDto searchDto) {
-        String element = searchDto.getElement();
         int secteur = searchDto.getSecteur();
         int departement = searchDto.getDepartement();
         String type = searchDto.getType();
         boolean officiel = searchDto.isOfficiel();
-        if (element.equalsIgnoreCase("site")) {
-            if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
-                return siteService.findAllBySecteur(searchDto.getSecteur());
-            else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
-                return siteService.findAllByDepartement(searchDto.getDepartement());
-            else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
-                return siteService.findAllByType(searchDto.getType());
-            else if (secteur == 0 && departement == 0 && type.isEmpty() && officiel)
-                return siteService.findAllByOfficiel();
-            else {
-                return siteService.findAllByParam(
-                        getSQLParam(secteur),
-                        getSQLParam(departement),
-                        getSQLParam(type),
-                        getSQLParam(officiel));
-            }
+        if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
+            return siteService.findAllBySecteur(searchDto.getSecteur());
+        else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
+            return siteService.findAllByDepartement(searchDto.getDepartement());
+        else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
+            return siteService.findAllByType(searchDto.getType());
+        else if (secteur == 0 && departement == 0 && type.isEmpty() && officiel)
+            return siteService.findAllByOfficiel();
+        else {
+            return siteService.findAllByParam(
+                    getSQLParam(secteur),
+                    getSQLParam(departement),
+                    getSQLParam(type),
+                    getSQLParam(officiel)
+            );
         }
-        //todo pour topos
-        else
-            return siteService.findAllType();
     }
 
     private String getSQLParam(int element) {
