@@ -18,4 +18,5 @@ public interface ISiteService {
 
     Set<Site> findAllByOfficiel();
 
+    Set<Site> findAllByParam(String secteur, String departement, String type, String officiel);
 }

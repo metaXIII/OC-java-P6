@@ -50,20 +50,48 @@ public class Search {
     }
 
     private Object getResult(SearchDto searchDto) {
-        if (searchDto.getElement().equalsIgnoreCase("site")) {
-            if (searchDto.getSecteur() != 0)
+        String element = searchDto.getElement();
+        int secteur = searchDto.getSecteur();
+        int departement = searchDto.getDepartement();
+        String type = searchDto.getType();
+        boolean officiel = searchDto.isOfficiel();
+        if (element.equalsIgnoreCase("site")) {
+            if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
                 return siteService.findAllBySecteur(searchDto.getSecteur());
-            else if (searchDto.getDepartement() != 0)
+            else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
                 return siteService.findAllByDepartement(searchDto.getDepartement());
-            else if (!searchDto.getType().isEmpty())
+            else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
                 return siteService.findAllByType(searchDto.getType());
-            else if (searchDto.isOfficiel())
+            else if (secteur == 0 && departement == 0 && type.isEmpty() && officiel)
                 return siteService.findAllByOfficiel();
-            else
-                return siteService.findAllSite();
+            else {
+                return siteService.findAllByParam(
+                        getSQLParam(secteur),
+                        getSQLParam(departement),
+                        getSQLParam(type),
+                        getSQLParam(officiel));
+            }
         }
         //todo pour topos
         else
             return siteService.findAllType();
+    }
+
+    private String getSQLParam(int element) {
+        if (element == 0)
+            return "%";
+        return String.valueOf(element);
+    }
+
+    private String getSQLParam(String element) {
+        if (element.isEmpty())
+            return "%";
+        return element;
+    }
+
+    private String getSQLParam(Boolean element) {
+        if (!element)
+            return "%";
+        return "1";
     }
 }

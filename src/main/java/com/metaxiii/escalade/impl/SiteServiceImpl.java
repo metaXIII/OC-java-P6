@@ -45,4 +45,9 @@ public class SiteServiceImpl implements ISiteService {
     public Set<Site> findAllByOfficiel() {
         return siteRepository.findAllByOfficiel(true);
     }
+
+    @Override
+    public Set<Site> findAllByParam(String secteur, String departement, String type, String officiel) {
+        return siteRepository.findAllByParam(secteur, departement, type, officiel);
+    }
 }
