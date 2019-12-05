@@ -26,13 +26,13 @@ CREATE TABLE Reservation
 
 CREATE TABLE Topo
 (
-    id            INT                  NOT NULL,
-    nom           VARCHAR(255)         NOT NULL,
-    description   TEXT                 NOT NULL,
-    lieu          VARCHAR(255)         NOT NULL,
-    date_parution DATE                 NOT NULL,
-    user_id       INT                  NOT NULL,
-    available     BOOLEAN DEFAULT true NOT NULL,
+    id            INT AUTO_INCREMENT                 NOT NULL,
+    nom           VARCHAR(255)                       NOT NULL,
+    description   TEXT                               NOT NULL,
+    lieu          VARCHAR(255)                       NOT NULL,
+    date_parution DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    user_id       INT                                NOT NULL,
+    available     BOOLEAN  DEFAULT true              NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -119,4 +119,17 @@ values (56, 'Morbihan');
 
 #secteur
 insert into secteur(nom, departement_id)
-VALUES ('DC Universe', 77)
+VALUES ('DC Universe', 77);
+
+insert into secteur(nom, departement_id)
+VALUES ('Other', 56);
+
+#topo
+insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+VALUES (null, 'nom', 'description', 'lieu', '2019-12-05 15:25:37', 1, DEFAULT);
+
+insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+VALUES (null, 'nom2', 'description', 'lieu', '2019-12-06 15:25:37', 1, false);
+
+insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+VALUES (null, 'nom3', 'description', 'lieu', '2019-12-07 15:25:37', 1, false);
