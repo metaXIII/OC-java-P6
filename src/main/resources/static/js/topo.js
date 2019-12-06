@@ -1,5 +1,6 @@
 let el = document.getElementById("topo_selection")
 let els = document.querySelectorAll(".result_topos")
+let disabled = document.querySelectorAll(".disabled_element")
 
 hide();
 el.addEventListener("change", (e) => {
@@ -17,6 +18,10 @@ function hide() {
         } else {
             e.style.display = "none"
             e.nextElementSibling.style.display = "none"
+            disabled.forEach(e => {
+                e.setAttribute("disabled", true);
+                e.firstElementChild.removeAttribute("href")
+            })
         }
     })
 }

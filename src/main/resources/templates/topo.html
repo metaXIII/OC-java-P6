@@ -28,8 +28,9 @@
                             Location
                         </li>
                         <li class="text-right">
-                            <button type="button" class="btn btn-success">
-                                <a th:href="${result.id}" class="text-black">Réserver</a>
+                            <button type="button" class="btn btn-success"
+                                    th:classappend="${result.available} ? '' : disabled_element ">
+                                <a th:href="@{'reservation-topo?' + ${result.id}}" class="text-black">Réserver</a>
                             </button>
                         </li>
                     </ul>
