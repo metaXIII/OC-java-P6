@@ -45,48 +45,7 @@ public class Search {
         search_component.put("departement_list", departementService.findAllDepartement());
         search_component.put("all_secteur_list", secteurService.findAllSecteur());
         search_component.put("all_type_list", siteService.findAllType());
-        search_component.put("results", getResult(searchDto));
+        search_component.put("results", siteService.getResult(searchDto));
         return new ModelAndView("search", "search_component", search_component);
-    }
-
-    private Object getResult(SearchDto searchDto) {
-        int secteur = searchDto.getSecteur();
-        int departement = searchDto.getDepartement();
-        String type = searchDto.getType();
-        boolean officiel = searchDto.isOfficiel();
-        if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
-            return siteService.findAllBySecteur(searchDto.getSecteur());
-        else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
-            return siteService.findAllByDepartement(searchDto.getDepartement());
-        else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
-            return siteService.findAllByType(searchDto.getType());
-        else if (secteur == 0 && departement == 0 && type.isEmpty() && officiel)
-            return siteService.findAllByOfficiel();
-        else {
-            return siteService.findAllByParam(
-                    getSQLParam(secteur),
-                    getSQLParam(departement),
-                    getSQLParam(type),
-                    getSQLParam(officiel)
-            );
-        }
-    }
-
-    private String getSQLParam(int element) {
-        if (element == 0)
-            return "%";
-        return String.valueOf(element);
-    }
-
-    private String getSQLParam(String element) {
-        if (element.isEmpty())
-            return "%";
-        return element;
-    }
-
-    private String getSQLParam(Boolean element) {
-        if (!element)
-            return "%";
-        return "1";
     }
 }

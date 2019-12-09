@@ -1,5 +1,6 @@
 package com.metaxiii.escalade.impl;
 
+import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.model.Site;
 import com.metaxiii.escalade.repository.SiteRepository;
 import com.metaxiii.escalade.service.ISiteService;
@@ -49,5 +50,47 @@ public class SiteServiceImpl implements ISiteService {
     @Override
     public Set<Site> findAllByParam(String secteur, String departement, String type, String officiel) {
         return siteRepository.findAllByParam(secteur, departement, type, officiel);
+    }
+
+    public Object getResult(SearchDto searchDto) {
+        int secteur = searchDto.getSecteur();
+        int departement = searchDto.getDepartement();
+        String type = searchDto.getType();
+        boolean officiel = searchDto.isOfficiel();
+        if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
+            return siteRepository.findAllBySecteur(searchDto.getSecteur());
+        else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
+            return siteRepository.findAllByDepartement(searchDto.getDepartement());
+        else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
+            return siteRepository.findAllByType(searchDto.getType());
+        else if (secteur == 0 && departement == 0 && type.isEmpty() && officiel)
+            return siteRepository.findAllByOfficiel(true);
+        else {
+            return siteRepository.findAllByParam(
+                    getSQLParam(secteur),
+                    getSQLParam(departement),
+                    getSQLParam(type),
+                    getSQLParam(officiel)
+            );
+        }
+    }
+
+    public String getSQLParam(int element) {
+        if (element == 0)
+            return "%";
+        return String.valueOf(element);
+    }
+
+    public String getSQLParam(String element) {
+        if (element.isEmpty())
+            return "%";
+        return element;
+    }
+
+    @Override
+    public String getSQLParam(boolean element) {
+        if (!element)
+            return "%";
+        return "1";
     }
 }

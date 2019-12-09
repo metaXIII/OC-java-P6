@@ -1,5 +1,6 @@
 package com.metaxiii.escalade.service;
 
+import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.model.Site;
 
 import java.util.List;
@@ -19,4 +20,12 @@ public interface ISiteService {
     Set<Site> findAllByOfficiel();
 
     Set<Site> findAllByParam(String secteur, String departement, String type, String officiel);
+
+    Object getResult(SearchDto searchDto);
+
+    String getSQLParam(int element);
+
+    String getSQLParam(String element);
+
+    String getSQLParam(boolean element);
 }
