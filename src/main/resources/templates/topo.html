@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head th:replace="include/head::head"></head>
 <body>
 <header th:replace="include/header::header"></header>
@@ -28,7 +28,7 @@
                             Location
                         </li>
                         <li class="text-right">
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-success" sec:authorize="isAuthenticated()"
                                     th:classappend="${result.available} ? '' : disabled_element ">
                                 <a th:href="@{'reservation-topo/' + ${result.id}}" class="text-black">Réserver</a>
                             </button>
