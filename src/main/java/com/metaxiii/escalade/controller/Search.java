@@ -54,8 +54,7 @@ public class Search {
     @ResponseBody
     public ModelAndView detail_site(@PathVariable String id) {
         Optional<Site> data = siteService.findById(Long.parseLong(id));
-        if (data.isPresent())
-            return new ModelAndView("detail", "data", data);
-        return new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg());
+        return data.map(site -> new ModelAndView("detail", "data", site))
+                .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
     }
 }
