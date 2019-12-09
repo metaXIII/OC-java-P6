@@ -4,11 +4,14 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <div class="col-12 text-center">
-        <img src="/img/other/article-card.jpg" alt="Image du site" width="100%">
-    </div>
-    <h2>Titre</h2>
     <span th:text="${data}"></span>
+    <h2 th:text="${data.nom}">Titre</h2>
+    <div class="row">
+        <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4" style="background: #000">tab</div>
+        <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-0 col-lg-7 offset-lg-1">
+            <img src="/img/other/article-card.jpg" alt="Image du site" width="100%" class="detail_image">
+        </div>
+    </div>
     <h3>Nom du site</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto asperiores cupiditate dignissimos
         doloribus eius, exercitationem explicabo iure laboriosam magni mollitia odio officia perspiciatis, quis quo

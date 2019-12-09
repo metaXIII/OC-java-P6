@@ -4,6 +4,7 @@ html, body, p, span, h1, h2, h3, h4, h5, h6, a {
 
 body {
     background-color: #fafafa;
+    min-width: 320px;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -64,10 +65,12 @@ main {
 
 .form-component {
     border: 0;
+    background-color: #f2f2f2;
 }
 
 .result-component {
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
+    width: 85%;
 }
 
 .text-underline {
@@ -118,6 +121,16 @@ main {
     padding-left: 1.25rem;
 }
 
+.detail_image {
+    display: none;
+}
+
+@media screen and (min-width: 576px) {
+    .detail_image {
+        display: block;
+    }
+}
+
 
 @media screen and (min-width: 992px) {
     .menu-profile {
@@ -155,6 +168,7 @@ main {
 
     .result-component {
         margin-top: 40px;
+        width: 100%;
     }
 
     .label_validation {
