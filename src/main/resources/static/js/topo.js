@@ -21,6 +21,7 @@ function hide() {
             disabled.forEach(e => {
                 e.setAttribute("disabled", true);
                 e.firstElementChild.removeAttribute("href")
+                e.style.backgroundColor = "#721c24"
             })
         }
     })
