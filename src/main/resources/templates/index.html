@@ -4,8 +4,8 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <div class="alert alert-success temporal_message" th:if="${welcome}">
-        Bonjour <span sec:authentication="name"></span>
+    <div class="alert alert-success temporal_message" th:if="${msg}">
+        <span th:text="${msg}"></span>
     </div>
     <h2 class="h2 text-center">&nbsp;</h2>
     <div class="card m-auto">
