@@ -9,15 +9,15 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "Voies")
-public class Voies {
+@Table(name = "Longueur")
+public class Longueur {
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
+
+    @Column(name = "site_id")
+    private int site_id;
 
     @Column(name = "cotation")
     private String cotation;
-
-    @Column(name = "longueur_id")
-    private int site;
 }

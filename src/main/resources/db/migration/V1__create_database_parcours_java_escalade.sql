@@ -1,8 +1,16 @@
 CREATE TABLE Voies
 (
+    id          INT AUTO_INCREMENT NOT NULL,
+    cotation    VARCHAR(2)         NOT NULL,
+    longueur_id INT                NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Longueur
+(
     id       INT AUTO_INCREMENT NOT NULL,
-    cotation VARCHAR(2)         NOT NULL,
     site_id  INT                NOT NULL,
+    cotation VARCHAR(3)         NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -82,8 +90,11 @@ CREATE TABLE Site
     pays       VARCHAR(255) DEFAULT 'FRANCE' NOT NULL,
     nom        VARCHAR(255)                  NOT NULL,
     secteur_id INT                           NOT NULL,
+    user_id    INT                           NOT NULL,
     officiel   BOOLEAN      DEFAULT false    NOT NULL,
     type       VARCHAR(40),
+    latitude   VARCHAR(45),
+    longitude  VARCHAR(45),
     PRIMARY KEY (id)
 );
 
@@ -101,14 +112,14 @@ INSERT into user (username, email, password, role_id)
 values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
 
 # #site
-insert into site(nom, secteur_id, type)
-values ('Narnia', 1, 'Falaise');
+insert into site(nom, secteur_id, type, user_id)
+values ('Narnia', 1, 'Falaise', 1);
 
-insert into Site(nom, secteur_id, type, officiel)
-values ('Poudlard', 2, 'bloc', 1);
+insert into Site(nom, secteur_id, type, officiel, user_id)
+values ('Poudlard', 2, 'bloc', 1, 1);
 
-insert into site (nom, secteur_id, type, officiel)
-values ('DisneyLand', 1, 'Magic', 1);
+insert into site (nom, secteur_id, type, officiel, user_id)
+values ('DisneyLand', 1, 'Magic', 1, 1);
 
 # Departement
 insert into departement(id, nom)

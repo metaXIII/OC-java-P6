@@ -61,6 +61,7 @@ main {
     width: 100%;
     background-color: #535353;
     border-radius: 10px 10px 0 0;
+    z-index: 400;
 }
 
 .form-component {
