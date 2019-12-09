@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -35,4 +36,6 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 
     @Query(value = "select distinct Site.type from Site", nativeQuery = true)
     Set<String> findType();
+
+    Optional<Site> findById(Long id);
 }

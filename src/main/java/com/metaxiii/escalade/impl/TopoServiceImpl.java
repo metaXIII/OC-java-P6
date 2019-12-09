@@ -30,4 +30,19 @@ public class TopoServiceImpl implements ITopoService {
     public void updateAvailableById(Long id, boolean available) {
         topoRepository.updateTopo(id, available);
     }
+
+    @Override
+    public String updateTopoWithId(String id) {
+        try {
+            if (topoRepository.findById(Long.parseLong(id)).isPresent()) {
+                topoRepository.updateTopo(Long.parseLong(id), false);
+                return "La demande de réservation a bien été effectuée";
+            } else {
+                return "Une erreur s'est produite, veuillez réessayer plus tard";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Une erreur s'est produite, veuillez réessayer plus tard";
+        }
+    }
 }

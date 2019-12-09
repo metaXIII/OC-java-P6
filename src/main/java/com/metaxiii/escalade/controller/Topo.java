@@ -22,21 +22,7 @@ public class Topo {
     @GetMapping("/reservation-topo/{id}")
     @ResponseBody
     public ModelAndView reservation(@PathVariable String id) {
-        String msg = updateTopoWithId(id);
-        return new ModelAndView("index");
-    }
-
-    private String updateTopoWithId(String id) {
-        try {
-            if (topoService.findById(Long.parseLong(id)).isPresent()) {
-                topoService.updateAvailableById(Long.parseLong(id), false);
-                return "La demande de réservation a bien été effectuée";
-            } else {
-                return "Une erreur s'est produite, veuillez réessayer plus tard";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Une erreur s'est produite, veuillez réessayer plus tard";
-        }
+        String msg = topoService.updateTopoWithId(id);
+        return new ModelAndView("index", "msg", msg);
     }
 }

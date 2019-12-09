@@ -11,4 +11,6 @@ public interface ITopoService {
     Optional<Topo> findById(Long id);
 
     void updateAvailableById(Long id, boolean available);
+
+    String updateTopoWithId(String id);
 }

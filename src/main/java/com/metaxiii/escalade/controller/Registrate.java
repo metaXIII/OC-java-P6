@@ -34,12 +34,10 @@ public class Registrate {
                                          BindingResult result, WebRequest request, Errors errors) {
         if (checkFieldIsValid(accountDto)) {
             User register = new User();
-            if (!result.hasErrors()) {
+            if (!result.hasErrors())
                 register = createUserAccount(accountDto, result);
-            }
-            if (register == null) {
+            if (register == null)
                 result.rejectValue("email", "message.regError");
-            }
             if (result.hasErrors())
                 return new ModelAndView("registrate", "user", accountDto);
             else
@@ -52,9 +50,7 @@ public class Registrate {
 
     private boolean checkFieldIsValid(UserDto accountDto) {
         if (accountDto.getEmail().equals(accountDto.getCheck_email())) {
-            if (accountDto.getPassword().equals(accountDto.getCheck_password()))
-                return true;
-            return false;
+            return accountDto.getPassword().equals(accountDto.getCheck_password());
         }
         return false;
     }

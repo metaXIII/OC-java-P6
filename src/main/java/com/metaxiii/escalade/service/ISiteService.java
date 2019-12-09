@@ -4,6 +4,7 @@ import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.model.Site;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface ISiteService {
@@ -28,4 +29,6 @@ public interface ISiteService {
     String getSQLParam(String element);
 
     String getSQLParam(boolean element);
+
+    Optional<Site> findById(Long id);
 }
