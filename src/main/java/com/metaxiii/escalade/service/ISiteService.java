@@ -1,6 +1,7 @@
 package com.metaxiii.escalade.service;
 
 import com.metaxiii.escalade.dto.SearchDto;
+import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.model.Site;
 
 import java.util.List;
@@ -30,5 +31,7 @@ public interface ISiteService {
 
     String getSQLParam(boolean element);
 
-    Optional<Site> findById(Long id);
+    Optional<Site> findById(int id);
+
+    Site save(SiteDto siteDto, int id);
 }

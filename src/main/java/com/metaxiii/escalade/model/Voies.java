@@ -13,11 +13,11 @@ import javax.persistence.Table;
 public class Voies {
     @Id
     @Column(name = "id")
-    private long id;
+    private int id;
+
+    @Column(name = "longueur_id")
+    private int longueur_id;
 
     @Column(name = "cotation")
     private String cotation;
-
-    @Column(name = "longueur_id")
-    private int site;
 }

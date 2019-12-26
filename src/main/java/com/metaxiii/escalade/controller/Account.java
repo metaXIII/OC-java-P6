@@ -1,13 +1,23 @@
 package com.metaxiii.escalade.controller;
 
+import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.model.User;
+import com.metaxiii.escalade.service.IDepartementService;
+import com.metaxiii.escalade.service.ISiteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class Account {
@@ -20,10 +30,5 @@ public class Account {
                 .findFirst()
                 .orElse("");
         return "account";
-    }
-
-    @RequestMapping("/account/new-site")
-    public ModelAndView new_site(Model model) {
-        return new ModelAndView("index");
     }
 }

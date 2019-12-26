@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Data
@@ -18,4 +17,7 @@ public class Departement {
 
     @Column(name = "nom")
     private String nom;
+
+    @Column(name = "code")
+    private String code;
 }

@@ -126,6 +126,10 @@ main {
     display: none;
 }
 
+.red {
+    color: #ff0000;
+}
+
 @media screen and (min-width: 576px) {
     .detail_image {
         display: block;

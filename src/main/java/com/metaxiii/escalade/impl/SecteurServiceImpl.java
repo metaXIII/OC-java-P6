@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +21,20 @@ public class SecteurServiceImpl implements ISecteurService {
     @Override
     public List<Secteur> findAllSecteur() {
         return secteurRepository.findAll();
+    }
+
+    @Override
+    public Optional<Secteur> findById(int id) {
+        return secteurRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Secteur> findByName(String name) {
+        return secteurRepository.findByNom(name);
+    }
+
+    @Override
+    public void save(Secteur secteur) {
+        secteurRepository.save(secteur);
     }
 }

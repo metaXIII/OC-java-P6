@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Reservation {
     @Id
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "topo_id")
     private int topo_id;

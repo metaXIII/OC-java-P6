@@ -14,14 +14,14 @@ import java.util.Optional;
 public interface TopoRepository extends JpaRepository<Topo, Long> {
     List<Topo> findAll();
 
-    Optional<Topo> findById(Long id);
+    Optional<Topo> findById(int id);
 
     @Modifying
     @Query(value = "update topo " +
             "set available = :available " +
             "where id = :id", nativeQuery = true)
     void updateTopo(
-            @Param("id") Long id,
+            @Param("id") int id,
             @Param("available") boolean available
     );
 }

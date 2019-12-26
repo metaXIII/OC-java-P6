@@ -1,12 +1,103 @@
 <form action="#" method="post" th:fragment="new-site" xmlns:th="http://www.thymeleaf.org">
-    <h2 class="h2 text-center">Proposer un nouveau site</h2>
-    <div class="form-group">
-        <label for="username">Nom du site</label>
-        <input type="username" class="form-control" id="username" placeholder="Votre nom d'utilisateur">
+    <div class="form-group row">
+        <label for="nom" class="col-sm-2 col-form-label">Nom du site :</label>
+        <div class="col-sm-10">
+            <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom du site">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="description" class="col-sm-2 col-form-label">Description :</label>
+        <div class="col-sm-10">
+            <textarea name="description" id="description" rows="3" class="form-control"
+                      placeholder="Entrez votre description du site"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="secteur" class="col-sm-2 col-form-label">Secteur :</label>
+        <div class="col-sm-10">
+            <div class="select-editable">
+                <select name="secteur" id="secteur" class="form-control" placeholder="Nom du secteur">
+                    <option th:each="secteur : ${datas.secteur_list}" th:value="${secteur.id}"
+                            th:text="${secteur.nom}"></option>
+                    <option value="" id="new_secteur" class="red">Insérer une nouvelle entrée...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="departement" class="col-sm-2 col-form-label">Département :</label>
+        <div class="col-sm-10">
+            <select name="departement" id="departement" class="form-control">
+                <option th:each="departement : ${datas.departement_list}" th:value="${departement.id}"
+                        th:text="${departement.code} + ' - ' +  ${departement.nom}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="type" class="col-sm-2 col-form-label">Type :</label>
+        <div class="col-sm-10">
+            <select name="type" id="type" class="form-control">
+                <option value="Falaise">Falaise</option>
+                <option value="bloc">Bloc</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="cotation" class="col-sm-2 col-form-label">Cotation du site :</label>
+        <div class="col-sm-4">
+            <select name="cotation" id="cotation" class="form-control">
+                <option value="3">3</option>
+                <option value="3+">3+</option>
+                <option value="4a">4a</option>
+                <option value="4b">4b</option>
+                <option value="4c">4c</option>
+                <option value="5a">5a</option>
+                <option value="5b">5b</option>
+                <option value="5c">5c</option>
+                <option value="6a">6a</option>
+                <option value="6a+">6a+</option>
+                <option value="6b">6b</option>
+                <option value="6b+">6b+</option>
+                <option value="6c">6c</option>
+                <option value="6c+">6c+</option>
+                <option value="7a">7a</option>
+                <option value="7a+">7a+</option>
+                <option value="7b">7b</option>
+                <option value="7b+">7b+</option>
+                <option value="7c">7c</option>
+                <option value="7c+">7c+</option>
+                <option value="8a">8a</option>
+                <option value="8a+">8a+</option>
+                <option value="8b">8b</option>
+                <option value="8b+">8b+</option>
+                <option value="8c">8c</option>
+                <option value="8c+">8c+</option>
+                <option value="9a">9a</option>
+                <option value="9a+">9a+</option>
+                <option value="9b">9b</option>
+                <option value="9b+">9b+</option>
+                <option value="9c">9c</option>
+                <option value="9c+">9c+</option>
+            </select>
+        </div>
+    </div>
+    <div class="alert alert-info">
+        Veuillez vous référer aux coordonnées fournies par le site
+        <a href="https://www.coordonnees-gps.fr/">coordonnées GPS</a> pour vous assister
+    </div>
+    <div class="form-group row">
+        <label for="longitude" class="col-sm-2 col-form-label">Longitude :</label>
+        <div class="col-sm-10">
+            <input type="text" name="longitude" id="longitude" class="form-control" placeholder="Longitude">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="latitude" class="col-sm-2 col-form-label">Latitude :</label>
+        <div class="col-sm-10">
+            <input type="text" name="latitude" id="latitude" class="form-control" placeholder="Latitude">
+        </div>
     </div>
     <div class="form-group">
-        <label for="file-image">Envoyer une image</label>
-        <input type="file" class="form-control-file" id="file-image">
+        <button class="btn btn-primary" type="submit">Envoyer</button>
     </div>
-    <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>

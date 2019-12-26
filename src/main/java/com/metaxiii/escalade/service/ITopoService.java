@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface ITopoService {
     List<Topo> findAllTopos();
 
-    Optional<Topo> findById(Long id);
+    Optional<Topo> findById(int id);
 
-    void updateAvailableById(Long id, boolean available);
+    void updateAvailableById(int id, boolean available);
 
     String updateTopoWithId(String id);
 }

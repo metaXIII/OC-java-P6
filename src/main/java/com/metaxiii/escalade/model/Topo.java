@@ -14,7 +14,7 @@ import java.util.Date;
 public class Topo {
     @Id
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "nom")
     private String nom;

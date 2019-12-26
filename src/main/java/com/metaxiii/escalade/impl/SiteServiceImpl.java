@@ -1,10 +1,14 @@
 package com.metaxiii.escalade.impl;
 
 import com.metaxiii.escalade.dto.SearchDto;
+import com.metaxiii.escalade.dto.SiteDto;
+import com.metaxiii.escalade.model.Secteur;
 import com.metaxiii.escalade.model.Site;
 import com.metaxiii.escalade.repository.SiteRepository;
+import com.metaxiii.escalade.service.ISecteurService;
 import com.metaxiii.escalade.service.ISiteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +20,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Transactional
 public class SiteServiceImpl implements ISiteService {
+    @Autowired
+    private ISecteurService secteurService;
+
     private final SiteRepository siteRepository;
 
     @Override
@@ -96,7 +103,32 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public Optional<Site> findById(Long id) {
+    public Optional<Site> findById(int id) {
         return siteRepository.findById(id);
+    }
+
+    @Override
+    public Site save(SiteDto siteDto, int id) {
+        Secteur secteur = new Secteur();
+        String[] secteurs = siteDto.getSecteur().split(" - ");
+        secteur.setDepartement_id(Integer.parseInt(secteurs[0]));
+        String secteurName = secteurs[1];
+        Optional<Secteur> SecteurFromDatabase = secteurService.findByName(secteurName);
+        if (SecteurFromDatabase.isPresent()) {
+            secteur.setDepartement_id(SecteurFromDatabase.get().getDepartement_id());
+        } else {
+            secteur.setNom(secteurName);
+            secteurService.save(secteur);
+        }
+        Site site = new Site();
+        site.setNom(siteDto.getNom());
+        site.setDescription(siteDto.getDescription());
+        site.setSecteur(secteur.getId());
+        site.setSecteur(secteur.getId());
+        site.setUser_id(id);
+        site.setType(siteDto.getType());
+        site.setLatitude(siteDto.getLatitude());
+        site.setLongitude(siteDto.getLongitude());
+        return siteRepository.save(site);
     }
 }

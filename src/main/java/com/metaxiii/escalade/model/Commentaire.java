@@ -14,7 +14,7 @@ import java.util.Date;
 public class Commentaire {
     @Id
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "content")
     private String content;

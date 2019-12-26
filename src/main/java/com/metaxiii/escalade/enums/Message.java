@@ -2,6 +2,7 @@ package com.metaxiii.escalade.enums;
 
 public enum Message {
     BONJOUR("Bonjour "),
+    SAVE_SITE("Tout s'est bien passé ! merci pour votre participation !"),
     SITE_NOT_FOUND("Le lien vers le site n'a pas été trouvé !");
 
     private String msg;

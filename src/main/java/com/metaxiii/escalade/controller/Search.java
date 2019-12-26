@@ -53,7 +53,7 @@ public class Search {
     @GetMapping("/details-site/{id}")
     @ResponseBody
     public ModelAndView detail_site(@PathVariable String id) {
-        Optional<Site> data = siteService.findById(Long.parseLong(id));
+        Optional<Site> data = siteService.findById(Integer.parseInt(id));
         return data.map(site -> new ModelAndView("detail", "data", site))
                 .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
     }

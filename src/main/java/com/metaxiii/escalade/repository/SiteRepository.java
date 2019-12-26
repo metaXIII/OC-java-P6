@@ -13,6 +13,8 @@ import java.util.Set;
 public interface SiteRepository extends JpaRepository<Site, Long> {
     List<Site> findAll();
 
+    Optional<Site> findById(int id);
+
     Set<Site> findAllBySecteur(int secteur);
 
     Set<Site> findAllByType(String type);
@@ -36,6 +38,4 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 
     @Query(value = "select distinct Site.type from Site", nativeQuery = true)
     Set<String> findType();
-
-    Optional<Site> findById(Long id);
 }

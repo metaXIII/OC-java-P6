@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/head::head"></head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container">
+    <h2 class="h2 text-center" th:text="${datas.form} == 'new' ? 'Proposer un nouveau site' : 'Modifier un site'"></h2>
+    <form th:if="${datas.form} == 'new'" th:include="form/new-site::new-site" method="post"></form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau secteur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="secteur_name">Nom du secteur</label>
+                        <input type="text" name="secteur_name" class="form-control" id="secteur_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="secteur_id">Numéro du département</label>
+                        <input type="text" name="secteur_id" class="form-control" id="secteur_id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="save_secteur">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+<script>
+    let secteur = document.getElementById("secteur")
+    let new_secteur = document.getElementById("new_secteur")
+    let el = document.getElementById("save_secteur")
+    secteur.addEventListener("change", (e) => {
+        if (e.target.value == "") {
+            let modal = $("#exampleModal")
+            modal.modal()
+            el.addEventListener("click", (e) => {
+                if (secteur_name.value !== "" && secteur_id.value !== "") {
+                    new_secteur.value = secteur_id.value + " - " + secteur_name.value
+                    new_secteur.innerText = secteur_name.value
+                    modal.modal('hide')
+                }
+            })
+        }
+    })
+</script>
+</body>
+</html>

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Longueur {
     @Id
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "site_id")
     private int site_id;

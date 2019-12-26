@@ -50,7 +50,7 @@
         doloribus eius, exercitationem explicabo iure laboriosam magni mollitia odio officia perspiciatis, quis quo
         repellat repudiandae similique voluptate!
     </p>
-    <h3>Location</h3>
+    <h3>Localisation</h3>
     <div id="map"></div>
 
     <section id="commentaire">
@@ -63,7 +63,7 @@
                     placeat, quae qui.</p>
             </div>
             <div class="text-right small">
-                <span>User</span> Le <span>date/date/date</span>
+                <span>User</span>, Le <span>date/date/date</span>
             </div>
         </div>
     </section>
@@ -72,16 +72,17 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
-<script th:inline="javascript">console.log("echo  : " + /*[[${data.nom}]]*/ "null")
-let map = L.map('map').setView([48.4413679, 2.6348314], 10)
+<script th:inline="javascript">
+    console.log("echo  : " + /*[[${data.nom}]]*/ "null")
+    let map = L.map('map').setView([48.4413679, 2.6348314], 10)
 
-L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href = "https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA < /a>',
-    maxZoom: 18
-}).addTo(map)
-let latlng = [48.4413679, 2.6348314]
-let marker = null
-marker = L.marker(latlng).addTo(map)
+    L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href = "https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA < /a>',
+        maxZoom: 18
+    }).addTo(map)
+    let latlng = [48.4413679, 2.6348314]
+    let marker = null
+    marker = L.marker(latlng).addTo(map)
 </script>
 </body>
 </html>

@@ -22,20 +22,20 @@ public class TopoServiceImpl implements ITopoService {
     }
 
     @Override
-    public Optional<Topo> findById(Long id) {
+    public Optional<Topo> findById(int id) {
         return topoRepository.findById(id);
     }
 
     @Override
-    public void updateAvailableById(Long id, boolean available) {
+    public void updateAvailableById(int id, boolean available) {
         topoRepository.updateTopo(id, available);
     }
 
     @Override
     public String updateTopoWithId(String id) {
         try {
-            if (topoRepository.findById(Long.parseLong(id)).isPresent()) {
-                topoRepository.updateTopo(Long.parseLong(id), false);
+            if (topoRepository.findById(Integer.parseInt(id)).isPresent()) {
+                topoRepository.updateTopo(Integer.parseInt(id), false);
                 return "La demande de réservation a bien été effectuée";
             } else {
                 return "Une erreur s'est produite, veuillez réessayer plus tard";
