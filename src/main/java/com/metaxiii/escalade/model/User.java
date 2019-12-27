@@ -34,8 +34,8 @@ public class User implements UserDetails, Serializable {
 	private String password;
 
 	@ManyToOne()
-	@JoinColumn(name = "role_id")
-	private Role role;
+	@JoinColumn(name = "roleId")
+	private Role roleId;
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -60,7 +60,7 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(role.getRole()));
+		authorities.add(new SimpleGrantedAuthority(roleId.getRole()));
 		return authorities;
 	}
 }

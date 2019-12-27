@@ -15,8 +15,8 @@ public class Voies {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "longueur_id")
-    private int longueur_id;
+    @Column(name = "longueurId")
+    private int longueurId;
 
     @Column(name = "cotation")
     private String cotation;

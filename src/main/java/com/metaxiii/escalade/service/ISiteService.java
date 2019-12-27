@@ -11,7 +11,7 @@ import java.util.Set;
 public interface ISiteService {
     List<Site> findAllSite();
 
-    Set<Site> findAllBySecteur(int secteur);
+    Set<Site> findAllBySecteurId(int secteur);
 
     Set<Site> findAllByDepartement(int departement);
 

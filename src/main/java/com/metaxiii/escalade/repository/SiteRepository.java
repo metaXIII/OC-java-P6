@@ -15,7 +15,7 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
 
     Optional<Site> findById(int id);
 
-    Set<Site> findAllBySecteur(int secteur);
+    Set<Site> findAllBySecteurId(int secteur);
 
     Set<Site> findAllByType(String type);
 

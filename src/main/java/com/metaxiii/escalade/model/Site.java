@@ -21,11 +21,11 @@ public class Site {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "secteur_id")
-    private int secteur;
+    @Column(name = "secteurId")
+    private int secteurId;
 
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "userId")
+    private int userId;
 
     @Column(name = "officiel")
     private boolean officiel;

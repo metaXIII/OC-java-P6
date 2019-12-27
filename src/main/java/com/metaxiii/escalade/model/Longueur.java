@@ -15,8 +15,8 @@ public class Longueur {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "site_id")
-    private int site_id;
+    @Column(name = "siteId")
+    private int siteId;
 
     @Column(name = "cotation")
     private String cotation;

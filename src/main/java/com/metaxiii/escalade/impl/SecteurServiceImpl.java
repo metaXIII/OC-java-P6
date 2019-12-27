@@ -39,17 +39,20 @@ public class SecteurServiceImpl implements ISecteurService {
         return secteurRepository.save(secteur);
     }
 
-    public Secteur checkSecteur(String secteur) {
+    public Secteur checkSecteur(String siteDtoGetSecteur) {
         Secteur secteur = new Secteur();
-        String[] secteurs = siteDto.getSecteur().split(" - ");
-        secteur.setDepartement_id(Integer.parseInt(secteurs[0]));
-        String secteurName = secteurs[1];
-        Optional<Secteur> SecteurFromDatabase = secteurService.findByName(secteurName);
-        if (SecteurFromDatabase.isPresent()) {
-            secteur.setDepartement_id(SecteurFromDatabase.get().getDepartement_id());
-        } else {
-            secteur.setNom(secteurName);
-            site.setSecteur(secteurRepository.save(secteur).getId());
+        String[] secteurs = siteDtoGetSecteur.split(" - ");
+        secteur.setDepartementId(Integer.parseInt(secteurs[0]));
+        if (secteurs.length > 1) {
+            String secteurName = secteurs[1];
+            Optional<Secteur> SecteurFromDatabase = this.findByName(secteurName);
+            if (SecteurFromDatabase.isPresent()) {
+                secteur.setDepartementId(SecteurFromDatabase.get().getDepartementId());
+            } else {
+                secteur.setNom(secteurName);
+                return secteurRepository.save(secteur);
+            }
         }
+        return secteur;
     }
 }

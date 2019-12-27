@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		user.setUsername(accountDto.getUsername());
 		user.setEmail(accountDto.getEmail());
 		user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-		user.setRole(new Role(1, "USER"));
+		user.setRoleId(new Role(1, "USER"));
 		return userRepository.save(user);
 	}
 

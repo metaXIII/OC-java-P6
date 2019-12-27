@@ -22,9 +22,9 @@ public class Commentaire {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "userId")
+    private int userId;
 
-    @Column(name = "site_id")
-    private int site_id;
+    @Column(name = "siteId")
+    private int siteId;
 }

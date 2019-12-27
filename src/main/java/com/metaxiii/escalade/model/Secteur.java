@@ -16,6 +16,6 @@ public class Secteur {
     @Column(name = "nom")
     private String nom;
 
-    @Column(name = "departement_id")
-    private int departement_id;
+    @Column(name = "departementId")
+    private int departementId;
 }

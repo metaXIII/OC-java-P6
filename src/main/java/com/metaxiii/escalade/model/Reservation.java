@@ -15,9 +15,9 @@ public class Reservation {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "topo_id")
-    private int topo_id;
+    @Column(name = "topoId")
+    private int topoId;
 
-    @Column(name = "request_user_id")
-    private int request_user_id;
+    @Column(name = "requestUserId")
+    private int requestUserId;
 }

@@ -33,8 +33,8 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public Set<Site> findAllBySecteur(int secteur) {
-        return siteRepository.findAllBySecteur(secteur);
+    public Set<Site> findAllBySecteurId(int secteur) {
+        return siteRepository.findAllBySecteurId(secteur);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SiteServiceImpl implements ISiteService {
         String type = searchDto.getType();
         boolean officiel = searchDto.isOfficiel();
         if (secteur != 0 && departement == 0 && type.isEmpty() && !officiel)
-            return siteRepository.findAllBySecteur(searchDto.getSecteur());
+            return siteRepository.findAllBySecteurId(searchDto.getSecteur());
         else if (secteur == 0 && departement != 0 && type.isEmpty() && !officiel)
             return siteRepository.findAllByDepartement(searchDto.getDepartement());
         else if (secteur == 0 && departement == 0 && !type.isEmpty() && !officiel)
@@ -114,8 +114,8 @@ public class SiteServiceImpl implements ISiteService {
         Site site = new Site();
         site.setNom(siteDto.getNom());
         site.setDescription(siteDto.getDescription());
-        site.setUser_id(id);
-        site.setSecteur(secteurService.checkSecteur(siteDto.getSecteur()).getId());
+        site.setUserId(id);
+        site.setSecteurId(secteurService.checkSecteur(siteDto.getSecteur()).getId());
         site.setType(siteDto.getType());
         site.setLatitude(siteDto.getLatitude());
         site.setLongitude(siteDto.getLongitude());

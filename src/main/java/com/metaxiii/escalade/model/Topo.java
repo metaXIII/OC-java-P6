@@ -25,11 +25,11 @@ public class Topo {
     @Column(name = "lieu")
     private String lieu;
 
-    @Column(name = "date_parution")
-    private Date date_parution;
+    @Column(name = "dateParution")
+    private Date dateParution;
 
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "userId")
+    private int userId;
 
     @Column(name = "available")
     private boolean available;
