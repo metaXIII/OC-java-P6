@@ -23,7 +23,7 @@ public interface ISiteService {
 
     Set<Site> findAllByParam(String secteur, String departement, String type, String officiel);
 
-    Object getResult(SearchDto searchDto);
+    Set<Site> getResult(SearchDto searchDto);
 
     String getSQLParam(int element);
 

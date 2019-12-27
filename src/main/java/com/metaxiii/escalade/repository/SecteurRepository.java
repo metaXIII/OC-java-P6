@@ -15,5 +15,5 @@ public interface SecteurRepository extends JpaRepository<Secteur, Long> {
 
     Optional<Secteur> findByNom(String name);
 
-    Optional<Secteur> DepartementId(String departement_id);
+    Optional<Secteur> DepartementId(int departement_id);
 }

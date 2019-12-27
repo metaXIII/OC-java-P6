@@ -62,7 +62,7 @@ public class SiteServiceImpl implements ISiteService {
         return siteRepository.findAllByParam(secteur, departement, type, officiel);
     }
 
-    public Object getResult(SearchDto searchDto) {
+    public Set<Site> getResult(SearchDto searchDto) {
         int secteur = searchDto.getSecteur();
         int departement = searchDto.getDepartement();
         String type = searchDto.getType();
