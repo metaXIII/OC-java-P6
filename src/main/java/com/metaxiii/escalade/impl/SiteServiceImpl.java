@@ -4,6 +4,7 @@ import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.model.Secteur;
 import com.metaxiii.escalade.model.Site;
+import com.metaxiii.escalade.repository.SecteurRepository;
 import com.metaxiii.escalade.repository.SiteRepository;
 import com.metaxiii.escalade.service.ISecteurService;
 import com.metaxiii.escalade.service.ISiteService;
@@ -24,6 +25,7 @@ public class SiteServiceImpl implements ISiteService {
     private ISecteurService secteurService;
 
     private final SiteRepository siteRepository;
+
 
     @Override
     public List<Site> findAllSite() {
@@ -103,29 +105,17 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public Optional<Site> findById(int id) {
+    public Optional<Site> findById(long id) {
         return siteRepository.findById(id);
     }
 
     @Override
     public Site save(SiteDto siteDto, int id) {
-        Secteur secteur = new Secteur();
-        String[] secteurs = siteDto.getSecteur().split(" - ");
-        secteur.setDepartement_id(Integer.parseInt(secteurs[0]));
-        String secteurName = secteurs[1];
-        Optional<Secteur> SecteurFromDatabase = secteurService.findByName(secteurName);
-        if (SecteurFromDatabase.isPresent()) {
-            secteur.setDepartement_id(SecteurFromDatabase.get().getDepartement_id());
-        } else {
-            secteur.setNom(secteurName);
-            secteurService.save(secteur);
-        }
         Site site = new Site();
         site.setNom(siteDto.getNom());
         site.setDescription(siteDto.getDescription());
-        site.setSecteur(secteur.getId());
-        site.setSecteur(secteur.getId());
         site.setUser_id(id);
+        site.setSecteur(secteurService.checkSecteur(siteDto.getSecteur()).getId());
         site.setType(siteDto.getType());
         site.setLatitude(siteDto.getLatitude());
         site.setLongitude(siteDto.getLongitude());

@@ -22,8 +22,8 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
     Set<Site> findAllByOfficiel(boolean officiel);
 
     @Query(value = "select * " +
-            "from site " +
-            "INNER join secteur s on site.secteur_id = s.id " +
+            "from Site " +
+            "INNER join Secteur s on Site.secteur_id = s.id " +
             "where secteur_id like ?1 " +
             "and departement_id like ?2 " +
             "and type like ?3 " +
@@ -31,9 +31,9 @@ public interface SiteRepository extends JpaRepository<Site, Long> {
     Set<Site> findAllByParam(String secteur, String departement, String type, String officiel);
 
     @Query(value = "SELECT * " +
-            "FROM site " +
-            "INNER JOIN secteur on site.secteur_id = secteur.id " +
-            "WHERE secteur.departement_id LIKE ?1", nativeQuery = true)
+            "FROM Site " +
+            "INNER JOIN Secteur s on Site.secteur_id = s.id " +
+            "WHERE s.departement_id LIKE ?1", nativeQuery = true)
     Set<Site> findAllByDepartement(int departement);
 
     @Query(value = "select distinct Site.type from Site", nativeQuery = true)

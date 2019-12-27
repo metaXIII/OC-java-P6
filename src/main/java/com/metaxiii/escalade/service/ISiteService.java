@@ -31,7 +31,7 @@ public interface ISiteService {
 
     String getSQLParam(boolean element);
 
-    Optional<Site> findById(int id);
+    Optional<Site> findById(long id);
 
     Site save(SiteDto siteDto, int id);
 }

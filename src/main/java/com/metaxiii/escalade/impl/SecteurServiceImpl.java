@@ -1,5 +1,6 @@
 package com.metaxiii.escalade.impl;
 
+import com.metaxiii.escalade.dto.SecteurDto;
 import com.metaxiii.escalade.model.Secteur;
 import com.metaxiii.escalade.repository.SecteurRepository;
 import com.metaxiii.escalade.service.ISecteurService;
@@ -34,7 +35,21 @@ public class SecteurServiceImpl implements ISecteurService {
     }
 
     @Override
-    public void save(Secteur secteur) {
-        secteurRepository.save(secteur);
+    public Secteur save(Secteur secteur) {
+        return secteurRepository.save(secteur);
+    }
+
+    public Secteur checkSecteur(String secteur) {
+        Secteur secteur = new Secteur();
+        String[] secteurs = siteDto.getSecteur().split(" - ");
+        secteur.setDepartement_id(Integer.parseInt(secteurs[0]));
+        String secteurName = secteurs[1];
+        Optional<Secteur> SecteurFromDatabase = secteurService.findByName(secteurName);
+        if (SecteurFromDatabase.isPresent()) {
+            secteur.setDepartement_id(SecteurFromDatabase.get().getDepartement_id());
+        } else {
+            secteur.setNom(secteurName);
+            site.setSecteur(secteurRepository.save(secteur).getId());
+        }
     }
 }

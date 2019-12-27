@@ -17,7 +17,7 @@ public interface TopoRepository extends JpaRepository<Topo, Long> {
     Optional<Topo> findById(int id);
 
     @Modifying
-    @Query(value = "update topo " +
+    @Query(value = "update Topo " +
             "set available = :available " +
             "where id = :id", nativeQuery = true)
     void updateTopo(

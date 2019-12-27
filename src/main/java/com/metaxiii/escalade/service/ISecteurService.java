@@ -12,5 +12,7 @@ public interface ISecteurService {
 
     Optional<Secteur> findByName(String name);
 
-    void save(Secteur secteur);
+    Secteur save(Secteur secteur);
+
+    Secteur checkSecteur(String secteur);
 }
