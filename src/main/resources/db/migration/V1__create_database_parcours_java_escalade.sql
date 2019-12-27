@@ -107,23 +107,23 @@ INSERT into Role (role)
 values ('ADMIN');
 
 # USER
-INSERT into user (username, email, password, role_id)
+INSERT into User (username, email, password, role_id)
 values ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
-INSERT into user (username, email, password, role_id)
+INSERT into User (username, email, password, role_id)
 values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
 
 # #site
-insert into site(nom, secteur_id, type, user_id)
+insert into Site(nom, secteur_id, type, user_id)
 values ('Narnia', 1, 'Falaise', 1);
 
 insert into Site(nom, secteur_id, type, officiel, user_id)
 values ('Poudlard', 2, 'bloc', 1, 1);
 
-insert into site (nom, secteur_id, type, officiel, user_id)
+insert into Site (nom, secteur_id, type, officiel, user_id)
 values ('DisneyLand', 1, 'Magic', 1, 1);
 
 # Departement
-insert into departement(id, code, nom)
+insert into Departement(id, code, nom)
 VALUES (1, '01', 'AIN'),
        (2, '02', 'AISNE'),
        (3, '03', 'Allier'),
@@ -227,18 +227,18 @@ VALUES (1, '01', 'AIN'),
        (101, '974', 'Réunion');
 
 #secteur
-insert into secteur(nom, departement_id)
+insert into Secteur(nom, departement_id)
 VALUES ('DC Universe', 77);
 
-insert into secteur(nom, departement_id)
+insert into Secteur(nom, departement_id)
 VALUES ('Other', 56);
 
 #topo
-insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+insert into Topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
 VALUES (null, 'nom', 'description', 'lieu', '2019-12-05 15:25:37', 1, DEFAULT);
 
-insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+insert into Topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
 VALUES (null, 'nom2', 'description', 'lieu', '2019-12-06 15:25:37', 1, false);
 
-insert into topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
+insert into Topo(`id`, `nom`, `description`, `lieu`, `date_parution`, `user_id`, `available`)
 VALUES (null, 'nom3', 'description', 'lieu', '2019-12-07 15:25:37', 1, false);
