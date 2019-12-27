@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin=""/>
@@ -13,6 +13,9 @@
 <header th:replace="include/header::header"></header>
 <main class="container">
     <h2 th:text="${data.nom}">Titre</h2>
+    <div class="row" sec:authorize="isAuthenticated()">
+        <div th:if="${data.userId == #authentication.getPrincipal().getId()}"></div>
+    </div>
     <div class="row">
         <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4">
             <table class="table table-striped">

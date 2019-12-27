@@ -24,7 +24,10 @@
                     </div>
                     <div class="form-group">
                         <label for="secteur_id">Numéro du département</label>
-                        <input type="text" name="secteur_id" class="form-control" id="secteur_id">
+                        <select name="secteur_id" id="secteur_id" class="form-control" required>
+                            <option th:each="departement : ${datas.departement_list}" th:value="${departement.id}"
+                                    th:text="${departement.code} + ' - ' +  ${departement.nom}"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -48,6 +51,7 @@
                 if (secteur_name.value !== "" && secteur_id.value !== "") {
                     new_secteur.value = secteur_id.value + " - " + secteur_name.value
                     new_secteur.innerText = secteur_name.value
+                    document.getElementById("departement").disabled = true;
                     modal.modal('hide')
                 }
             })

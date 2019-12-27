@@ -22,7 +22,7 @@ import java.util.List;
 public class User implements UserDetails, Serializable {
 	@Id
 	@Column(name = "id")
-	private int id;
+	private long id;
 
 	@Column(name = "username")
 	private String username;

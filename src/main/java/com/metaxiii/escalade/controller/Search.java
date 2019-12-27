@@ -2,11 +2,16 @@ package com.metaxiii.escalade.controller;
 
 import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.enums.Message;
+import com.metaxiii.escalade.impl.UserServiceImpl;
 import com.metaxiii.escalade.model.Site;
+import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.service.IDepartementService;
 import com.metaxiii.escalade.service.ISecteurService;
 import com.metaxiii.escalade.service.ISiteService;
+import com.metaxiii.escalade.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -25,6 +30,9 @@ public class Search {
 
     @Autowired
     private ISecteurService secteurService;
+
+    @Autowired
+    private IUserService userService;
 
     @Autowired
     private IDepartementService departementService;
@@ -54,7 +62,18 @@ public class Search {
     @ResponseBody
     public ModelAndView detail_site(@PathVariable String id) {
         Optional<Site> data = siteService.findById(Long.parseLong(id));
-        return data.map(site -> new ModelAndView("detail", "data", site))
+//        if (data.isPresent()) {
+//            Optional<User> user = userService.findById(data.get().getUserId());
+//            try {
+//                User connected = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//                if (user.get().getUsername().equals(connected.getUsername())) {
+//                }
+//            } catch (Exception e) {
+//                System.out.println("do nothing");
+//            }
+//        }
+        return data.map(
+                site -> new ModelAndView("detail", "data", site))
                 .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +36,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
 		user.setRoleId(new Role(1, "USER"));
 		return userRepository.save(user);
+	}
+
+	@Override
+	public Optional<User> findById(long id) {
+		return userRepository.findById(id);
 	}
 
 	@Override

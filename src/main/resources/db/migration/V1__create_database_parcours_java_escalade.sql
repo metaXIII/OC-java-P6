@@ -1,16 +1,16 @@
 CREATE TABLE Longueur
 (
-    id      INT AUTO_INCREMENT NOT NULL,
-    siteId INT                NOT NULL,
-    cotation    VARCHAR(3)         NOT NULL,
+    id       INT AUTO_INCREMENT NOT NULL,
+    siteId   INT                NOT NULL,
+    cotation VARCHAR(3)         NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE Voies
 (
-    id          INT AUTO_INCREMENT NOT NULL,
+    id         INT AUTO_INCREMENT NOT NULL,
     longueurId INT                NOT NULL,
-    cotation    VARCHAR(3)         NOT NULL,
+    cotation   VARCHAR(3)         NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -25,8 +25,8 @@ CREATE TABLE Role
 
 CREATE TABLE Reservation
 (
-    id              INT AUTO_INCREMENT NOT NULL,
-    topoId         INT                NOT NULL,
+    id            INT AUTO_INCREMENT NOT NULL,
+    topoId        INT                NOT NULL,
     requestUserId INT                NOT NULL,
     PRIMARY KEY (id)
 );
@@ -34,13 +34,13 @@ CREATE TABLE Reservation
 
 CREATE TABLE Topo
 (
-    id            INT AUTO_INCREMENT                 NOT NULL,
-    nom           VARCHAR(255)                       NOT NULL,
-    description   TEXT                               NOT NULL,
-    lieu          VARCHAR(255)                       NOT NULL,
+    id           INT AUTO_INCREMENT                 NOT NULL,
+    nom          VARCHAR(255)                       NOT NULL,
+    description  TEXT                               NOT NULL,
+    lieu         VARCHAR(255)                       NOT NULL,
     dateParution DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     userId       INT                                NOT NULL,
-    available     BOOLEAN  DEFAULT true              NOT NULL,
+    available    BOOLEAN  DEFAULT true              NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -50,8 +50,8 @@ CREATE TABLE Commentaire
     id      INT AUTO_INCREMENT                 NOT NULL,
     content TEXT                               NOT NULL,
     date    DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    userId INT                                NOT NULL,
-    siteId INT                                NOT NULL,
+    userId  INT                                NOT NULL,
+    siteId  INT                                NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -67,8 +67,8 @@ CREATE TABLE Departement
 
 CREATE TABLE Secteur
 (
-    id             INT AUTO_INCREMENT NOT NULL,
-    nom            VARCHAR(30)        NOT NULL,
+    id            INT AUTO_INCREMENT NOT NULL,
+    nom           VARCHAR(30)        NOT NULL,
     departementId VARCHAR(3)         NOT NULL,
     PRIMARY KEY (id)
 );
@@ -80,7 +80,7 @@ CREATE TABLE User
     username VARCHAR(30)        NOT NULL,
     email    VARCHAR(255)       NOT NULL,
     password TEXT               NOT NULL,
-    roleId  INT DEFAULT 0      NOT NULL,
+    roleId   INT DEFAULT 0      NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -90,8 +90,8 @@ CREATE TABLE Site
     id          INT AUTO_INCREMENT    NOT NULL,
     nom         VARCHAR(255)          NOT NULL,
     description TEXT,
-    secteurId  INT                   NOT NULL,
-    userId     INT                   NOT NULL,
+    secteurId   INT                   NOT NULL,
+    userId      INT                   NOT NULL,
     officiel    BOOLEAN DEFAULT false NOT NULL,
     type        VARCHAR(40),
     latitude    VARCHAR(45),
@@ -114,10 +114,10 @@ values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4Kmohqdcp
 
 # #site
 insert into Site(nom, secteurId, type, userId)
-values ('Narnia', 1, 'Falaise', 1);
+values ('Narnia', 1, 'Falaise', 2);
 
 insert into Site(nom, secteurId, type, officiel, userId)
-values ('Poudlard', 2, 'bloc', 1, 1);
+values ('Poudlard', 2, 'bloc', 1, 2);
 
 insert into Site (nom, secteurId, type, officiel, userId)
 values ('DisneyLand', 1, 'Magic', 1, 1);
