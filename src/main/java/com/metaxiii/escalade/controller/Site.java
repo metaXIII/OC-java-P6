@@ -1,5 +1,7 @@
 package com.metaxiii.escalade.controller;
 
+import com.metaxiii.escalade.dto.LongueurDto;
+import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.enums.Message;
 import com.metaxiii.escalade.model.User;
@@ -12,15 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class Site {
@@ -55,11 +55,53 @@ public class Site {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             int id = (int) user.getId();
             String redirect = "redirect:/details-site/" + siteService.save(siteDto, id).getId();
-            return new ModelAndView(redirect);
+            return new ModelAndView(redirect, "msg", Message.SAVE_SITE.getMsg());
         } catch (Exception e) {
             datas.put("msg", e.getMessage());
             return new ModelAndView("site", "datas", datas);
         }
-//        return new ModelAndView("details-site", "msg", Message.SAVE_SITE.getMsg());
+    }
+
+    @GetMapping("/search")
+    public ModelAndView search(@ModelAttribute("search") SearchDto searchDto,
+                               BindingResult result, WebRequest request, Errors errors) {
+        Map<String, Object> search_component = new HashMap<>();
+        search_component.put("departement_list", departementService.findAllDepartement());
+        search_component.put("all_secteur_list", secteurService.findAllSecteur());
+        search_component.put("all_type_list", siteService.findAllType());
+        return new ModelAndView("search", "search_component", search_component);
+    }
+
+    @PostMapping("/search")
+    public ModelAndView search_site(@ModelAttribute("search") SearchDto searchDto,
+                                    BindingResult result, WebRequest request, Errors errors) {
+        Map<String, Object> search_component = new HashMap<>();
+        search_component.put("departement_list", departementService.findAllDepartement());
+        search_component.put("all_secteur_list", secteurService.findAllSecteur());
+        search_component.put("all_type_list", siteService.findAllType());
+        search_component.put("results", siteService.getResult(searchDto));
+        return new ModelAndView("search", "search_component", search_component);
+    }
+
+    @GetMapping("/details-site/{id}")
+    @ResponseBody
+    public ModelAndView detail_site(@PathVariable String id) {
+        Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
+        return data.map(
+                site -> new ModelAndView("detail", "data", site))
+                .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
+    }
+
+    @GetMapping("/details-site/add-longueur-{id}")
+    @ResponseBody
+    public ModelAndView add_longueur(@PathVariable String id,@ModelAttribute("longueur") LongueurDto longueurDto) {
+        Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
+        if (data.isPresent()) {
+        } else {
+            return new ModelAndView("404", "msg", Message.GLOBAL_ERROR.getMsg());
+        }
+        return data.map(
+                site -> new ModelAndView("detail", "data", site))
+                .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
     }
 }

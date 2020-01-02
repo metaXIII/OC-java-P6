@@ -12,9 +12,17 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <h2 th:text="${data.nom}">Titre</h2>
-    <div class="row" sec:authorize="isAuthenticated()">
-        <div th:if="${data.userId == #authentication.getPrincipal().getId()}"></div>
+    <div class="row pb-1">
+        <h2 th:text="${data.nom}" class="col-6">Titre</h2>
+        <div class="col-6 d-flex flex-column align-items-end"
+             sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"
+             th:if="${(data.userId == #authentication.getPrincipal().getId())}
+                  or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
+            <button class="btn btn-secondary" id="add_longueur" data-toggle="modal" data-target="#exampleModal">Ajouter
+                une longueur
+            </button>
+            <button class="btn btn-info" id="add_voie">Ajouter une voie</button>
+        </div>
     </div>
     <div class="row">
         <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4">
@@ -87,5 +95,38 @@
     let marker = null
     marker = L.marker(latlng).addTo(map)
 </script>
+<script>
+    let addLongueur = document.getElementById("save_longueur")
+    let addVoie = document.getElementById("add_voie")
+
+    addLongueur.addEventListener("click", () => {
+        alert('aze')
+    })
+
+
+</script>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une longueur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" th:include="form/new-longueur::new-longueur"
+                      id="form-create_longueur"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer la fenêtre</button>
+                <a th:href="@{'/details-site/add-longueur-' + ${data.getId()}}">
+                    <button type="button" class="btn btn-primary" id="save_longueur">Enregistrer</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
