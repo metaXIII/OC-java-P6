@@ -1,16 +1,22 @@
 package com.metaxiii.escalade.impl;
 
 import com.metaxiii.escalade.model.Voies;
+import com.metaxiii.escalade.repository.VoiesRepository;
 import com.metaxiii.escalade.service.IVoiesService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-public class VoiesServiceImpl extends IVoiesService {
-    @Autowired
-    private VoieR
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class VoiesServiceImpl implements IVoiesService {
+    private final VoiesRepository voiesRepository;
+
     @Override
     public List<Voies> findAll() {
-        return ;
+        return null;
     }
 }
