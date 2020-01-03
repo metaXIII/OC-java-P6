@@ -4,10 +4,10 @@ import com.metaxiii.escalade.dto.LongueurDto;
 import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.enums.Message;
+import com.metaxiii.escalade.model.Longueur;
 import com.metaxiii.escalade.model.User;
-import com.metaxiii.escalade.service.IDepartementService;
-import com.metaxiii.escalade.service.ISecteurService;
-import com.metaxiii.escalade.service.ISiteService;
+import com.metaxiii.escalade.model.Voie;
+import com.metaxiii.escalade.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,6 +33,12 @@ public class Site {
 
     @Autowired
     private ISecteurService secteurService;
+
+    @Autowired
+    private ILongueurService longueurService;
+
+    @Autowired
+    private IVoiesService voiesService;
 
     @GetMapping("/account/new-site")
     public ModelAndView new_site(@ModelAttribute("site") SiteDto siteDto,
@@ -86,22 +93,31 @@ public class Site {
     @GetMapping("/details-site/{id}")
     @ResponseBody
     public ModelAndView detail_site(@PathVariable String id) {
-        Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
-        return data.map(
-                site -> new ModelAndView("detail", "data", site))
-                .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
+        Optional<com.metaxiii.escalade.model.Site> site = siteService.findById(Long.parseLong(id));
+        Map<String, Object> data = new HashMap<>();
+        if (site.isPresent()) {
+            List<Longueur> longueurList = longueurService.findAllBySiteId(Integer.parseInt(id));
+            List<Voie> voiesList = voiesService.findAllBySiteId(Integer.parseInt(id));
+            data.put("longueur", longueurList);
+            data.put("voie", voiesList);
+            site.get().setCotation(siteService.CalculateCotation(voiesList));
+            data.put("site", site.get());
+            return new ModelAndView("detail", "data", data);
+        } else
+            return new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg());
     }
 
-    @GetMapping("/details-site/add-longueur-{id}")
+
+
+    @PostMapping("/details-site/{id}")
     @ResponseBody
-    public ModelAndView add_longueur(@PathVariable String id,@ModelAttribute("longueur") LongueurDto longueurDto) {
+    public ModelAndView add_longueur(@PathVariable String id, LongueurDto longueurDto) {
         Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
         if (data.isPresent()) {
+            longueurService.saveLongueur(longueurDto, Integer.parseInt(id));
+            return detail_site(id);
         } else {
             return new ModelAndView("404", "msg", Message.GLOBAL_ERROR.getMsg());
         }
-        return data.map(
-                site -> new ModelAndView("detail", "data", site))
-                .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
     }
 }

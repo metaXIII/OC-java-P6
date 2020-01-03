@@ -2,6 +2,7 @@ package com.metaxiii.escalade.model;
 
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.Mapping;
 
 import javax.persistence.*;
 
@@ -38,4 +39,6 @@ public class Site {
 
     @Column(name = "longitude")
     private String longitude;
+
+    transient private String cotation;
 }

@@ -2,9 +2,8 @@ package com.metaxiii.escalade.impl;
 
 import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
-import com.metaxiii.escalade.model.Secteur;
 import com.metaxiii.escalade.model.Site;
-import com.metaxiii.escalade.repository.SecteurRepository;
+import com.metaxiii.escalade.model.Voie;
 import com.metaxiii.escalade.repository.SiteRepository;
 import com.metaxiii.escalade.service.ISecteurService;
 import com.metaxiii.escalade.service.ISiteService;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,11 +21,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Transactional
 public class SiteServiceImpl implements ISiteService {
+    private final SiteRepository siteRepository;
     @Autowired
     private ISecteurService secteurService;
-
-    private final SiteRepository siteRepository;
-
 
     @Override
     public List<Site> findAllSite() {
@@ -121,4 +119,120 @@ public class SiteServiceImpl implements ISiteService {
         site.setLongitude(siteDto.getLongitude());
         return siteRepository.save(site);
     }
+
+    @Override
+    public String CalculateCotation(List<Voie> voiesList) {
+        List<Integer> moyenne = new ArrayList<>();
+        for (Voie voie : voiesList) {
+            moyenne.add(position(voie.getCotation()));
+        }
+
+        return "machin";
+    }
+
+    private int position(String el) {
+        int result = 0;
+        switch (el) {
+            case "3":
+                result = 1;
+                break;
+            case "3+":
+                result = 2;
+                break;
+            case "4a":
+                result = 3;
+                break;
+            case "4b":
+                result = 4;
+                break;
+            case "4c":
+                result = 5;
+                break;
+            case "5a":
+                result = 6;
+                break;
+            case "5b":
+                result = 7;
+                break;
+            case "5c":
+                result = 8;
+                break;
+            case "6a":
+                result = 9;
+                break;
+            case "6a+":
+                result = 10;
+                break;
+            case "6b":
+                result = 11;
+                break;
+            case "6b+":
+                result = 12;
+                break;
+            case " 6c":
+                result = 13;
+                break;
+            case "6c+":
+                result = 14;
+                break;
+            case " 7a":
+                result = 15;
+                break;
+            case "7a+":
+                result = 16;
+                break;
+            case " 7b":
+                result = 17;
+                break;
+            case "7b+":
+                result = 18;
+                break;
+            case " 7c":
+                result = 19;
+                break;
+            case "7c+":
+                result = 20;
+                break;
+            case "8a":
+                result = 21;
+                break;
+            case "8a+":
+                result = 22;
+                break;
+            case "8b":
+                result = 23;
+                break;
+            case "8b+":
+                result = 24;
+                break;
+            case " 8c":
+                result = 25;
+                break;
+            case "8c+":
+                result = 26;
+                break;
+            case "9a":
+                result = 27;
+                break;
+            case "9a+":
+                result = 28;
+                break;
+            case "9b":
+                result = 29;
+                break;
+            case "9b+":
+                result = 30;
+                break;
+            case "9c":
+                result = 31;
+                break;
+            case "9c+":
+                result = 32;
+                break;
+            default:
+                break;
+        }
+        return result;
+    }
+
 }

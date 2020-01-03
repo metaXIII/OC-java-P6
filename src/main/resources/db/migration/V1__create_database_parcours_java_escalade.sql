@@ -6,7 +6,7 @@ CREATE TABLE Longueur
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Voies
+CREATE TABLE Voie
 (
     id         INT AUTO_INCREMENT NOT NULL,
     longueurId INT                NOT NULL,
