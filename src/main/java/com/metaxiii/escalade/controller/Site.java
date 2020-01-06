@@ -1,5 +1,6 @@
 package com.metaxiii.escalade.controller;
 
+import com.metaxiii.escalade.dto.CommentaireDto;
 import com.metaxiii.escalade.dto.LongueurDto;
 import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
@@ -39,6 +40,9 @@ public class Site {
 
     @Autowired
     private IVoiesService voiesService;
+
+    @Autowired
+    private ICommentaireService commentaireService;
 
     @GetMapping("/account/new-site")
     public ModelAndView new_site(@ModelAttribute("site") SiteDto siteDto,
@@ -108,10 +112,9 @@ public class Site {
     }
 
 
-
     @PostMapping("/details-site/{id}")
     @ResponseBody
-    public ModelAndView add_longueur(@PathVariable String id, LongueurDto longueurDto) {
+    public ModelAndView add_longueur(@PathVariable String id, @ModelAttribute("longueur") LongueurDto longueurDto) {
         Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
         if (data.isPresent()) {
             longueurService.saveLongueur(longueurDto, Integer.parseInt(id));
@@ -119,5 +122,19 @@ public class Site {
         } else {
             return new ModelAndView("404", "msg", Message.GLOBAL_ERROR.getMsg());
         }
+    }
+
+    @PostMapping("/ajouter-commentaire/{id}")
+    @ResponseBody
+    public ModelAndView add_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
+        Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
+        if (data.isPresent()) {
+            commentaireService.save(commentaireDto, Integer.parseInt(id));
+        } else {
+            return data.map(
+                    site -> new ModelAndView("detail", "data", site))
+                    .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
+        }
+        return null;
     }
 }
