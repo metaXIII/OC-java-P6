@@ -1,0 +1,65 @@
+<div th:fragment="modal" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal fade" id="longueurModal" tabindex="-1" role="dialog" aria-labelledby="longueurModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="" method="post" name="longueur">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ajouter une longueur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="voies">Nombre de voies : </label>
+                            <input type="number" id="voies" class="form-control" placeholder="Nombre de voies" value="1"
+                                   name="voies">
+                        </div>
+                        <div class="form-group">
+                            <label for="cotation">Cotation de la longueur : </label>
+                            <select name="cotation" id="cotation" class="form-control" required>
+                                <option value="3">3</option>
+                                <option value="3+">3+</option>
+                                <option value="4a">4a</option>
+                                <option value="4b">4b</option>
+                                <option value="4c">4c</option>
+                                <option value="5a">5a</option>
+                                <option value="5b">5b</option>
+                                <option value="5c">5c</option>
+                                <option value="6a">6a</option>
+                                <option value="6a+">6a+</option>
+                                <option value="6b">6b</option>
+                                <option value="6b+">6b+</option>
+                                <option value="6c">6c</option>
+                                <option value="6c+">6c+</option>
+                                <option value="7a">7a</option>
+                                <option value="7a+">7a+</option>
+                                <option value="7b">7b</option>
+                                <option value="7b+">7b+</option>
+                                <option value="7c">7c</option>
+                                <option value="7c+">7c+</option>
+                                <option value="8a">8a</option>
+                                <option value="8a+">8a+</option>
+                                <option value="8b">8b</option>
+                                <option value="8b+">8b+</option>
+                                <option value="8c">8c</option>
+                                <option value="8c+">8c+</option>
+                                <option value="9a">9a</option>
+                                <option value="9a+">9a+</option>
+                                <option value="9b">9b</option>
+                                <option value="9b+">9b+</option>
+                                <option value="9c">9c</option>
+                                <option value="9c+">9c+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer la fenêtre</button>
+                        <button type="submit" id="save_longueur" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

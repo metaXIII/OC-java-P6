@@ -1,27 +1,20 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin=""/>
 <head th:replace="include/head::head"></head>
-<style>
-    #map {
-        height: 400px;
-    }
-</style>
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
     <div class="row pb-1">
         <h2 th:text="${data.site.nom}" class="col-6">Titre</h2>
-        <!--        <div class="col-6 d-flex flex-column align-items-end"-->
-        <!--             sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"-->
-        <!--             th:if="${(data.userId == #authentication.getPrincipal().getId())}-->
-        <!--                  or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">-->
-        <button class="btn btn-info" id="add_longueur" data-toggle="modal" data-target="#exampleModal">
-            Ajouter une longueur / voie
-        </button>
-        <!--        </div>-->
+        <div class="col-6 d-flex flex-column align-items-end" sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"
+             th:if="${(data.site.userId == #authentication.getPrincipal().getId())} or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
+            <button class="btn btn-info" id="add_longueur" data-toggle="modal" data-target="#longueurModal">
+                Ajouter une longueur / voie
+            </button>
+        </div>
     </div>
     <div class="row">
         <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4">
@@ -42,11 +35,11 @@
                 </tr>
                 <tr>
                     <th scope="row">Cotation</th>
-                    <th th:text="${data.site}">9999</th>
+                    <th th:text="${data.site.cotation}">9999</th>
                 </tr>
-                <tr>
+                <tr th:if="${data.site.officiel}">
                     <th scope="row">Officiel</th>
-                    <th>9999</th>
+                    <th th:text="${data.site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
                 </tr>
                 </tbody>
             </table>
@@ -62,10 +55,10 @@
     </p>
     <h3>Localisation</h3>
     <div id="map"></div>
-
     <section id="commentaire">
         <p>Sections commentaires</p>
-        <form action="" method="post" th:include="form/new-commentaire" id="form_create_commentaire"></form>
+        <form th:action="@{/ajouter-commentaire/{id}(id = ${data.site.id})}" method="post"
+              th:include="form/new-commentaire" id="form_create_commentaire"></form>
         <div class="commentaire_list col-8 offset-4">
             <div class="commentaire">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet atque, commodi cum distinctio
@@ -94,78 +87,6 @@
     let marker = null
     marker = L.marker(latlng).addTo(map)
 </script>
-<script>
-    let addLongueur = document.getElementById("save_longueur")
-    let addVoie = document.getElementById("add_voie")
-
-    addLongueur.addEventListener("click", () => {
-        alert('aze')
-    })
-
-
-</script>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="" method="post" name="longueur">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter une longueur</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="voies">Nombre de voies : </label>
-                        <input type="number" id="voies" class="form-control" placeholder="Nombre de voies" value="1"
-                               name="voies">
-                    </div>
-                    <div class="form-group">
-                        <label for="cotation">Cotation de la longueur : </label>
-                        <select name="cotation" id="cotation" class="form-control" required>
-                            <option value="3">3</option>
-                            <option value="3+">3+</option>
-                            <option value="4a">4a</option>
-                            <option value="4b">4b</option>
-                            <option value="4c">4c</option>
-                            <option value="5a">5a</option>
-                            <option value="5b">5b</option>
-                            <option value="5c">5c</option>
-                            <option value="6a">6a</option>
-                            <option value="6a+">6a+</option>
-                            <option value="6b">6b</option>
-                            <option value="6b+">6b+</option>
-                            <option value="6c">6c</option>
-                            <option value="6c+">6c+</option>
-                            <option value="7a">7a</option>
-                            <option value="7a+">7a+</option>
-                            <option value="7b">7b</option>
-                            <option value="7b+">7b+</option>
-                            <option value="7c">7c</option>
-                            <option value="7c+">7c+</option>
-                            <option value="8a">8a</option>
-                            <option value="8a+">8a+</option>
-                            <option value="8b">8b</option>
-                            <option value="8b+">8b+</option>
-                            <option value="8c">8c</option>
-                            <option value="8c+">8c+</option>
-                            <option value="9a">9a</option>
-                            <option value="9a+">9a+</option>
-                            <option value="9b">9b</option>
-                            <option value="9b+">9b+</option>
-                            <option value="9c">9c</option>
-                            <option value="9c+">9c+</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer la fenêtre</button>
-                    <button type="submit" id="save_longueur" class="btn btn-primary">Enregistrer</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<div th:include="modal/modal-longueur::modal"></div>
 </body>
 </html>
