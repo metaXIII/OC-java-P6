@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -122,12 +121,14 @@ public class SiteServiceImpl implements ISiteService {
 
     @Override
     public String CalculateCotation(List<Voie> voiesList) {
-        List<Integer> moyenne = new ArrayList<>();
+        int moyenne = 0;
         for (Voie voie : voiesList) {
-            moyenne.add(position(voie.getCotation()));
+            moyenne += position(voie.getCotation());
         }
-
-        return "machin";
+        if (moyenne > 0) {
+            return position(moyenne / voiesList.size());
+        } else
+            return "";
     }
 
     private int position(String el) {
@@ -169,25 +170,25 @@ public class SiteServiceImpl implements ISiteService {
             case "6b+":
                 result = 12;
                 break;
-            case " 6c":
+            case "6c":
                 result = 13;
                 break;
             case "6c+":
                 result = 14;
                 break;
-            case " 7a":
+            case "7a":
                 result = 15;
                 break;
             case "7a+":
                 result = 16;
                 break;
-            case " 7b":
+            case "7b":
                 result = 17;
                 break;
             case "7b+":
                 result = 18;
                 break;
-            case " 7c":
+            case "7c":
                 result = 19;
                 break;
             case "7c+":
@@ -235,4 +236,110 @@ public class SiteServiceImpl implements ISiteService {
         return result;
     }
 
+
+    private String position(int el) {
+        String result;
+        switch (el) {
+            case 1:
+                result = "3";
+                break;
+            case 2:
+                result = "3+";
+                break;
+            case 3:
+                result = "4a";
+                break;
+            case 4:
+                result = "4b";
+                break;
+            case 5:
+                result = "4c";
+                break;
+            case 6:
+                result = "5a";
+                break;
+            case 7:
+                result = "5b";
+                break;
+            case 8:
+                result = "5c";
+                break;
+            case 9:
+                result = "6a";
+                break;
+            case 10:
+                result = "6a+";
+                break;
+            case 11:
+                result = "9b";
+                break;
+            case 12:
+                result = "6b+";
+                break;
+            case 13:
+                result = "6c";
+                break;
+            case 14:
+                result = "6c+";
+                break;
+            case 15:
+                result = "7a";
+                break;
+            case 16:
+                result = "7a+";
+                break;
+            case 17:
+                result = "7b";
+                break;
+            case 18:
+                result = "7b+";
+                break;
+            case 19:
+                result = "7c";
+                break;
+            case 20:
+                result = "7c+";
+                break;
+            case 21:
+                result = "8a";
+                break;
+            case 22:
+                result = "8a+";
+                break;
+            case 23:
+                result = "8b";
+                break;
+            case 24:
+                result = "8b+";
+                break;
+            case 25:
+                result = "8c";
+                break;
+            case 26:
+                result = "8c+";
+                break;
+            case 27:
+                result = "9a";
+                break;
+            case 28:
+                result = "9a+";
+                break;
+            case 29:
+                result = "9b";
+                break;
+            case 30:
+                result = "9b+";
+                break;
+            case 31:
+                result = "9c";
+                break;
+            case 32:
+                result = "9c+";
+                break;
+            default:
+                result = "";
+                break;
+        }
+        return result;
+    }
 }
