@@ -130,14 +130,14 @@ main {
     color: #ff0000;
 }
 
-#add_longueur, #add_voie {
-    width: 175px;
-}
-
 @media screen and (min-width: 576px) {
     .detail_image {
         display: block;
     }
+}
+
+#map {
+    height: 400px;
 }
 
 
