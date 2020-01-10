@@ -61,13 +61,15 @@
                 <div th:each="commentaire : ${data.commentaires}">
                     <div class="commentaire"
                          th:classappend="${commentaire.id % 2 == 0} ? 'commentaire commentaire_pair' : 'commentaire commentaire_impair'">
-                        <p th:text="${commentaire.content}"></p>
+                        <span th:text="${commentaire.content}"></span>
                         <div class="text-right small">
                             <span th:text="${commentaire.username}"></span>, le <span
                                 th:text="${#dates.format(commentaire.date, 'dd/MM/YYYY à HH:mm')}">date/date/date</span>
                         </div>
                         <div class="d-flex">
-                            <button class="btn btn-success">Editer le commentaire</button>
+                            <button class="btn btn-success edit_commentaire"
+                                    th:onclick="'javascript:edit(\'' + ${commentaire.id} + '\')'">Editer le commentaire
+                            </button>
                             <button class="btn btn-danger">Supprimer le commentaire</button>
                         </div>
                     </div>
@@ -94,6 +96,34 @@
     let latlng = [48.4413679, 2.6348314]
     let marker = null
     marker = L.marker(latlng).addTo(map)
+
+    let edits = document.querySelectorAll(".edit_commentaire");
+
+    Array.from(edits).forEach((edit) => {
+        edit.addEventListener("click", () => {
+            let content = document.getElementById("content");
+            let inputInserted = document.getElementById("input_inserted") ? document.getElementById("input_inserted") : null
+            if (inputInserted != null)
+                content.parentNode.removeChild(inputInserted)
+            content.textContent = edit.parentNode.parentNode.firstElementChild.textContent
+        })
+    })
+
+    function edit(idComment) {
+        let el = document.getElementById("form_create_commentaire")
+        el.setAttribute("action", "/edit-commentaire/" + idComment)
+        let hide = document.getElementById("hide")
+        hide.classList.remove("hide")
+    }
+
+    function cancel() {
+        let el = document.getElementById("form_create_commentaire")
+        let content = document.getElementById("content");
+        let hide = document.getElementById("hide")
+        el.setAttribute("action", "/ajouter-commentaire/" + /*[[${data.site.id}]]*/ "null")
+        hide.classList.add("hide")
+        content.textContent = ""
+    }
 </script>
 <div th:include="modal/modal-longueur::modal"></div>
 </body>

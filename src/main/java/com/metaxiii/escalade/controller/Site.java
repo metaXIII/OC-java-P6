@@ -136,4 +136,26 @@ public class Site {
             commentaireService.save(commentaireDto, Integer.parseInt(id));
         return new RedirectView("/redirect-site-" + id);
     }
+
+    @PostMapping("/edit-commentaire/{id}")
+    @ResponseBody
+    public RedirectView edit_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
+        Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
+        int idSite = 0;
+        if (data.isPresent())
+            idSite = commentaireService.edit(commentaireDto).getSiteId();
+        return new RedirectView("/redirect-site-" + idSite);
+    }
+
+    @GetMapping("delete-commentaire/{id}")
+    @ResponseBody
+    public RedirectView delete_commentaire(@PathVariable String id) {
+//        Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
+//        int idSite = 0;
+//        if (data.isPresent())
+//            idSite = commentaireService.delete.getSiteId();
+//        return new RedirectView("/redirect-site-" + idSite);
+        return null;
+    }
+
 }

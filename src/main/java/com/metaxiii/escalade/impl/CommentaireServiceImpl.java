@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +35,29 @@ public class CommentaireServiceImpl implements ICommentaireService {
     @Override
     public List<Commentaire> findAllBySiteId(int id) {
         return commentaireRepository.findAllBySiteIdOrderByDateDesc(id);
+    }
+
+    @Override
+    public Commentaire edit(CommentaireDto commentaireDto) {
+        Optional<Commentaire> commentaire = commentaireRepository.findById((long) commentaireDto.getId());
+        if (commentaire.isPresent()) {
+            commentaire.get().setDate(new Date());
+            if (commentaire.get().getContent().equals(commentaireDto.getContent())) {
+                return commentaire.get();
+            } else
+                commentaire.get().setContent(commentaireDto.getContent());
+            return commentaireRepository.save(commentaire.get());
+        }
+        return null;
+    }
+
+    @Override
+    public Optional<Commentaire> findById(long id) {
+        return commentaireRepository.findById(id);
+    }
+
+    @Override
+    public void delete(long id) {
+        commentaireRepository.deleteById(id);
     }
 }

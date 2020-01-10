@@ -140,12 +140,20 @@ main {
     height: 400px;
 }
 
+.commentaire {
+    margin: 15px;
+}
+
 .commentaire_pair {
     background: #f2f2f2;
 }
 
 .commentaire_impair {
     background: #F8F9FA;
+}
+
+.hide {
+    display: none;
 }
 
 

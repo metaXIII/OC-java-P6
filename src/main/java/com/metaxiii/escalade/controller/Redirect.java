@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class Redirect {
     @GetMapping("/redirect-site-{id}")
     public ModelAndView redirectToDetailSite(@PathVariable String id) {
+        if (id.equals("0"))
+            return new ModelAndView("404");
         return new ModelAndView("redirect:/details-site/" + id);
     }
 }
