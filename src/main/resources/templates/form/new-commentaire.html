@@ -3,7 +3,5 @@
         <label for="content">Commentaire :</label>
         <textarea name="content" id="content" class="form-control" rows="3"></textarea>
     </div>
-    <input type="hidden" name="username" th:if="${#authentication.getPrincipal() != 'anonymousUser'}"
-           th:value="${#authentication.getPrincipal().getId()} ? ${#authentication.getPrincipal().getId()} : '0'">
     <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>

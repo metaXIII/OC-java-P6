@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CommentaireDto {
-    private String username;
+    private int id;
     private String content;
 }
