@@ -5,6 +5,7 @@ import com.metaxiii.escalade.dto.LongueurDto;
 import com.metaxiii.escalade.dto.SearchDto;
 import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.enums.Message;
+import com.metaxiii.escalade.model.Commentaire;
 import com.metaxiii.escalade.model.Longueur;
 import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.model.Voie;
@@ -18,6 +19,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -102,10 +104,12 @@ public class Site {
         if (site.isPresent()) {
             List<Longueur> longueurList = longueurService.findAllBySiteId(Integer.parseInt(id));
             List<Voie> voiesList = voiesService.findAllBySiteId(Integer.parseInt(id));
+            List<Commentaire> commentaireList = commentaireService.findAllBySiteId(Integer.parseInt(id));
             data.put("longueur", longueurList);
             data.put("voie", voiesList);
             site.get().setCotation(siteService.CalculateCotation(voiesList));
             data.put("site", site.get());
+            data.put("commentaires", commentaireList);
             return new ModelAndView("detail", "data", data);
         } else
             return new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg());
@@ -126,15 +130,10 @@ public class Site {
 
     @PostMapping("/ajouter-commentaire/{id}")
     @ResponseBody
-    public ModelAndView add_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
+    public RedirectView add_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
         Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
-        if (data.isPresent()) {
+        if (data.isPresent())
             commentaireService.save(commentaireDto, Integer.parseInt(id));
-        } else {
-            return data.map(
-                    site -> new ModelAndView("detail", "data", site))
-                    .orElseGet(() -> new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg()));
-        }
-        return null;
+        return new RedirectView("/redirect-site-" + id);
     }
 }

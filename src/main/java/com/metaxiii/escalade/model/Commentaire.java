@@ -12,7 +12,7 @@ public class Commentaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "content")
     private String content;
@@ -21,7 +21,10 @@ public class Commentaire {
     private Date date;
 
     @Column(name = "userId")
-    private int userId;
+    private long userId;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "siteId")
     private int siteId;

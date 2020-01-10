@@ -140,6 +140,14 @@ main {
     height: 400px;
 }
 
+.commentaire_pair {
+    background: #f2f2f2;
+}
+
+.commentaire_impair {
+    background: #F8F9FA;
+}
+
 
 @media screen and (min-width: 992px) {
     .menu-profile {

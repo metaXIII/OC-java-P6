@@ -47,11 +47,12 @@ CREATE TABLE Topo
 
 CREATE TABLE Commentaire
 (
-    id      INT AUTO_INCREMENT                 NOT NULL,
-    content TEXT                               NOT NULL,
-    date    DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    userId  INT                                NOT NULL,
-    siteId  INT                                NOT NULL,
+    id       INT AUTO_INCREMENT                 NOT NULL,
+    content  TEXT                               NOT NULL,
+    date     DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    username TEXT                               NOT NULL,
+    userId   INT                                NOT NULL,
+    siteId   INT                                NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -124,8 +125,8 @@ values ('DisneyLand', 1, 'Magic', 1, 1);
 
 # Departement
 insert into Departement(id, code, nom)
-VALUES (1, '01', 'AIN'),
-       (2, '02', 'AISNE'),
+VALUES (1, '01', 'Ain'),
+       (2, '02', 'Aisne'),
        (3, '03', 'Allier'),
        (5, '05', 'Hautes-Alpes'),
        (4, '04', 'Alpes-de-Haute-Provence'),
