@@ -15,5 +15,5 @@ public interface ICommentaireService {
 
     Optional<Commentaire> findById(long id);
 
-    void delete(long id);
+    void deleteById(long id);
 }

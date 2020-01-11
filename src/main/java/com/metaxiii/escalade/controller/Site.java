@@ -107,7 +107,7 @@ public class Site {
             List<Commentaire> commentaireList = commentaireService.findAllBySiteId(Integer.parseInt(id));
             data.put("longueur", longueurList);
             data.put("voie", voiesList);
-            site.get().setCotation(siteService.CalculateCotation(voiesList));
+            site.get().setCotation(siteService.calculateCotation(voiesList));
             data.put("site", site.get());
             data.put("commentaires", commentaireList);
             return new ModelAndView("detail", "data", data);
@@ -150,12 +150,13 @@ public class Site {
     @GetMapping("delete-commentaire/{id}")
     @ResponseBody
     public RedirectView delete_commentaire(@PathVariable String id) {
-//        Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
-//        int idSite = 0;
-//        if (data.isPresent())
-//            idSite = commentaireService.delete.getSiteId();
-//        return new RedirectView("/redirect-site-" + idSite);
-        return null;
+        Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
+        int idSite = 0;
+        if (data.isPresent()) {
+            idSite = data.get().getSiteId();
+            commentaireService.deleteById(Long.parseLong(id));
+        }
+        return new RedirectView("/redirect-site-" + idSite);
     }
 
 }

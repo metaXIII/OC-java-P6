@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class Login {
     @GetMapping("/user/login")
-    public ModelAndView connect_user(Model model) {
+    public ModelAndView connectUser(Model model) {
         return new ModelAndView("login");
     }
 }

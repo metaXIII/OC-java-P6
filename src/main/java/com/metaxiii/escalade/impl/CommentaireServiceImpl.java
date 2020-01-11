@@ -58,7 +58,7 @@ public class CommentaireServiceImpl implements ICommentaireService {
     }
 
     @Override
-    public void delete(long id) {
+    public void deleteById(long id) {
         commentaireRepository.deleteById(id);
     }
 }

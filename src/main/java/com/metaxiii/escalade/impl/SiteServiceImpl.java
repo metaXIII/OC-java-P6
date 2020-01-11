@@ -120,7 +120,7 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public String CalculateCotation(List<Voie> voiesList) {
+    public String calculateCotation(List<Voie> voiesList) {
         int moyenne = 0;
         for (Voie voie : voiesList) {
             moyenne += position(voie.getCotation());

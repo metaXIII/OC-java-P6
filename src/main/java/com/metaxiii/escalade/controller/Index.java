@@ -17,7 +17,7 @@ public class Index {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
