@@ -41,11 +41,12 @@ public class CommentaireServiceImpl implements ICommentaireService {
     public Commentaire edit(CommentaireDto commentaireDto) {
         Optional<Commentaire> commentaire = commentaireRepository.findById((long) commentaireDto.getId());
         if (commentaire.isPresent()) {
-            commentaire.get().setDate(new Date());
             if (commentaire.get().getContent().equals(commentaireDto.getContent())) {
                 return commentaire.get();
-            } else
+            } else {
+                commentaire.get().setDate(new Date());
                 commentaire.get().setContent(commentaireDto.getContent());
+            }
             return commentaireRepository.save(commentaire.get());
         }
         return null;
