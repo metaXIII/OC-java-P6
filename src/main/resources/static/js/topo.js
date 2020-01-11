@@ -20,7 +20,7 @@ function hide() {
             e.nextElementSibling.style.display = "none"
             disabled.forEach(e => {
                 e.setAttribute("disabled", true);
-                e.firstElementChild.removeAttribute("href")
+                e.parentElement.removeAttribute("href")
                 e.style.backgroundColor = "#721c24"
             })
         }
