@@ -46,35 +46,6 @@ public class Site {
     @Autowired
     private ICommentaireService commentaireService;
 
-    @GetMapping("/account/new-site")
-    public ModelAndView new_site(@ModelAttribute("site") SiteDto siteDto,
-                                 BindingResult result, WebRequest request, Errors errors, Model model) {
-        Map<String, Object> datas = new HashMap<>();
-        datas.put("form", "new");
-        datas.put("secteur_list", secteurService.findAllSecteur());
-        datas.put("departement_list", departementService.findAllDepartement());
-        return new ModelAndView("site", "datas", datas);
-    }
-
-
-    @PostMapping("/account/new-site")
-    @ResponseBody
-    public ModelAndView save_site(@ModelAttribute("site") SiteDto siteDto,
-                                  BindingResult result, WebRequest request, Errors errors, Model model) {
-        Map<String, Object> datas = new HashMap<>();
-        datas.put("form", "new");
-        datas.put("departement_list", departementService.findAllDepartement());
-        try {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            int id = (int) user.getId();
-            String redirect = "redirect:/details-site/" + siteService.save(siteDto, id).getId();
-            return new ModelAndView(redirect, "msg", Message.SAVE_SITE.getMsg());
-        } catch (Exception e) {
-            datas.put("msg", e.getMessage());
-            return new ModelAndView("site", "datas", datas);
-        }
-    }
-
     @GetMapping("/search")
     public ModelAndView search(@ModelAttribute("search") SearchDto searchDto,
                                BindingResult result, WebRequest request, Errors errors) {

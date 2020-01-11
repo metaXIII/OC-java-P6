@@ -6,14 +6,16 @@
 <main class="container">
     <h2 class="h2 text-center">Mon compte <span sec:authentication="name"></span></h2>
     <div class="row mb-4">
-        <a href="/account/new-site" class="col-11 offset-md-1 col-md-3 ">
+        <a href="/account/new-site" class="col-11 offset-md-1 col-md-3">
             <button class="btn bg-secondary button-account text-white">
                 Proposer un nouveau site
             </button>
         </a>
-        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white">
-            Proposer un nouveau topo
-        </button>
+        <a href="/account/new-topo" class="col-11 offset-md-1 col-md-3 ">
+            <button class="btn bg-secondary button-account text-white">
+                Proposer un nouveau topo
+            </button>
+        </a>
         <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white overflow-hidden border-0">
             <div class="notification bg-danger">1</div>
             Réservation en cours

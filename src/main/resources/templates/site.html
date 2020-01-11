@@ -52,6 +52,7 @@
                     new_secteur.value = secteur_id.value + " - " + secteur_name.value
                     new_secteur.innerText = secteur_name.value
                     document.getElementById("departement").disabled = true;
+                    document.getElementById("departement").value = secteur_id.value
                     modal.modal('hide')
                 }
             })
