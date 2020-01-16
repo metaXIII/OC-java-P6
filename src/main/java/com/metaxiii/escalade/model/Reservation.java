@@ -2,22 +2,20 @@ package com.metaxiii.escalade.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "Reservation")
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "topoId")
-    private int topoId;
+    private long topoId;
 
     @Column(name = "requestUserId")
-    private int requestUserId;
+    private long requestUserId;
 }
