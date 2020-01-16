@@ -1,5 +1,6 @@
 package com.metaxiii.escalade.impl;
 
+import com.metaxiii.escalade.dto.TopoDto;
 import com.metaxiii.escalade.model.Topo;
 import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.repository.TopoRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,5 +55,18 @@ public class TopoServiceImpl implements ITopoService {
             e.printStackTrace();
             return "Une erreur s'est produite, veuillez réessayer plus tard";
         }
+    }
+
+    @Override
+    public Topo save(TopoDto topoDto) {
+        System.out.println("check topoDto");
+        Date date = new Date();
+        date.setTime();
+        Topo topo = new Topo();
+        topo.setNom(topoDto.getNom());
+        topo.setAvailable(true);
+        topo.setDateParution();
+        System.out.println(topoDto.getDateParution());
+        return null;
     }
 }

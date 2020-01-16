@@ -1,6 +1,7 @@
 package com.metaxiii.escalade.controller;
 
 import com.metaxiii.escalade.dto.SiteDto;
+import com.metaxiii.escalade.dto.TopoDto;
 import com.metaxiii.escalade.enums.Message;
 import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.service.IDepartementService;
@@ -74,13 +75,5 @@ public class Account {
 			datas.put("msg", e.getMessage());
 			return new ModelAndView("site", "datas", datas);
 		}
-	}
-
-
-	@GetMapping("/account/new-topo")
-	public ModelAndView newTopo(Model model) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("new", "Nouveau topo");
-		return new ModelAndView("topo", "data", data);
 	}
 }

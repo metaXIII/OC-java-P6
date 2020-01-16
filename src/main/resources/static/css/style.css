@@ -130,6 +130,20 @@ main {
     color: #ff0000;
 }
 
+.day {
+    border: 1px solid #000 !important;
+    border-radius: 2px;
+    border-collapse: collapse !important;
+}
+
+.day:hover {
+    background: #286090 !important;
+}
+
+.datepicker-switch {
+    background-color: #3c88c9 !important;
+}
+
 @media screen and (min-width: 576px) {
     .detail_image {
         display: block;
