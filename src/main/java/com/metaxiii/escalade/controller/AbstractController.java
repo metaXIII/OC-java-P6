@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.Serializable;
 
-abstract class AbstractController implements Serializable {
+public abstract class AbstractController implements Serializable {
     private static final long   serialVersionUID = -7825179903556660950L;
     private transient    Logger logger           = LoggerFactory.getLogger(AbstractController.class);
 
