@@ -2,10 +2,7 @@ package com.metaxiii.escalade.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,8 +10,9 @@ import java.util.Date;
 @Table(name = "Topo")
 public class Topo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "nom")
     private String nom;
@@ -29,7 +27,7 @@ public class Topo {
     private Date dateParution;
 
     @Column(name = "userId")
-    private int userId;
+    private long userId;
 
     @Column(name = "available")
     private boolean available;

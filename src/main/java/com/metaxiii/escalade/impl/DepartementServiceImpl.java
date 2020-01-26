@@ -13,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class DepartementServiceImpl implements IDepartementService {
-    private final DepartementRepository departementRepository;
+	private final DepartementRepository departementRepository;
 
-    @Override
-    public List<Departement> findAllDepartement() {
-        return departementRepository.findAll();
-    }
+	@Override
+	public List<Departement> findAllDepartement() {
+		return departementRepository.findAll();
+	}
 }

@@ -9,40 +9,43 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.ParseException;
 
 @Controller
 public class Topo {
-	@Autowired
-	private ITopoService        topoService;
-	@Autowired
-	private IDepartementService departementService;
+    @Autowired
+    private ITopoService topoService;
 
-	@RequestMapping("/topo")
-	public ModelAndView topo() {
-		return new ModelAndView("topo", "results", topoService.findAllTopos());
-	}
+    @Autowired
+    private IDepartementService departementService;
 
-	@GetMapping("/reservation-topo/{id}")
-	@ResponseBody
-	public ModelAndView reservation(@PathVariable String id) {
-		String msg = topoService.updateTopoWithId(id);
-		return new ModelAndView("index", "msg", msg);
-	}
+    @RequestMapping("/topo")
+    public ModelAndView topo() {
+        ModelAndView modelAndView = new ModelAndView("topo");
+        modelAndView.addObject("results", topoService.findAllTopos());
+        modelAndView.addObject("show", false);
+        return modelAndView;
+    }
 
-	@GetMapping("/account/new-topo")
-	public ModelAndView newTopo(Model model) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("new", "Nouveau topo");
-		data.put("departement_list", departementService.findAllDepartement());
-		return new ModelAndView("topo", "data", data);
-	}
+    @GetMapping("/reservation-topo/{id}")
+    @ResponseBody
+    public ModelAndView reservation(@PathVariable String id) {
+        String msg = topoService.updateTopoWithId(id);
+        return new ModelAndView("index", "msg", msg);
+    }
 
-	@PostMapping("/account/new-topo")
-	public ModelAndView saveTopo(Model model, @ModelAttribute("site") TopoDto topoDto) {
-		topoService.save(topoDto);
-		String msg = "Merci pour votre participation";
-		return new ModelAndView("index", "msg", msg);
-	}
+    @GetMapping("/account/new-topo")
+    public ModelAndView newTopo(Model model) {
+        ModelAndView modelAndView = new ModelAndView("topo");
+        modelAndView.addObject("show", true);
+        modelAndView.addObject("departement_list", departementService.findAllDepartement());
+        return modelAndView;
+    }
+
+    @PostMapping("/account/new-topo")
+    public ModelAndView saveTopo(Model model, @ModelAttribute("site") TopoDto topoDto) throws ParseException {
+        topoService.save(topoDto);
+        String msg = "Merci pour votre participation";
+        return new ModelAndView("index", "msg", msg);
+    }
 }

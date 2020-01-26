@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface SecteurRepository extends JpaRepository<Secteur, Long> {
-    List<Secteur> findAll();
+	List<Secteur> findAll();
 
-    Optional<Secteur> findById(int id);
+	Optional<Secteur> findById(int id);
 
-    Optional<Secteur> findByNom(String name);
+	Optional<Secteur> findByNom(String name);
 
-    Optional<Secteur> DepartementId(int departement_id);
+	Optional<Secteur> DepartementId(int departement_id);
 }

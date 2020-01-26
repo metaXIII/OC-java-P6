@@ -8,14 +8,14 @@ import javax.persistence.*;
 @Data
 @Table(name = "Departement")
 public class Departement {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @Column(name = "nom")
-    private String nom;
+	@Column(name = "nom")
+	private String nom;
 
-    @Column(name = "code")
-    private String code;
+	@Column(name = "code")
+	private String code;
 }

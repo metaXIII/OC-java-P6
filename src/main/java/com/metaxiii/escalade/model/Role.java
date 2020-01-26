@@ -15,10 +15,10 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role {
-    @Id
-    @Column(name = "id")
-    private int id;
+	@Id
+	@Column(name = "id")
+	private int id;
 
-    @Column(name = "role")
-    private String role;
+	@Column(name = "role")
+	private String role;
 }

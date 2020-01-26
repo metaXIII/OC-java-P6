@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class CommentaireDto {
-    private int id;
-    private Date date;
-    private String content;
+	private int    id;
+	private Date   date;
+	private String content;
 }

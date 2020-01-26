@@ -4,8 +4,8 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <h2 class="h2 text-center" th:text="${datas.form} == 'new' ? 'Proposer un nouveau site' : 'Modifier un site'"></h2>
-    <form th:if="${datas.form} == 'new'" th:include="form/new-site::new-site" method="post"></form>
+    <h2 class="h2 text-center" th:text="${form} == 'new' ? 'Proposer un nouveau site' : 'Modifier un site'"></h2>
+    <form th:if="${form} == 'new'" th:replace="form/new-site::new-site" method="post"></form>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label for="secteur_id">Numéro du département</label>
                         <select name="secteur_id" id="secteur_id" class="form-control" required>
-                            <option th:each="departement : ${datas.departement_list}" th:value="${departement.id}"
+                            <option th:each="departement : ${departement_list}" th:value="${departement.id}"
                                     th:text="${departement.code} + ' - ' +  ${departement.nom}"></option>
                         </select>
                     </div>

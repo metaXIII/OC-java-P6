@@ -9,23 +9,23 @@ import java.util.Date;
 @Data
 @Table(name = "Commentaire")
 public class Commentaire {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
 
-    @Column(name = "content")
-    private String content;
+	@Column(name = "content")
+	private String content;
 
-    @Column(name = "date")
-    private Date date;
+	@Column(name = "date")
+	private Date date;
 
-    @Column(name = "userId")
-    private long userId;
+	@Column(name = "userId")
+	private long userId;
 
-    @Column(name = "username")
-    private String username;
+	@Column(name = "username")
+	private String username;
 
-    @Column(name = "siteId")
-    private int siteId;
+	@Column(name = "siteId")
+	private int siteId;
 }

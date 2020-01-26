@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ISecteurService {
-    List<Secteur> findAllSecteur();
+	List<Secteur> findAllSecteur();
 
-    Optional<Secteur> findById(int id);
+	Optional<Secteur> findById(int id);
 
-    Optional<Secteur> findByName(String name);
+	Optional<Secteur> findByName(String name);
 
-    Secteur save(Secteur secteur);
+	Secteur save(Secteur secteur);
 
-    Secteur checkSecteur(String secteur);
+	Secteur checkSecteur(String secteur);
 }

@@ -17,7 +17,7 @@
         <div class="col-sm-10">
             <div class="select-editable">
                 <select name="secteur" id="secteur" class="form-control" placeholder="Nom du secteur" required>
-                    <option th:each="secteur : ${datas.secteur_list}" th:value="${secteur.id}"
+                    <option th:each="secteur : ${secteurList}" th:value="${secteur.id}"
                             th:text="${secteur.nom}"></option>
                     <option value="" id="new_secteur" class="red">Insérer une nouvelle entrée...</option>
                 </select>
@@ -28,7 +28,7 @@
         <label for="departement" class="col-sm-2 col-form-label">Département :</label>
         <div class="col-sm-10">
             <select name="departement" id="departement" class="form-control" required>
-                <option th:each="departement : ${datas.departement_list}" th:value="${departement.id}"
+                <option th:each="departement : ${departement_list}" th:value="${departement.id}"
                         th:text="${departement.code} + ' - ' +  ${departement.nom}"></option>
             </select>
         </div>
@@ -39,45 +39,6 @@
             <select name="type" id="type" class="form-control" required>
                 <option value="Falaise">Falaise</option>
                 <option value="bloc">Bloc</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="cotation" class="col-sm-2 col-form-label">Cotation du site :</label>
-        <div class="col-sm-4">
-            <select name="cotation" id="cotation" class="form-control" required>
-                <option value="3">3</option>
-                <option value="3+">3+</option>
-                <option value="4a">4a</option>
-                <option value="4b">4b</option>
-                <option value="4c">4c</option>
-                <option value="5a">5a</option>
-                <option value="5b">5b</option>
-                <option value="5c">5c</option>
-                <option value="6a">6a</option>
-                <option value="6a+">6a+</option>
-                <option value="6b">6b</option>
-                <option value="6b+">6b+</option>
-                <option value="6c">6c</option>
-                <option value="6c+">6c+</option>
-                <option value="7a">7a</option>
-                <option value="7a+">7a+</option>
-                <option value="7b">7b</option>
-                <option value="7b+">7b+</option>
-                <option value="7c">7c</option>
-                <option value="7c+">7c+</option>
-                <option value="8a">8a</option>
-                <option value="8a+">8a+</option>
-                <option value="8b">8b</option>
-                <option value="8b+">8b+</option>
-                <option value="8c">8c</option>
-                <option value="8c+">8c+</option>
-                <option value="9a">9a</option>
-                <option value="9a+">9a+</option>
-                <option value="9b">9b</option>
-                <option value="9b+">9b+</option>
-                <option value="9c">9c</option>
-                <option value="9c+">9c+</option>
             </select>
         </div>
     </div>

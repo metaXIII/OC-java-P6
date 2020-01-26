@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements IUserService, UserDetailsService {
-	private final UserRepository userRepository;
+	private final UserRepository  userRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override

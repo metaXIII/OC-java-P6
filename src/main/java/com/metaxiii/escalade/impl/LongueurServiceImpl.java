@@ -17,29 +17,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class LongueurServiceImpl implements ILongueurService {
-    private final LongueurRepository longueurRepository;
+	private final LongueurRepository longueurRepository;
 
-    @Autowired
-    private VoieServiceImpl voieService;
+	@Autowired
+	private VoieServiceImpl voieService;
 
-    @Override
-    public List<Longueur> findAllBySiteId(int id) {
-        return longueurRepository.findAllBySiteId(id);
-    }
+	@Override
+	public List<Longueur> findAllBySiteId(int id) {
+		return longueurRepository.findAllBySiteId(id);
+	}
 
-    @Override
-    public void saveLongueur(LongueurDto longueurDto, int id) {
-        List<Voie> voieList = new ArrayList<>();
-        Longueur longueur = new Longueur();
-        longueur.setSiteId(id);
-        longueur.setCotation(longueurDto.getCotation());
-        longueurDto.setId(longueurRepository.save(longueur).getId());
-        for (int i = 0; i < longueurDto.getVoies(); i++) {
-            Voie voie = new Voie();
-            voie.setCotation(longueur.getCotation());
-            voie.setLongueurId(longueurDto.getId());
-            voieList.add(voie);
-            voieService.save(voie);
-        }
-    }
+	@Override
+	public void saveLongueur(LongueurDto longueurDto, int id) {
+		List<Voie> voieList = new ArrayList<>();
+		Longueur   longueur = new Longueur();
+		longueur.setSiteId(id);
+		longueur.setCotation(longueurDto.getCotation());
+		longueurDto.setId(longueurRepository.save(longueur).getId());
+		for (int i = 0; i < longueurDto.getVoies(); i++) {
+			Voie voie = new Voie();
+			voie.setCotation(longueur.getCotation());
+			voie.setLongueurId(longueurDto.getId());
+			voieList.add(voie);
+			voieService.save(voie);
+		}
+	}
 }

@@ -1,17 +1,18 @@
 package com.metaxiii.escalade.impl;
 
+import com.metaxiii.escalade.controller.AbstractController;
 import com.metaxiii.escalade.dto.TopoDto;
 import com.metaxiii.escalade.model.Topo;
-import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.repository.TopoRepository;
 import com.metaxiii.escalade.service.IReservationService;
 import com.metaxiii.escalade.service.ITopoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TopoServiceImpl implements ITopoService {
+public class TopoServiceImpl extends AbstractController implements ITopoService {
     private final TopoRepository topoRepository;
 
     @Autowired
@@ -31,7 +32,7 @@ public class TopoServiceImpl implements ITopoService {
     }
 
     @Override
-    public Optional<Topo> findById(int id) {
+    public Optional<Topo> findById(long id) {
         return topoRepository.findById(id);
     }
 
@@ -42,11 +43,12 @@ public class TopoServiceImpl implements ITopoService {
 
     @Override
     public String updateTopoWithId(String id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
-            if (topoRepository.findById(Integer.parseInt(id)).isPresent()) {
-                reservationService.reservation(Long.parseLong(id), user.getId());
-                topoRepository.updateTopo(Integer.parseInt(id), false);
+            Optional<Topo> topoById = topoRepository.findById(Integer.parseInt(id));
+            if (topoById.isPresent()) {
+                reservationService.reservation(Long.parseLong(id), getUser().getId());
+                topoById.get().setAvailable(false);
+                topoRepository.save(topoById.get());
                 return "La demande de réservation a bien été effectuée";
             } else {
                 return "Une erreur s'est produite, veuillez réessayer plus tard";
@@ -58,15 +60,15 @@ public class TopoServiceImpl implements ITopoService {
     }
 
     @Override
-    public Topo save(TopoDto topoDto) {
-        System.out.println("check topoDto");
-        Date date = new Date();
-        date.setTime();
-        Topo topo = new Topo();
+    public Topo save(TopoDto topoDto) throws ParseException {
+        Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(topoDto.getDateParution());
+        Topo topo       = new Topo();
         topo.setNom(topoDto.getNom());
         topo.setAvailable(true);
-        topo.setDateParution();
-        System.out.println(topoDto.getDateParution());
-        return null;
+        topo.setDateParution(dateFormat);
+        topo.setDescription(topoDto.getDescription());
+        topo.setLieu(topoDto.getLieu());
+        topo.setUserId(getUser().getId());
+        return topoRepository.save(topo);
     }
 }

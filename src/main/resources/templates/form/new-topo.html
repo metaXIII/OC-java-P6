@@ -10,7 +10,7 @@
     <div class="form-group row">
         <label for="lieu" class="col-sm-3">Département concerné :</label>
         <select name="lieu" id="lieu" class="form-control col-sm-8">
-            <option th:each="departement : ${data.departement_list}" th:value="${departement.nom}"
+            <option th:each="departement : ${departement_list}" th:value="${departement.nom}"
                     th:text="${departement.code} + ' - ' + ${departement.nom}"></option>
         </select>
     </div>

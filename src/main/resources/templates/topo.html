@@ -5,10 +5,10 @@
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <div th:if="${data}">
+    <div th:if="${show}">
         <form th:replace="form/new-topo::new-topo" action="" method="post"></form>
     </div>
-    <div th:unless="${data}">
+    <div th:unless="${show}">
         <div class="row justify-content-between">
             <h2 class="h2 text-underline col-6">Liste des Topos:</h2>
             <form action="#">
@@ -33,6 +33,7 @@
                             <a th:href="@{'reservation-topo/' + ${result.id}}" sec:authorize="isAuthenticated()"
                                class="text-black">
                                 <button type="button" class="btn btn-success"
+                                        th:if="!${result.getUserId() == #authentication.getPrincipal().getId()}"
                                         th:classappend="${result.available} ? '' : disabled_element ">
                                     Réserver
                                 </button>

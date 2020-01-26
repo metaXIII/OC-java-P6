@@ -16,28 +16,28 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class VoieServiceImpl implements IVoiesService {
-    private final VoiesRepository voiesRepository;
+	private final VoiesRepository voiesRepository;
 
-    @Autowired
-    private LongueurServiceImpl longueurService;
+	@Autowired
+	private LongueurServiceImpl longueurService;
 
-    @Override
-    public List<Voie> findAllBySiteId(int id) {
-        List<Voie> voieList = new ArrayList<>();
-        List<Longueur> longueurList = longueurService.findAllBySiteId(id);
-        for (Longueur longueur : longueurList) {
-            voieList.addAll(voiesRepository.findAllByLongueurId(longueur.getId()));
-        }
-        return voieList;
-    }
+	@Override
+	public List<Voie> findAllBySiteId(int id) {
+		List<Voie>     voieList     = new ArrayList<>();
+		List<Longueur> longueurList = longueurService.findAllBySiteId(id);
+		for (Longueur longueur : longueurList) {
+			voieList.addAll(voiesRepository.findAllByLongueurId(longueur.getId()));
+		}
+		return voieList;
+	}
 
-    @Override
-    public void saveAll(List<Voie> voie) {
-        voiesRepository.saveAll(voie);
-    }
+	@Override
+	public void saveAll(List<Voie> voie) {
+		voiesRepository.saveAll(voie);
+	}
 
-    @Override
-    public void save(Voie voie) {
-        voiesRepository.save(voie);
-    }
+	@Override
+	public void save(Voie voie) {
+		voiesRepository.save(voie);
+	}
 }

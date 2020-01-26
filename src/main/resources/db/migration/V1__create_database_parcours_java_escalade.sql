@@ -236,10 +236,10 @@ VALUES ('Other', 56);
 
 #topo
 insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom', 'description', 'lieu', '2019-12-05 15:25:37', 1, DEFAULT);
+VALUES (null, 'nom', 'description', 'lieu', '2019-12-05 15:25:37', 2, DEFAULT);
 
 insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom2', 'description', 'lieu', '2019-12-06 15:25:37', 1, false);
+VALUES (null, 'nom2', 'description', 'lieu', '2019-12-06 15:25:37', 2, DEFAULT);
 
 insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom3', 'description', 'lieu', '2019-12-07 15:25:37', 1, false);
+VALUES (null, 'nom3', 'description', 'lieu', '2019-12-07 15:25:37', 2, DEFAULT);

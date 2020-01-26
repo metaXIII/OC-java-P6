@@ -6,7 +6,7 @@ import com.metaxiii.escalade.model.Longueur;
 import java.util.List;
 
 public interface ILongueurService {
-    List<Longueur> findAllBySiteId(int id);
+	List<Longueur> findAllBySiteId(int id);
 
-    void saveLongueur(LongueurDto longueurDto, int id);
+	void saveLongueur(LongueurDto longueurDto, int id);
 }

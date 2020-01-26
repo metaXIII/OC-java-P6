@@ -5,9 +5,9 @@ import com.metaxiii.escalade.model.Voie;
 import java.util.List;
 
 public interface IVoiesService {
-    List<Voie> findAllBySiteId(int id);
+	List<Voie> findAllBySiteId(int id);
 
-    void saveAll(List<Voie> voies);
+	void saveAll(List<Voie> voies);
 
-    void save(Voie voie);
+	void save(Voie voie);
 }

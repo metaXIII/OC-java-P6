@@ -24,32 +24,30 @@
         </a>
     </div>
 
-    <!--    <div th:if="${datas.containsKey('show')}">-->
-    <!--        &lt;!&ndash; todo : get method for adresse url account/reservation à la place de #reservation&ndash;&gt;-->
-    <!--        <hr>-->
-    <!--        <h6>Liste des réservations en cours</h6>-->
-    <!--        <table class="table table-striped">-->
-    <!--            <thead>-->
-    <!--            <tr>-->
-    <!--                <th scope="col">#</th>-->
-    <!--                <th scope="col">Nom du topo</th>-->
-    <!--                <th scope="col">Nom de l'utilisateur</th>-->
-    <!--                <th scope="col">Réserver</th>-->
-    <!--            </tr>-->
-    <!--            </thead>-->
-    <!--            <tbody>-->
-    <!--            <tr th:each="reservation, i : ${datas.reservations}">-->
-    <!--                <th scope="row" th:text="${i.index + 1}"></th>-->
-    <!--                <td th:text="${reservation.topoName}"></td>-->
-    <!--                <td th:text="${reservation.username}"></td>-->
-    <!--                <td>-->
-    <!--                    <button class="btn btn-success">Valider</button>-->
-    <!--                </td>-->
-    <!--            </tr>-->
-    <!--            </tbody>-->
-    <!--        </table>-->
-    <!--        <table></table>-->
-    <!--    </div>-->
+    <div th:if="${show != null}">
+        <hr>
+        <h6>Liste des réservations en cours</h6>
+        <table class="table table-striped" aria-describedby="Reservations">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom du topo</th>
+                <th scope="col">Nom de l'utilisateur</th>
+                <th scope="col">Réserver</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation, i : ${reservations}">
+                <th scope="row" th:text="${i.index + 1}"></th>
+                <td th:text="${reservation.getTopo().getNom()}"></td>
+                <td th:text="${reservation.getRequestUserId().getUsername()}"></td>
+                <td>
+                    <button class="btn btn-success">Valider</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>
 </body>

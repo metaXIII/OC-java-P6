@@ -1,6 +1,7 @@
 package com.metaxiii.escalade.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -13,9 +14,12 @@ public class Reservation {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "topoId")
-    private long topoId;
+    @ManyToOne()
+    @JoinColumn(name = "topoId")
+    private Topo topo;
 
-    @Column(name = "requestUserId")
-    private long requestUserId;
+    @ManyToOne()
+    @JoinColumn(name = "requestUserId")
+    private User requestUserId;
+
 }

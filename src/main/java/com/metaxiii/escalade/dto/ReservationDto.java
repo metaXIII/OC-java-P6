@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SecteurDto {
-	private String departement_id;
-	private String nom;
+public class ReservationDto {
+	private int    id;
+	private String topoName;
+	private String username;
 }

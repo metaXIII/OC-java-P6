@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long> {
-    List<Longueur> findAllBySiteId(int id);
+	List<Longueur> findAllBySiteId(int id);
 }
