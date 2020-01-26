@@ -7,20 +7,49 @@
     <h2 class="h2 text-center">Mon compte <span sec:authentication="name"></span></h2>
     <div class="row mb-4">
         <a href="/account/new-site" class="col-11 offset-md-1 col-md-3">
-            <button class="btn bg-secondary button-account text-white">
+            <button class="btn bg-secondary button-account text-white w-100">
                 Proposer un nouveau site
             </button>
         </a>
-        <a href="/account/new-topo" class="col-11 offset-md-1 col-md-3 ">
-            <button class="btn bg-secondary button-account text-white">
+        <a href="/account/new-topo" class="col-11 offset-md-1 col-md-3">
+            <button class="btn bg-secondary button-account text-white w-100">
                 Proposer un nouveau topo
             </button>
         </a>
-        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white overflow-hidden border-0">
-            <div class="notification bg-danger">1</div>
-            Réservation en cours
-        </button>
+        <a href="/account/reservations" class="col-11 offset-md-1 col-md-3 pr-0 overflow-hidden">
+            <button class="btn bg-secondary button-account text-white border-0 w-100">
+                <div class="notification bg-danger" th:text="${#lists.size(reservations)}"></div>
+                Réservation en cours
+            </button>
+        </a>
     </div>
+
+    <!--    <div th:if="${datas.containsKey('show')}">-->
+    <!--        &lt;!&ndash; todo : get method for adresse url account/reservation à la place de #reservation&ndash;&gt;-->
+    <!--        <hr>-->
+    <!--        <h6>Liste des réservations en cours</h6>-->
+    <!--        <table class="table table-striped">-->
+    <!--            <thead>-->
+    <!--            <tr>-->
+    <!--                <th scope="col">#</th>-->
+    <!--                <th scope="col">Nom du topo</th>-->
+    <!--                <th scope="col">Nom de l'utilisateur</th>-->
+    <!--                <th scope="col">Réserver</th>-->
+    <!--            </tr>-->
+    <!--            </thead>-->
+    <!--            <tbody>-->
+    <!--            <tr th:each="reservation, i : ${datas.reservations}">-->
+    <!--                <th scope="row" th:text="${i.index + 1}"></th>-->
+    <!--                <td th:text="${reservation.topoName}"></td>-->
+    <!--                <td th:text="${reservation.username}"></td>-->
+    <!--                <td>-->
+    <!--                    <button class="btn btn-success">Valider</button>-->
+    <!--                </td>-->
+    <!--            </tr>-->
+    <!--            </tbody>-->
+    <!--        </table>-->
+    <!--        <table></table>-->
+    <!--    </div>-->
 </main>
 <footer th:replace="include/footer::footer"></footer>
 </body>
