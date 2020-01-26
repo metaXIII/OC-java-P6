@@ -3,85 +3,75 @@ package com.metaxiii.escalade.controller;
 import com.metaxiii.escalade.dto.CommentaireDto;
 import com.metaxiii.escalade.dto.LongueurDto;
 import com.metaxiii.escalade.dto.SearchDto;
-import com.metaxiii.escalade.dto.SiteDto;
 import com.metaxiii.escalade.enums.Message;
 import com.metaxiii.escalade.model.Commentaire;
-import com.metaxiii.escalade.model.Longueur;
-import com.metaxiii.escalade.model.User;
 import com.metaxiii.escalade.model.Voie;
 import com.metaxiii.escalade.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
-public class Site {
+public class Site extends AbstractController {
     @Autowired
-    private IDepartementService departementService;
+    private transient IDepartementService departementService;
 
     @Autowired
-    private ISiteService siteService;
+    private transient ISiteService siteService;
 
     @Autowired
-    private ISecteurService secteurService;
+    private transient ISecteurService secteurService;
 
     @Autowired
-    private ILongueurService longueurService;
+    private transient ILongueurService longueurService;
 
     @Autowired
-    private IVoiesService voiesService;
+    private transient IVoiesService voiesService;
 
     @Autowired
-    private ICommentaireService commentaireService;
+    private transient ICommentaireService commentaireService;
+
+    private static final String REDIRECT = "redirect:/details-site/";
 
     @GetMapping("/search")
-    public ModelAndView search(@ModelAttribute("search") SearchDto searchDto,
-                               BindingResult result, WebRequest request, Errors errors) {
-        Map<String, Object> search_component = new HashMap<>();
-        search_component.put("departement_list", departementService.findAllDepartement());
-        search_component.put("all_secteur_list", secteurService.findAllSecteur());
-        search_component.put("all_type_list", siteService.findAllType());
-        return new ModelAndView("search", "search_component", search_component);
+    public ModelAndView search(@ModelAttribute("search") SearchDto searchDto, BindingResult result, WebRequest request, Errors errors) {
+        ModelAndView modelAndView = new ModelAndView("search");
+        modelAndView.addObject("departement_list", departementService.findAllDepartement());
+        modelAndView.addObject("all_secteur_list", secteurService.findAllSecteur());
+        modelAndView.addObject("all_type_list", siteService.findAllType());
+        return modelAndView;
     }
 
     @PostMapping("/search")
-    public ModelAndView search_site(@ModelAttribute("search") SearchDto searchDto,
-                                    BindingResult result, WebRequest request, Errors errors) {
-        Map<String, Object> search_component = new HashMap<>();
-        search_component.put("departement_list", departementService.findAllDepartement());
-        search_component.put("all_secteur_list", secteurService.findAllSecteur());
-        search_component.put("all_type_list", siteService.findAllType());
-        search_component.put("results", siteService.getResult(searchDto));
-        return new ModelAndView("search", "search_component", search_component);
+    public ModelAndView searchSite(@ModelAttribute("search") SearchDto searchDto, BindingResult result, WebRequest request, Errors errors) {
+        ModelAndView modelAndView = new ModelAndView("search");
+        modelAndView.addObject("departement_list", departementService.findAllDepartement());
+        modelAndView.addObject("all_secteur_list", secteurService.findAllSecteur());
+        modelAndView.addObject("all_type_list", siteService.findAllType());
+        modelAndView.addObject("results", siteService.getResult(searchDto));
+        return modelAndView;
     }
 
     @GetMapping("/details-site/{id}")
     @ResponseBody
-    public ModelAndView detail_site(@PathVariable String id) {
+    public ModelAndView detailSite(@PathVariable String id) {
         Optional<com.metaxiii.escalade.model.Site> site = siteService.findById(Long.parseLong(id));
-        Map<String, Object> data = new HashMap<>();
         if (site.isPresent()) {
-            List<Longueur> longueurList = longueurService.findAllBySiteId(Integer.parseInt(id));
-            List<Voie> voiesList = voiesService.findAllBySiteId(Integer.parseInt(id));
-            List<Commentaire> commentaireList = commentaireService.findAllBySiteId(Integer.parseInt(id));
-            data.put("longueur", longueurList);
-            data.put("voie", voiesList);
-            site.get().setCotation(siteService.calculateCotation(voiesList));
-            data.put("site", site.get());
-            data.put("commentaires", commentaireList);
-            return new ModelAndView("detail", "data", data);
+            ModelAndView modelAndView = new ModelAndView("detail");
+            List<Voie>   allBySiteId  = voiesService.findAllBySiteId(Integer.parseInt(id));
+            site.get().setCotation(siteService.calculateCotation(allBySiteId));
+            modelAndView.addObject("site", site.get());
+            modelAndView.addObject("longueur", longueurService.findAllBySiteId(Integer.parseInt(id)));
+            modelAndView.addObject("voie", allBySiteId);
+            modelAndView.addObject("commentaires", commentaireService.findAllBySiteId(Integer.parseInt(id)));
+            return modelAndView;
         } else
             return new ModelAndView("404", "msg", Message.SITE_NOT_FOUND.getMsg());
     }
@@ -89,11 +79,11 @@ public class Site {
 
     @PostMapping("/details-site/{id}")
     @ResponseBody
-    public ModelAndView add_longueur(@PathVariable String id, @ModelAttribute("longueur") LongueurDto longueurDto) {
+    public ModelAndView addLongueur(@PathVariable String id, @ModelAttribute("longueur") LongueurDto longueurDto) {
         Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
         if (data.isPresent()) {
             longueurService.saveLongueur(longueurDto, Integer.parseInt(id));
-            return detail_site(id);
+            return new ModelAndView(REDIRECT + id);
         } else {
             return new ModelAndView("404", "msg", Message.GLOBAL_ERROR.getMsg());
         }
@@ -101,33 +91,38 @@ public class Site {
 
     @PostMapping("/ajouter-commentaire/{id}")
     @ResponseBody
-    public RedirectView add_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
+    public ModelAndView addCommentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
         Optional<com.metaxiii.escalade.model.Site> data = siteService.findById(Long.parseLong(id));
-        if (data.isPresent())
+        if (data.isPresent()) {
             commentaireService.save(commentaireDto, Integer.parseInt(id));
-        return new RedirectView("/redirect-site-" + id);
+            return new ModelAndView(REDIRECT + id);
+        }
+        return new ModelAndView("redirect:404");
     }
 
     @PostMapping("/edit-commentaire/{id}")
     @ResponseBody
-    public RedirectView edit_commentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
-        Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
-        int idSite = 0;
-        if (data.isPresent())
+    public ModelAndView editCommentaire(@PathVariable String id, @ModelAttribute("commentaire") CommentaireDto commentaireDto) {
+        Optional<Commentaire> data   = commentaireService.findById(Long.parseLong(id));
+        int                   idSite = 0;
+        if (data.isPresent()) {
             idSite = commentaireService.edit(commentaireDto).getSiteId();
-        return new RedirectView("/redirect-site-" + idSite);
+            return new ModelAndView(REDIRECT + idSite);
+        }
+        return new ModelAndView("redirect:/404");
     }
 
     @GetMapping("delete-commentaire/{id}")
     @ResponseBody
-    public RedirectView delete_commentaire(@PathVariable String id) {
+    public ModelAndView deleteCommentaire(@PathVariable String id) {
+        int                   idSite;
         Optional<Commentaire> data = commentaireService.findById(Long.parseLong(id));
-        int idSite = 0;
         if (data.isPresent()) {
             idSite = data.get().getSiteId();
             commentaireService.deleteById(Long.parseLong(id));
+            return new ModelAndView(REDIRECT + idSite);
         }
-        return new RedirectView("/redirect-site-" + idSite);
+        return new ModelAndView("redirect:/404");
     }
 
 }

@@ -8,9 +8,9 @@
 <header th:replace="include/header::header"></header>
 <main class="container">
     <div class="row pb-1">
-        <h2 th:text="${data.site.nom}" class="col-6">Titre</h2>
+        <h2 th:text="${site.nom}" class="col-6">Titre</h2>
         <div class="col-6 d-flex flex-column align-items-end" sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"
-             th:if="${(data.site.userId == #authentication.getPrincipal().getId())} or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
+             th:if="${(site.userId == #authentication.getPrincipal().getId())} or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
             <button class="btn btn-info" id="add_longueur" data-toggle="modal" data-target="#longueurModal">
                 Ajouter une longueur / voie
             </button>
@@ -23,23 +23,23 @@
                 <tbody>
                 <tr>
                     <th scope="row">Nombres de longueurs</th>
-                    <th th:text="${data.longueur != null ? data.longueur.size() : 0}">0</th>
+                    <th th:text="${longueur != null ? longueur.size() : 0}">0</th>
                 </tr>
                 <tr>
                     <th scope="row">Nombres de voies</th>
-                    <th th:text="${data.voie != null ? data.voie.size() : 0}">0</th>
+                    <th th:text="${voie != null ? voie.size() : 0}">0</th>
                 </tr>
                 <tr>
                     <th scope="row">Type</th>
-                    <th th:text="${data.site.type}">9999</th>
+                    <th th:text="${site.type}"></th>
                 </tr>
                 <tr>
-                    <th scope="row">Cotation</th>
-                    <th th:text="${data.site.cotation}">9999</th>
+                    <th scope="row" th:if="${!site.cotation.isEmpty()}">Cotation</th>
+                    <th th:text="${site.cotation}"></th>
                 </tr>
-                <tr th:if="${data.site.officiel}">
+                <tr th:if="${site.officiel}">
                     <th scope="row">Officiel</th>
-                    <th th:text="${data.site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
+                    <th th:text="${site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
                 </tr>
                 </tbody>
             </table>
@@ -49,7 +49,7 @@
         </div>
     </div>
     <h3>Description du site</h3>
-    <p th:text="${data.site.description}">Aucune description fournie</p>
+    <p th:text="${site.description}">Aucune description fournie</p>
     <h3>Localisation</h3>
     <div class="container mapContainer">
         <div class="overlay"></div>
@@ -58,7 +58,7 @@
     <section id="container" class="pt-2">
         <div class="row">
             <div class="commentaire_list col-6">
-                <div th:each="commentaire : ${data.commentaires}">
+                <div th:each="commentaire : ${commentaires}">
                     <div class="commentaire"
                          th:classappend="${commentaire.id % 2 == 0} ? 'commentaire commentaire_pair' : 'commentaire commentaire_impair'">
                         <span th:text="${commentaire.content}"></span>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <form th:action="@{/ajouter-commentaire/{id}(id = ${data.site.id})}" method="post"
+            <form th:action="@{/ajouter-commentaire/{id}(id = ${site.id})}" method="post"
                   sec:authorize="isAuthenticated()" class="col-6"
                   th:include="form/new-commentaire" id="form_create_commentaire"></form>
             <h6 sec:authorize="!isAuthenticated()">Vous devez être connecté pour laisser un commentaire</h6>
@@ -91,7 +91,7 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 <script th:inline="javascript">
-    console.log("echo  : " + /*[[${data.site.nom}]]*/ "null")
+    console.log("echo  : " + /*[[${site.nom}]]*/ "null")
     let map = L.map('map').setView([48.4413679, 2.6348314], 10)
 
     L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
@@ -125,7 +125,7 @@
         let el = document.getElementById("form_create_commentaire")
         let content = document.getElementById("content");
         let hide = document.getElementById("hide")
-        el.setAttribute("action", "/ajouter-commentaire/" + /*[[${data.site.id}]]*/ "null")
+        el.setAttribute("action", "/ajouter-commentaire/" + /*[[${site.id}]]*/ "null")
         hide.classList.add("hide")
         content.textContent = ""
     }
