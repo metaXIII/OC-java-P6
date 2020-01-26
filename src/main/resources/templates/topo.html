@@ -51,7 +51,7 @@
     </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>
-<script th:unless="${data}" src="/js/topo.js"></script>
+<script th:if="!${show}" src="/js/topo.js"></script>
 <script src="/vendor/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
 <script>
     $('.input-group.date').datepicker({
