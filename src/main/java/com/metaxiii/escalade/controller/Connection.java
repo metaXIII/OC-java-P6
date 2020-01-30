@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
-public class Registrate {
+public class User {
 
 	@Autowired
 	private IUserService userService;
@@ -28,6 +28,11 @@ public class Registrate {
 	public ModelAndView create_user(Model model) {
 		UserDto userDto = new UserDto();
 		return new ModelAndView("registrate", "user", userDto);
+	}
+
+	@GetMapping("/user/login")
+	public ModelAndView connectUser(Model model) {
+		return new ModelAndView("login");
 	}
 
 	@PostMapping(value = "/user/new-user")
