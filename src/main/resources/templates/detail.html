@@ -1,23 +1,135 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
 <head th:replace="include/head::head"></head>
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <div class="col-12 text-center">
-        <img src="/img/other/article-card.jpg" alt="Image du site" width="100%">
+    <div class="row pb-1">
+        <h2 th:text="${site.nom}" class="col-6">Titre</h2>
+        <div class="col-6 d-flex flex-column align-items-end" sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"
+             th:if="${(site.userId == #authentication.getPrincipal().getId())} or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
+            <button class="btn btn-info" id="add_longueur" data-toggle="modal" data-target="#longueurModal">
+                Ajouter une longueur / voie
+            </button>
+        </div>
     </div>
-    <h2>Titre</h2>
-    <h3>Nom du site</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto asperiores cupiditate dignissimos
-        doloribus eius, exercitationem explicabo iure laboriosam magni mollitia odio officia perspiciatis, quis quo
-        repellat repudiandae similique voluptate!
-    </p>
-    <h3>Location</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At aut debitis deserunt, dicta ducimus eos esse eveniet
-        in ipsam nam quasi recusandae repellendus rerum saepe vitae. Ad est ipsa tempora.
-    </p>
+    <div class="row">
+        <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4">
+            <table class="table table-striped">
+                <thead></thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Nombres de longueurs</th>
+                    <th th:text="${longueur != null ? longueur.size() : 0}">0</th>
+                </tr>
+                <tr>
+                    <th scope="row">Nombres de voies</th>
+                    <th th:text="${voie != null ? voie.size() : 0}">0</th>
+                </tr>
+                <tr>
+                    <th scope="row">Type</th>
+                    <th th:text="${site.type}"></th>
+                </tr>
+                <tr>
+                    <th scope="row" th:if="${!site.cotation.isEmpty()}">Cotation</th>
+                    <th th:text="${site.cotation}"></th>
+                </tr>
+                <tr th:if="${site.officiel}">
+                    <th scope="row">Officiel</th>
+                    <th th:text="${site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-0 col-lg-7 offset-lg-1">
+            <img src="/img/other/article-card.jpg" alt="Image du site" width="100%" class="detail_image">
+        </div>
+    </div>
+    <h3>Description du site</h3>
+    <p th:text="${site.description}">Aucune description fournie</p>
+    <h3>Localisation</h3>
+    <div class="container mapContainer">
+        <div class="overlay"></div>
+        <div id="map"></div>
+    </div>
+    <section id="container" class="pt-2">
+        <div class="row">
+            <div class="commentaire_list col-6">
+                <div th:each="commentaire : ${commentaires}">
+                    <div class="commentaire"
+                         th:classappend="${commentaire.id % 2 == 0} ? 'commentaire commentaire_pair' : 'commentaire commentaire_impair'">
+                        <span th:text="${commentaire.content}"></span>
+                        <div class="text-right small">
+                            <span th:text="${commentaire.username}"></span>, le <span
+                                th:text="${#dates.format(commentaire.date, 'dd/MM/YYYY à HH:mm')}">date/date/date</span>
+                        </div>
+                        <div class="d-flex" sec:authorize="isAuthenticated() || hasRole('ADMIN')"
+                             th:if="${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'} or
+                             ${#authentication.getPrincipal().getId() == commentaire.userId}">
+                            <button class="btn btn-success edit_commentaire"
+                                    th:onclick="'javascript:edit(\'' + ${commentaire.id} + '\')'">Editer le commentaire
+                            </button>
+                            <a th:href="@{/delete-commentaire/{id}(id=${commentaire.id})}">
+                                <button class="btn btn-danger">Supprimer le commentaire</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form th:action="@{/ajouter-commentaire/{id}(id = ${site.id})}" method="post"
+                  sec:authorize="isAuthenticated()" class="col-6"
+                  th:include="form/new-commentaire" id="form_create_commentaire"></form>
+            <h6 sec:authorize="!isAuthenticated()">Vous devez être connecté pour laisser un commentaire</h6>
+        </div>
+    </section>
 </main>
 <footer th:replace="include/footer::footer"></footer>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+<script th:inline="javascript">
+    console.log("echo  : " + /*[[${site.nom}]]*/ "null")
+    let map = L.map('map').setView([48.4413679, 2.6348314], 10)
+
+    L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href = "https://creativecommons.org/licenses/by-sa/2.0/" > CC - BY - SA < /a>',
+        maxZoom: 18
+    }).addTo(map)
+    let latlng = [48.4413679, 2.6348314]
+    let marker = null
+    marker = L.marker(latlng).addTo(map)
+
+    let edits = document.querySelectorAll(".edit_commentaire");
+
+    Array.from(edits).forEach((edit) => {
+        edit.addEventListener("click", () => {
+            let content = document.getElementById("content");
+            let inputInserted = document.getElementById("input_inserted") ? document.getElementById("input_inserted") : null
+            if (inputInserted != null)
+                content.parentNode.removeChild(inputInserted)
+            content.textContent = edit.parentNode.parentNode.firstElementChild.textContent
+        })
+    })
+
+    function edit(idComment) {
+        let el = document.getElementById("form_create_commentaire")
+        el.setAttribute("action", "/edit-commentaire/" + idComment)
+        let hide = document.getElementById("hide")
+        hide.classList.remove("hide")
+    }
+
+    function cancel() {
+        let el = document.getElementById("form_create_commentaire")
+        let content = document.getElementById("content");
+        let hide = document.getElementById("hide")
+        el.setAttribute("action", "/ajouter-commentaire/" + /*[[${site.id}]]*/ "null")
+        hide.classList.add("hide")
+        content.textContent = ""
+    }
+</script>
+<div th:include="modal/modal-longueur::modal"></div>
 </body>
 </html>

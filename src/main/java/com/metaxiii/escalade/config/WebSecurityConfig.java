@@ -1,61 +1,57 @@
 package com.metaxiii.escalade.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-/**
- * * Exemple de fichier de configuration pour spring secutity
- */
 
 @Configuration
-@EnableWebMvc
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder    passwordEncoder;
 
-	private final UserDetailsService userDetailsService;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/user/**", "/search", "/thanks", "/topo", "/contact",
+                        "/details-site/**", "/css/**", "/js/**", "/img/**", "/vendor/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/new-user", "/user/login").permitAll()
+                .antMatchers("/account").authenticated()
+                .anyRequest().authenticated()
+                .and()
+                .authenticationProvider(authProvider())
+                .formLogin()
+                .loginPage("/user/login")
+                .failureUrl("/user/login?error")
+                .defaultSuccessUrl("/welcome")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/user/login?logout")
+                .and()
+                .csrf()
+                .disable()
+        ;
+    }
 
-	public WebSecurityConfig(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.authorizeRequests()
-				.antMatchers("/img/**", "/css/**", "/js/**").permitAll() //
-				.anyRequest().authenticated() // Tout le reste il faut etre identifier
-				.and()
-				.formLogin()
-				.loginPage("/connect") // L'url de la page de login
-				.defaultSuccessUrl("/") // L'url de redirection après authentification
-				.failureUrl("/connect") // L'url de redirection après erreur authentification
-				.usernameParameter("username") // Le name de l'input du form correspond au login
-				.passwordParameter("password") //// Le name de l'input du form correspond au password
-				.and()
-				.logout()
-				.invalidateHttpSession(true)
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login")
-				.and()
-				.csrf()
-		;
-	}
-
-	@Bean(name = "passwordEncoder")
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Autowired
-	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
-
+    @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
+    }
 }

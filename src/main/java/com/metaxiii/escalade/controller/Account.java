@@ -1,19 +1,94 @@
 package com.metaxiii.escalade.controller;
 
-import com.metaxiii.escalade.model.User;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.metaxiii.escalade.dto.SiteDto;
+import com.metaxiii.escalade.dto.TopoDto;
+import com.metaxiii.escalade.enums.Message;
+import com.metaxiii.escalade.model.Reservation;
+import com.metaxiii.escalade.service.*;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.util.List;
 
 @Controller
-public class Account {
-	@RequestMapping("/account")
-	public String account() {
-		// Pour récupèrer les infos users. Tu peux aussi envisager de faire implémenter UserDetails à ton objet user pour pouvoir recupèrer ses informations
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-		return "account";
-	}
+@RequiredArgsConstructor
+@Slf4j
+public class Account extends AbstractController {
+
+    private final IDepartementService departementService;
+
+    private final ISiteService siteService;
+
+    private final ISecteurService secteurService;
+
+    private final IReservationService reservationService;
+
+    private final ITopoService topoService;
+
+    @GetMapping("/account")
+    public ModelAndView account() {
+        ModelAndView modelAndView = new ModelAndView("account");
+        modelAndView.addObject("reservations", reservationService.findAllReservationByUserId(getUser().getId()));
+        modelAndView.addObject("topoList", topoService.findAllByUserId(getUser().getId()));
+        return modelAndView;
+    }
+
+    @GetMapping("/account/reservations/unsuscribe/{id}")
+    @ResponseBody
+    public ModelAndView unsubscribeReservation(@PathVariable String id) {
+        reservationService.completeReservation(Long.parseLong(id));
+        return new ModelAndView("redirect:/account");
+    }
+
+
+    @GetMapping("/account/new-site")
+    public ModelAndView newSite(@ModelAttribute("site") SiteDto siteDto) {
+        ModelAndView modelAndView = new ModelAndView("site");
+        modelAndView.addObject("form", "new");
+        modelAndView.addObject("secteurList", secteurService.findAllSecteur());
+        modelAndView.addObject("departement_list", departementService.findAllDepartement());
+        return modelAndView;
+    }
+
+    @PostMapping("/account/new-site")
+    @ResponseBody
+    public ModelAndView saveSite(@ModelAttribute("site") SiteDto siteDto) {
+        try {
+            String redirect = "redirect:/details-site/" + siteService.save(siteDto, getUser().getId()).getId();
+            return new ModelAndView(redirect, "msg", Message.SAVE_SITE.getMsg());
+        } catch (Exception e) {
+            return newSite(siteDto);
+        }
+    }
+
+    @GetMapping("/account/new-topo")
+    public ModelAndView newTopo(Model model) {
+        ModelAndView modelAndView = new ModelAndView("topo");
+        modelAndView.addObject("show", true);
+        modelAndView.addObject("departement_list", departementService.findAllDepartement());
+        return modelAndView;
+    }
+
+    @PostMapping("/account/new-topo")
+    public ModelAndView saveTopo(Model model, @ModelAttribute("site") TopoDto topoDto) throws ParseException {
+        topoService.save(topoDto);
+        String msg = "Merci pour votre participation";
+        return new ModelAndView("index", "msg", msg);
+    }
+
+
+    @GetMapping("/account/reservations")
+    @ResponseBody
+    public ModelAndView getReservationList() {
+        ModelAndView      modelAndView = new ModelAndView("account");
+        List<Reservation> findAll      = reservationService.findAllReservationByUserId(getUser().getId());
+        modelAndView.addObject("show", true);
+        modelAndView.addObject("reservations", findAll);
+        return modelAndView;
+    }
 }

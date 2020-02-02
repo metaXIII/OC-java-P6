@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/vendor/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker3.standalone.min.css">
+<head th:replace="include/head::head"></head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container">
+    <div th:if="${show}">
+        <form th:replace="form/new-topo::new-topo" action="" method="post"></form>
+    </div>
+    <div th:unless="${show}">
+        <div class="row justify-content-between">
+            <h2 class="h2 text-underline col-6">Liste des Topos:</h2>
+            <form action="#">
+                <div class="form-group">
+                    <select name="topo_selection" id="topo_selection" class="form-control">
+                        <option value="1" id="topo_selection_dispo">Disponibles</option>
+                        <option value="0" id="topo_selection_all">Tous</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div th:if="${results}" th:each="result : ${results}">
+            <div class="row result_topos hide_element col-10 offset-1 col-sm-12 offset-sm-0"
+                 th:classappend="${result.available} ? available : not_available">
+                <div class="col-12 col-sm-4 col-md-3">
+                    <img src="/img/background/topo.jpg" alt="Resultat" width="100%">
+                </div>
+                <div class="col-12 offset-md-1 col-sm-8 offset-sm-0 col-md-8">
+                    <div class="row w-100">
+                        <h3 th:text="${result.nom}" class="col-8"></h3>
+                        <div class="text-right col-4 pt-1">
+                            <a th:href="@{'reservation-topo/' + ${result.id}}" sec:authorize="isAuthenticated()"
+                               class="text-black">
+                                <button type="button" class="btn btn-success"
+                                        th:if="!${result.getUserId() == #authentication.getPrincipal().getId()}"
+                                        th:classappend="${result.available} ? '' : disabled_element ">
+                                    Réserver
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Localisation</li>
+                        <li>Description</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="hr" th:classappend="${result.available} ? available : not_available"/>
+        </div>
+    </div>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+<script th:if="!${show}" src="/js/topo.js"></script>
+<script src="/vendor/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $('.input-group.date').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'fr'
+    });
+</script>
+</body>
+</html>

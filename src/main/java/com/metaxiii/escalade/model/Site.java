@@ -3,32 +3,41 @@ package com.metaxiii.escalade.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
 @Data
-@Table(name = "site")
+@Table(name = "Site")
 public class Site {
-    @Id
-    @Column(name = "id")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "pays")
-    private String pays;
+	@Column(name = "nom")
+	private String nom;
 
-    @Column(name = "codePostal")
-    private String codePostal;
+	@Column(name = "description")
+	private String description;
 
-    @Column(name = "nom_site")
-    private String nom_site;
+	@Column(name = "secteurId")
+	private int secteurId;
 
-    @Column(name = "officiel")
-    private boolean officiel;
+	@Column(name = "userId")
+	private long userId;
 
-    @Column(name = "secteurs")
-    private String secteurs;
+	@Column(name = "officiel")
+	private boolean officiel;
+
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "latitude")
+	private String latitude;
+
+	@Column(name = "longitude")
+	private String longitude;
+
+	transient private String cotation;
 }

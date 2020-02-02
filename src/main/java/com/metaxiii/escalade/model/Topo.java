@@ -2,17 +2,15 @@ package com.metaxiii.escalade.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "topo")
+@Table(name = "Topo")
 public class Topo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -25,11 +23,11 @@ public class Topo {
     @Column(name = "lieu")
     private String lieu;
 
-    @Column(name = "date_parution")
-    private Date date_parution;
+    @Column(name = "dateParution")
+    private Date dateParution;
 
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "userId")
+    private long userId;
 
     @Column(name = "available")
     private boolean available;

@@ -4,6 +4,7 @@ html, body, p, span, h1, h2, h3, h4, h5, h6, a {
 
 body {
     background-color: #fafafa;
+    min-width: 320px;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -60,14 +61,17 @@ main {
     width: 100%;
     background-color: #535353;
     border-radius: 10px 10px 0 0;
+    z-index: 1001;
 }
 
 .form-component {
     border: 0;
+    background-color: #f2f2f2;
 }
 
 .result-component {
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
+    width: 85%;
 }
 
 .text-underline {
@@ -110,6 +114,76 @@ main {
     margin-top: 15px;
 }
 
+.label_validation {
+    padding-left: 2.3rem;
+}
+
+.officiel_label {
+    padding-left: 1.25rem;
+}
+
+.detail_image {
+    display: none;
+}
+
+.red {
+    color: #ff0000;
+}
+
+.day {
+    border: 1px solid #000 !important;
+    border-radius: 2px;
+    border-collapse: collapse !important;
+}
+
+.day:hover {
+    background: #286090 !important;
+}
+
+.datepicker-switch {
+    background-color: #3c88c9 !important;
+}
+
+@media screen and (min-width: 576px) {
+    .detail_image {
+        display: block;
+    }
+}
+
+#map {
+    height: 400px;
+    top: -400px;
+}
+
+.commentaire {
+    margin: 15px;
+}
+
+.commentaire_pair {
+    background: #f2f2f2;
+}
+
+.commentaire_impair {
+    background: #F8F9FA;
+}
+
+.hide {
+    display: none;
+}
+
+.overlay {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    z-index: 401;
+    background-color: rgba(80, 165, 165, 0.2);
+    pointer-events: none;
+}
+
+.mapContainer {
+    height: 400px;
+}
+
 @media screen and (min-width: 992px) {
     .menu-profile {
         width: 180px;
@@ -146,5 +220,11 @@ main {
 
     .result-component {
         margin-top: 40px;
+        width: 100%;
+    }
+
+    .label_validation {
+        padding-top: 3.5%;
+        text-align: center;
     }
 }

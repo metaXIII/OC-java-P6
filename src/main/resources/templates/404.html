@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include/head::head"></head>
+<body>
+<header th:replace="include/header::header"></header>
+<main class="container">
+    <div class="alert alert-success temporal_message" th:if="${msg}">
+        <span th:text="${msg}"></span>
+    </div>
+</main>
+<footer th:replace="include/footer::footer"></footer>
+</body>
+</html>

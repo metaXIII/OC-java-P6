@@ -1,0 +1,64 @@
+<form action="#" method="post" th:fragment="new-site" xmlns:th="http://www.thymeleaf.org">
+    <div class="form-group row">
+        <label for="nom" class="col-sm-2 col-form-label">Nom du site :</label>
+        <div class="col-sm-10">
+            <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom du site" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="description" class="col-sm-2 col-form-label">Description :</label>
+        <div class="col-sm-10">
+            <textarea name="description" id="description" rows="3" class="form-control"
+                      placeholder="Entrez votre description du site" required></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="secteur" class="col-sm-2 col-form-label">Secteur :</label>
+        <div class="col-sm-10">
+            <div class="select-editable">
+                <select name="secteur" id="secteur" class="form-control" placeholder="Nom du secteur" required>
+                    <option th:each="secteur : ${secteurList}" th:value="${secteur.id}"
+                            th:text="${secteur.nom}"></option>
+                    <option value="" id="new_secteur" class="red">Insérer une nouvelle entrée...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="departement" class="col-sm-2 col-form-label">Département :</label>
+        <div class="col-sm-10">
+            <select name="departement" id="departement" class="form-control" required>
+                <option th:each="departement : ${departement_list}" th:value="${departement.id}"
+                        th:text="${departement.code} + ' - ' +  ${departement.nom}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="type" class="col-sm-2 col-form-label">Type :</label>
+        <div class="col-sm-10">
+            <select name="type" id="type" class="form-control" required>
+                <option value="Falaise">Falaise</option>
+                <option value="bloc">Bloc</option>
+            </select>
+        </div>
+    </div>
+    <div class="alert alert-info">
+        Veuillez vous référer aux coordonnées fournies par le site
+        <a href="https://www.coordonnees-gps.fr/">coordonnées GPS</a> pour vous assister
+    </div>
+    <div class="form-group row">
+        <label for="longitude" class="col-sm-2 col-form-label">Longitude :</label>
+        <div class="col-sm-10">
+            <input type="text" name="longitude" id="longitude" class="form-control" placeholder="Longitude">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="latitude" class="col-sm-2 col-form-label">Latitude :</label>
+        <div class="col-sm-10">
+            <input type="text" name="latitude" id="latitude" class="form-control" placeholder="Latitude">
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Envoyer</button>
+    </div>
+</form>

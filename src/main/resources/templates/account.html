@@ -1,25 +1,83 @@
 <!doctype html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head th:replace="include/head::head"></head>
 <body>
 <header th:replace="include/header::header"></header>
 <main class="container">
-    <h2 class="h2 text-center">Mon compte</h2>
+    <h2 class="h2 text-center">Mon compte <span sec:authentication="name"></span></h2>
     <div class="row mb-4">
-        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white">
-            Proposer un nouveau site
-        </button>
-        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white">
-            Proposer un nouveau topo
-        </button>
-        <button class="col-11 offset-md-1 col-md-3 btn bg-secondary button-account text-white overflow-hidden border-0">
-            <div class="notification bg-danger">1</div>
-            Réservation en cours
-        </button>
+        <a href="/account/new-site" class="col-11 offset-md-1 col-md-3">
+            <button class="btn bg-secondary button-account text-white w-100">
+                Proposer un nouveau site
+            </button>
+        </a>
+        <a href="/account/new-topo" class="col-11 offset-md-1 col-md-3">
+            <button class="btn bg-secondary button-account text-white w-100">
+                Proposer un nouveau topo
+            </button>
+        </a>
+        <a href="/account/reservations" class="col-11 offset-md-1 col-md-3 pr-0 overflow-hidden">
+            <button class="btn bg-secondary button-account text-white border-0 w-100">
+                <div class="notification bg-danger" th:text="${#lists.size(reservations)}"></div>
+                Réservation en cours
+            </button>
+        </a>
     </div>
-    <form action="#" method="post" th:include="include/form/new-site::new-site" enctype="multipart/form-data"
-          class="form-component"></form>
+
+    <section th:if="${topoList != null}">
+
+        <h2>Mes topos</h2>
+        <table class="table table-striped" aria-describedby="ListTopos">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom du topo</th>
+                <th scope="col">Nom de l'utilisateur</th>
+                <th scope="col">État</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="topo, i : ${topoList}">
+                <th scope="row" th:text="${i.index + 1}"></th>
+                <td th:text="${topo.getNom()}"></td>
+                <td th:text="${topo.getDescription()}"></td>
+                <td>
+                    <button class="btn" disabled="true"
+                            th:classappend="${topo.isAvailable()} ? 'btn-success' : 'btn-danger'">
+                        Disponible
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div th:if="${show != null}">
+        <hr>
+        <h6>Liste des réservations en cours</h6>
+        <table class="table table-striped" aria-describedby="Reservations">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom du topo</th>
+                <th scope="col">Nom de l'utilisateur</th>
+                <th scope="col">Compléter réservation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation, i : ${reservations}">
+                <th scope="row" th:text="${i.index + 1}"></th>
+                <td th:text="${reservation.getTopo().getNom()}"></td>
+                <td th:text="${reservation.getRequestUserId().getUsername()}"></td>
+                <td><a th:href="@{'/account/reservations/unsuscribe/' + ${reservation.getId()}}">
+                    <button class="btn btn-success">Valider</button>
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>
+<script src="/js/account.js"></script>
 </body>
 </html>
