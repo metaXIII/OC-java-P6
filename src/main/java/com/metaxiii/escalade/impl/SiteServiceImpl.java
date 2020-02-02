@@ -8,7 +8,6 @@ import com.metaxiii.escalade.repository.SiteRepository;
 import com.metaxiii.escalade.service.ISecteurService;
 import com.metaxiii.escalade.service.ISiteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,8 +20,7 @@ import java.util.Set;
 @Transactional
 public class SiteServiceImpl implements ISiteService {
     private final SiteRepository  siteRepository;
-    @Autowired
-    private       ISecteurService secteurService;
+    private final ISecteurService secteurService;
 
     @Override
     public List<Site> findAllSite() {

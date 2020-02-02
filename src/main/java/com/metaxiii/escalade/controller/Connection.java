@@ -52,8 +52,8 @@ public class Connection extends AbstractController {
     }
 
     private boolean checkFieldIsValid(UserDto accountDto) {
-        if (accountDto.getEmail().equals(accountDto.getCheck_email())) {
-            return accountDto.getPassword().equals(accountDto.getCheck_password());
+        if (accountDto.getEmail().equals(accountDto.getCheckEmail())) {
+            return accountDto.getPassword().equals(accountDto.getCheckPassword());
         }
         return false;
     }

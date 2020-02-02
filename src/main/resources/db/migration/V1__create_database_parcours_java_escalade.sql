@@ -82,7 +82,7 @@ CREATE TABLE User
     username VARCHAR(30)        NOT NULL,
     email    VARCHAR(255)       NOT NULL,
     password TEXT               NOT NULL,
-    roleId   INT DEFAULT 0      NOT NULL,
+    role     INT DEFAULT 0      NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -109,9 +109,9 @@ INSERT into Role (role)
 values ('ADMIN');
 
 # USER
-INSERT into User (username, email, password, roleId)
+INSERT into User (username, email, password, role)
 values ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
-INSERT into User (username, email, password, roleId)
+INSERT into User (username, email, password, role)
 values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
 
 # #site
@@ -122,7 +122,7 @@ insert into Site(nom, secteurId, type, officiel, userId)
 values ('Poudlard', 2, 'bloc', 1, 2);
 
 insert into Site (nom, secteurId, type, officiel, userId)
-values ('DisneyLand', 1, 'Magic', 1, 1);
+values ('DisneyLand', 1, 'Falaise', 1, 1);
 
 # Departement
 insert into Departement(id, code, nom)

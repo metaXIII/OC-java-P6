@@ -4,7 +4,7 @@
             <label for="secteur">Secteur :</label>
             <select name="secteur" id="secteur" class="form-control">
                 <option></option>
-                <option th:each="secteur : ${all_secteur_list}" th:value="${secteur.id}"
+                <option th:each="secteur : ${allSecteurList}" th:value="${secteur.id}"
                         th:text="${secteur.nom}"></option>
             </select>
         </div>
@@ -12,7 +12,7 @@
             <label for="departement">Département :</label>
             <select name="departement" id="departement" class="form-control">
                 <option></option>
-                <option th:each="departement : ${departement_list}" th:value="${departement.id}"
+                <option th:each="departement : ${departementList}" th:value="${departement.id}"
                         th:text="${departement.nom}"></option>
             </select>
         </div>
@@ -20,7 +20,7 @@
             <label for="type">Type :</label>
             <select name="type" id="type" class="form-control">
                 <option value=""></option>
-                <option th:each="type : ${all_type_list}" th:value="${type}"
+                <option th:each="type : ${allTypeList}" th:value="${type}"
                         th:text="${type}"></option>
             </select>
         </div>

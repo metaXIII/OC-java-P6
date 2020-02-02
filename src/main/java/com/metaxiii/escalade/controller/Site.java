@@ -45,18 +45,18 @@ public class Site extends AbstractController {
     @GetMapping("/search")
     public ModelAndView search(@ModelAttribute("search") SearchDto searchDto, BindingResult result, WebRequest request, Errors errors) {
         ModelAndView modelAndView = new ModelAndView("search");
-        modelAndView.addObject("departement_list", departementService.findAllDepartement());
-        modelAndView.addObject("all_secteur_list", secteurService.findAllSecteur());
-        modelAndView.addObject("all_type_list", siteService.findAllType());
+        modelAndView.addObject("departementList", departementService.findAllDepartement());
+        modelAndView.addObject("allSecteurList", secteurService.findAllSecteur());
+        modelAndView.addObject("allTypeList", siteService.findAllType());
         return modelAndView;
     }
 
     @PostMapping("/search")
     public ModelAndView searchSite(@ModelAttribute("search") SearchDto searchDto, BindingResult result, WebRequest request, Errors errors) {
         ModelAndView modelAndView = new ModelAndView("search");
-        modelAndView.addObject("departement_list", departementService.findAllDepartement());
-        modelAndView.addObject("all_secteur_list", secteurService.findAllSecteur());
-        modelAndView.addObject("all_type_list", siteService.findAllType());
+        modelAndView.addObject("departementList", departementService.findAllDepartement());
+        modelAndView.addObject("allSecteurList", secteurService.findAllSecteur());
+        modelAndView.addObject("allTypeList", siteService.findAllType());
         modelAndView.addObject("results", siteService.getResult(searchDto));
         return modelAndView;
     }
@@ -68,10 +68,10 @@ public class Site extends AbstractController {
         if (site.isPresent()) {
             ModelAndView modelAndView = new ModelAndView("detail");
             List<Voie>   allBySiteId  = voiesService.findAllBySiteId(Integer.parseInt(id));
-            site.get().setCotation(siteService.calculateCotation(allBySiteId));
             modelAndView.addObject("site", site.get());
             modelAndView.addObject("longueur", longueurService.findAllBySiteId(Integer.parseInt(id)));
             modelAndView.addObject("voie", allBySiteId);
+            modelAndView.addObject("cotation", siteService.calculateCotation(allBySiteId));
             modelAndView.addObject("commentaires", commentaireService.findAllBySiteId(Integer.parseInt(id)));
             return modelAndView;
         } else
