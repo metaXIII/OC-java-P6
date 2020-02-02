@@ -25,7 +25,7 @@ public class Site {
 	private int secteurId;
 
 	@Column(name = "userId")
-	private int userId;
+	private long userId;
 
 	@Column(name = "officiel")
 	private boolean officiel;

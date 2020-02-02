@@ -24,6 +24,34 @@
         </a>
     </div>
 
+    <section th:if="${topoList != null}">
+
+        <h2>Mes topos</h2>
+        <table class="table table-striped" aria-describedby="ListTopos">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom du topo</th>
+                <th scope="col">Nom de l'utilisateur</th>
+                <th scope="col">État</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="topo, i : ${topoList}">
+                <th scope="row" th:text="${i.index + 1}"></th>
+                <td th:text="${topo.getNom()}"></td>
+                <td th:text="${topo.getDescription()}"></td>
+                <td>
+                    <button class="btn" disabled="true"
+                            th:classappend="${topo.isAvailable()} ? 'btn-success' : 'btn-danger'">
+                        Disponible
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
     <div th:if="${show != null}">
         <hr>
         <h6>Liste des réservations en cours</h6>
@@ -33,7 +61,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nom du topo</th>
                 <th scope="col">Nom de l'utilisateur</th>
-                <th scope="col">Réserver</th>
+                <th scope="col">Compléter réservation</th>
             </tr>
             </thead>
             <tbody>
@@ -41,14 +69,15 @@
                 <th scope="row" th:text="${i.index + 1}"></th>
                 <td th:text="${reservation.getTopo().getNom()}"></td>
                 <td th:text="${reservation.getRequestUserId().getUsername()}"></td>
-                <td>
+                <td><a th:href="@{'/account/reservations/unsuscribe/' + ${reservation.getId()}}">
                     <button class="btn btn-success">Valider</button>
-                </td>
+                </a></td>
             </tr>
             </tbody>
         </table>
     </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>
+<script src="/js/account.js"></script>
 </body>
 </html>

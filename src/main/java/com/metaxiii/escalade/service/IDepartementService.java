@@ -5,5 +5,5 @@ import com.metaxiii.escalade.model.Departement;
 import java.util.List;
 
 public interface IDepartementService {
-	List<Departement> findAllDepartement();
+    List<Departement> findAllDepartement();
 }

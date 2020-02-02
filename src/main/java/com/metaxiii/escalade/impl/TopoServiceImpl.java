@@ -37,17 +37,13 @@ public class TopoServiceImpl extends AbstractController implements ITopoService 
     }
 
     @Override
-    public void updateAvailableById(int id, boolean available) {
-        topoRepository.updateTopo(id, available);
-    }
-
-    @Override
     public String updateTopoWithId(String id) {
         try {
             Optional<Topo> topoById = topoRepository.findById(Integer.parseInt(id));
             if (topoById.isPresent()) {
-                reservationService.reservation(Long.parseLong(id), getUser().getId());
-                topoById.get().setAvailable(false);
+                topoById.get().setAvailable(!topoById.get().isAvailable());
+                if (!topoById.get().isAvailable())
+                    reservationService.reservation(Long.parseLong(id), getUser().getId());
                 topoRepository.save(topoById.get());
                 return "La demande de réservation a bien été effectuée";
             } else {
@@ -70,5 +66,10 @@ public class TopoServiceImpl extends AbstractController implements ITopoService 
         topo.setLieu(topoDto.getLieu());
         topo.setUserId(getUser().getId());
         return topoRepository.save(topo);
+    }
+
+    @Override
+    public List<Topo> findAllByUserId(long id) {
+        return topoRepository.findAllByUserId(id);
     }
 }

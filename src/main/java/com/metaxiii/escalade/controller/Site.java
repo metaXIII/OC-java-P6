@@ -7,6 +7,7 @@ import com.metaxiii.escalade.enums.Message;
 import com.metaxiii.escalade.model.Commentaire;
 import com.metaxiii.escalade.model.Voie;
 import com.metaxiii.escalade.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class Site extends AbstractController {
     @Autowired
     private transient IDepartementService departementService;

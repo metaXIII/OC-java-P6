@@ -34,7 +34,7 @@ public interface ISiteService {
 
 	Optional<Site> findById(long id);
 
-	Site save(SiteDto siteDto, int id);
+	Site save(SiteDto siteDto, long id);
 
 	String calculateCotation(List<Voie> voiesList);
 }

@@ -1,7 +1,6 @@
 package com.metaxiii.escalade.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -22,4 +21,6 @@ public class Reservation {
     @JoinColumn(name = "requestUserId")
     private User requestUserId;
 
+    @Column(name = "progress")
+    private boolean progress;
 }

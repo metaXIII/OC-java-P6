@@ -25,9 +25,10 @@ CREATE TABLE Role
 
 CREATE TABLE Reservation
 (
-    id            INT AUTO_INCREMENT NOT NULL,
-    topoId        INT                NOT NULL,
-    requestUserId INT                NOT NULL,
+    id            INT AUTO_INCREMENT   NOT NULL,
+    topoId        INT                  NOT NULL,
+    requestUserId INT                  NOT NULL,
+    progress      BOOLEAN DEFAULT true NOT NULL,
     PRIMARY KEY (id)
 );
 
