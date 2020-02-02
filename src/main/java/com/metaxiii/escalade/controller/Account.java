@@ -20,15 +20,15 @@ import java.util.List;
 @Slf4j
 public class Account extends AbstractController {
 
-    private final IDepartementService departementService;
+    private final transient IDepartementService departementService;
 
-    private final ISiteService siteService;
+    private final transient ISiteService siteService;
 
-    private final ISecteurService secteurService;
+    private final transient ISecteurService secteurService;
 
-    private final IReservationService reservationService;
+    private final transient IReservationService reservationService;
 
-    private final ITopoService topoService;
+    private final transient ITopoService topoService;
 
     @GetMapping("/account")
     public ModelAndView account() {
