@@ -41,8 +41,16 @@
                         </div>
                     </div>
                     <ul>
-                        <li>Localisation</li>
-                        <li>Description</li>
+                        <li>
+                            <span th:text="${result.getDescription()}"></span>
+                        </li>
+                        <li>
+                            <span th:text="${result.getLieu()}"></span>
+                        </li>
+                        <li class="text-right">
+                            <span class="small"
+                                  th:text="${#dates.format(result.getDateParution(), 'dd/MM/yyyy')}"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
