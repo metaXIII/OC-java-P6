@@ -8,34 +8,34 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "Site")
+@Table(name = "SITE")
 public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "nom")
+    @Column(name = "NOM")
     private String nom;
 
-    @Column(name = "description")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "secteurId")
+    @Column(name = "SECTEURID")
     private int secteurId;
 
-    @Column(name = "userId")
+    @Column(name = "USERID")
     private long userId;
 
-    @Column(name = "officiel")
+    @Column(name = "OFFICIEL")
     private boolean officiel;
 
-    @Column(name = "type")
+    @Column(name = "TYPE")
     private String type;
 
-    @Column(name = "latitude")
+    @Column(name = "LATITUDE")
     private String latitude;
 
-    @Column(name = "longitude")
+    @Column(name = "LONGITUDE")
     private String longitude;
 }

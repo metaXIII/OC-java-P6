@@ -6,16 +6,16 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "Voie")
+@Table(name = "VOIE")
 public class Voie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "ID")
 	private int id;
 
-	@Column(name = "longueurId")
+	@Column(name = "LONGUEURID")
 	private int longueurId;
 
-	@Column(name = "cotation")
+	@Column(name = "COTATION")
 	private String cotation;
 }

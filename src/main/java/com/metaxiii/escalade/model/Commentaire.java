@@ -7,25 +7,25 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "Commentaire")
+@Table(name = "COMMENTAIRE")
 public class Commentaire {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "ID")
 	private long id;
 
-	@Column(name = "content")
+	@Column(name = "CONTENT")
 	private String content;
 
-	@Column(name = "date")
+	@Column(name = "DATE")
 	private Date date;
 
-	@Column(name = "userId")
+	@Column(name = "USERID")
 	private long userId;
 
-	@Column(name = "username")
+	@Column(name = "USERNAME")
 	private String username;
 
-	@Column(name = "siteId")
+	@Column(name = "SITEID")
 	private int siteId;
 }

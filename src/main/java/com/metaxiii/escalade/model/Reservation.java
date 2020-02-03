@@ -6,21 +6,21 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "Reservation")
+@Table(name = "RESERVATION")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private long id;
 
     @ManyToOne()
-    @JoinColumn(name = "topoId")
+    @JoinColumn(name = "TOPOID")
     private Topo topo;
 
     @ManyToOne()
-    @JoinColumn(name = "requestUserId")
+    @JoinColumn(name = "REQUESTUSERID")
     private User requestUserId;
 
-    @Column(name = "progress")
+    @Column(name = "PROGRESS")
     private boolean progress;
 }

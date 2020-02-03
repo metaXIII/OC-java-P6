@@ -13,24 +13,24 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "User")
+@Table(name = "USER")
 public class User implements UserDetails, Serializable {
     private static final long serialVersionUID = 176106855063096080L;
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private long id;
 
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
 
     @ManyToOne()
-    @JoinColumn(name = "role")
+    @JoinColumn(name = "ROLE")
     private Role role;
 
     @Override

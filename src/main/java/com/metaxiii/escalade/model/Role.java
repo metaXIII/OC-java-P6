@@ -12,16 +12,16 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "Role")
+@Table(name = "ROLE")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role implements Serializable {
     private static final long serialVersionUID = 176106855063096080L;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private int id;
 
-    @Column(name = "role")
+    @Column(name = "ROLE")
     private String member;
 }
