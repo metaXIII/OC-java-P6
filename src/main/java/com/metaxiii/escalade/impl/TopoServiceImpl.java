@@ -72,4 +72,13 @@ public class TopoServiceImpl extends AbstractController implements ITopoService 
     public List<Topo> findAllByUserId(long id) {
         return topoRepository.findAllByUserId(id);
     }
+
+    @Override
+    public void setAvailable(long id) {
+        Optional<Topo> topo = topoRepository.findById(id);
+        if (topo.isPresent()) {
+            topo.get().setAvailable(!topo.get().isAvailable());
+            topoRepository.save(topo.get());
+        }
+    }
 }

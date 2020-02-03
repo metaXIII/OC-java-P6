@@ -42,10 +42,10 @@
                 <td th:text="${topo.getNom()}"></td>
                 <td th:text="${topo.getDescription()}"></td>
                 <td>
-                    <button class="btn" disabled="true"
-                            th:classappend="${topo.isAvailable()} ? 'btn-success' : 'btn-danger'">
+                    <a th:href="@{'account/changestate/' + ${topo.getId()}}" class="btn"
+                       th:classappend="${topo.isAvailable()} ? 'btn-success' : 'btn-danger'">
                         Disponible
-                    </button>
+                    </a>
                 </td>
             </tr>
             </tbody>

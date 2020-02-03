@@ -91,4 +91,12 @@ public class Account extends AbstractController {
         modelAndView.addObject("reservations", findAll);
         return modelAndView;
     }
+
+    @GetMapping("/account/changestate/{id}")
+    @ResponseBody
+    public ModelAndView changeState(@PathVariable String id)
+    {
+        topoService.setAvailable(Long.parseLong(id));
+        return new ModelAndView("redirect:/account");
+    }
 }

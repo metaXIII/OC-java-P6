@@ -17,4 +17,6 @@ public interface ITopoService {
     Topo save(TopoDto topoDto) throws ParseException;
 
     List<Topo> findAllByUserId(long id);
+
+    void setAvailable(long id);
 }
