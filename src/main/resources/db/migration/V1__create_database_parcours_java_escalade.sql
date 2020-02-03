@@ -1,131 +1,131 @@
-CREATE TABLE Longueur
+CREATE TABLE LONGUEUR
 (
-    id       INT AUTO_INCREMENT NOT NULL,
-    siteId   INT                NOT NULL,
-    cotation VARCHAR(3)         NOT NULL,
-    PRIMARY KEY (id)
+    ID       INT AUTO_INCREMENT NOT NULL,
+    SITEID   INT                NOT NULL,
+    COTATION VARCHAR(3)         NOT NULL,
+    PRIMARY KEY (ID)
 );
 
-CREATE TABLE Voie
+CREATE TABLE VOIE
 (
-    id         INT AUTO_INCREMENT NOT NULL,
-    longueurId INT                NOT NULL,
-    cotation   VARCHAR(3)         NOT NULL,
-    PRIMARY KEY (id)
-);
-
-
-CREATE TABLE Role
-(
-    id   INT AUTO_INCREMENT NOT NULL,
-    role VARCHAR(30)        NOT NULL,
-    PRIMARY KEY (id)
+    ID         INT AUTO_INCREMENT NOT NULL,
+    LONGUEURID INT                NOT NULL,
+    COTATION   VARCHAR(3)         NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Reservation
+CREATE TABLE ROLE
 (
-    id            INT AUTO_INCREMENT   NOT NULL,
-    topoId        INT                  NOT NULL,
-    requestUserId INT                  NOT NULL,
-    progress      BOOLEAN DEFAULT true NOT NULL,
-    PRIMARY KEY (id)
+    ID   INT AUTO_INCREMENT NOT NULL,
+    ROLE VARCHAR(30)        NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Topo
+CREATE TABLE RESERVATION
 (
-    id           INT AUTO_INCREMENT                 NOT NULL,
-    nom          VARCHAR(255)                       NOT NULL,
-    description  TEXT                               NOT NULL,
-    lieu         VARCHAR(255)                       NOT NULL,
-    dateParution DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    userId       INT                                NOT NULL,
-    available    BOOLEAN  DEFAULT true              NOT NULL,
-    PRIMARY KEY (id)
+    ID            INT AUTO_INCREMENT   NOT NULL,
+    TOPOID        INT                  NOT NULL,
+    REQUESTUSERID INT                  NOT NULL,
+    PROGRESS      BOOLEAN DEFAULT true NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Commentaire
+CREATE TABLE TOPO
 (
-    id       INT AUTO_INCREMENT                 NOT NULL,
-    content  TEXT                               NOT NULL,
-    date     DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    username TEXT                               NOT NULL,
-    userId   INT                                NOT NULL,
-    siteId   INT                                NOT NULL,
-    PRIMARY KEY (id)
+    ID           INT AUTO_INCREMENT                 NOT NULL,
+    NOM          VARCHAR(255)                       NOT NULL,
+    DESCRIPTION  TEXT                               NOT NULL,
+    LIEU         VARCHAR(255)                       NOT NULL,
+    DATEPARUTION DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    USERID       INT                                NOT NULL,
+    AVAILABLE    BOOLEAN  DEFAULT true              NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Departement
+CREATE TABLE COMMENTAIRE
 (
-    id   INT AUTO_INCREMENT NOT NULL,
-    nom  VARCHAR(255)       NOT NULL,
-    code VARCHAR(3)         NOT NULL,
-    PRIMARY KEY (id)
+    ID       INT AUTO_INCREMENT                 NOT NULL,
+    CONTENT  TEXT                               NOT NULL,
+    DATE     DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    USERNAME TEXT                               NOT NULL,
+    USERID   INT                                NOT NULL,
+    SITEID   INT                                NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Secteur
+CREATE TABLE DEPARTEMENT
 (
-    id            INT AUTO_INCREMENT NOT NULL,
-    nom           VARCHAR(30)        NOT NULL,
-    departementId VARCHAR(3)         NOT NULL,
-    PRIMARY KEY (id)
+    ID   INT AUTO_INCREMENT NOT NULL,
+    NOM  VARCHAR(255)       NOT NULL,
+    CODE VARCHAR(3)         NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE User
+CREATE TABLE SECTEUR
 (
-    id       INT AUTO_INCREMENT NOT NULL,
-    username VARCHAR(30)        NOT NULL,
-    email    VARCHAR(255)       NOT NULL,
-    password TEXT               NOT NULL,
-    role     INT DEFAULT 0      NOT NULL,
-    PRIMARY KEY (id)
+    ID            INT AUTO_INCREMENT NOT NULL,
+    NOM           VARCHAR(30)        NOT NULL,
+    DEPARTEMENTID VARCHAR(3)         NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
-CREATE TABLE Site
+CREATE TABLE USER
 (
-    id          INT AUTO_INCREMENT    NOT NULL,
-    nom         VARCHAR(255)          NOT NULL,
-    description TEXT,
-    secteurId   INT                   NOT NULL,
-    userId      INT                   NOT NULL,
-    officiel    BOOLEAN DEFAULT false NOT NULL,
-    type        VARCHAR(40),
-    latitude    VARCHAR(45),
-    longitude   VARCHAR(45),
-    PRIMARY KEY (id)
+    ID       INT AUTO_INCREMENT NOT NULL,
+    USERNAME VARCHAR(30)        NOT NULL,
+    EMAIL    VARCHAR(255)       NOT NULL,
+    PASSWORD TEXT               NOT NULL,
+    ROLE     INT DEFAULT 0      NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE SITE
+(
+    ID          INT AUTO_INCREMENT    NOT NULL,
+    NOM         VARCHAR(255)          NOT NULL,
+    DESCRIPTION TEXT,
+    SECTEURID   INT                   NOT NULL,
+    USERID      INT                   NOT NULL,
+    OFFICIEL    BOOLEAN DEFAULT false NOT NULL,
+    TYPE        VARCHAR(40),
+    LATITUDE    VARCHAR(45),
+    LONGITUDE   VARCHAR(45),
+    PRIMARY KEY (ID)
 );
 
 
 # INSERT DATA
-INSERT into Role (role)
-values ('USER');
-INSERT into Role (role)
-values ('ADMIN');
+INSERT INTO ROLE (ROLE)
+VALUES ('USER');
+INSERT INTO ROLE (ROLE)
+VALUES ('ADMIN');
 
 # USER
-INSERT into User (username, email, password, role)
-values ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
-INSERT into User (username, email, password, role)
-values ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
+INSERT INTO USER (USERNAME, EMAIL, PASSWORD, ROLE)
+VALUES ('aze', 'aze@aze.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 1);
+INSERT INTO USER (USERNAME, EMAIL, PASSWORD, ROLE)
+VALUES ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4KmohqdcpPQakSJuLxa', 2);
 
 # #site
-insert into Site(nom, secteurId, type, userId)
-values ('Narnia', 1, 'Falaise', 2);
+INSERT INTO SITE(NOM, SECTEURID, TYPE, USERID)
+VALUES ('Le Calvaire ', 1, 'Falaise', 1);
 
-insert into Site(nom, secteurId, type, officiel, userId)
-values ('Poudlard', 2, 'bloc', 1, 2);
+INSERT INTO Site(NOM, SECTEURID, TYPE, OFFICIEL, USERID)
+VALUES ('Chez Spiderman', 2, 'bloc', 1, 1);
 
-insert into Site (nom, secteurId, type, officiel, userId)
-values ('DisneyLand', 1, 'Falaise', 1, 1);
+INSERT INTO Site (NOM, SECTEURID, TYPE, OFFICIEL, USERID)
+VALUES ('DisneyLand', 1, 'Falaise', 1, 1);
 
 # Departement
-insert into Departement(id, code, nom)
+INSERT INTO DEPARTEMENT(ID, CODE, NOM)
 VALUES (1, '01', 'Ain'),
        (2, '02', 'Aisne'),
        (3, '03', 'Allier'),
@@ -229,18 +229,36 @@ VALUES (1, '01', 'Ain'),
        (101, '974', 'Réunion');
 
 #secteur
-insert into Secteur(nom, departementId)
-VALUES ('DC Universe', 77);
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Nord Fontainebleau', 77);
 
-insert into Secteur(nom, departementId)
-VALUES ('Other', 56);
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Sud Fontainebleau', 77);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Cuvier-Châtillon', 77);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Apremont', 73);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Franchard', 77);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Nemours', 77);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Larchant', 77);
+
+INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
+VALUES ('Malesherbes', 45);
 
 #topo
-insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom', 'description', 'lieu', '2019-12-05 15:25:37', 2, DEFAULT);
+INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+VALUES ('nom', 'description', 'lieu', '2019-12-05 15:25:37', 2);
 
-insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom2', 'description', 'lieu', '2019-12-06 15:25:37', 2, DEFAULT);
+INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+VALUES ('Nom d\'un deuxième topo', 'description d\'un autre topo', 'deuxième lieu génial', '2019-12-06 15:25:37', 2);
 
-insert into Topo(`id`, `nom`, `description`, `lieu`, `dateParution`, `userId`, `available`)
-VALUES (null, 'nom3', 'description', 'lieu', '2019-12-07 15:25:37', 2, DEFAULT);
+INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+VALUES ('nom3', 'description', 'lieu', '2019-12-07 15:25:37', 2);
