@@ -23,28 +23,28 @@
     </div>
     <div class="row">
         <div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4">
-            <table class="table table-striped">
+            <table class="table table-striped" aria-describedby="SiteDescription">
                 <thead></thead>
                 <tbody>
                 <tr>
                     <th scope="row">Nombres de longueurs</th>
-                    <th th:text="${longueur != null ? longueur.size() : 0}">0</th>
+                    <th scope="row" th:text="${longueur != null ? longueur.size() : 0}">0</th>
                 </tr>
                 <tr>
                     <th scope="row">Nombres de voies</th>
-                    <th th:text="${voie != null ? voie.size() : 0}">0</th>
+                    <th scope="row" th:text="${voie != null ? voie.size() : 0}">0</th>
                 </tr>
                 <tr>
                     <th scope="row">Type</th>
-                    <th th:text="${site.type}"></th>
+                    <th scope="row" th:text="${site.type}"></th>
                 </tr>
                 <tr th:if="${!cotation.isEmpty()}">
                     <th scope="row">Cotation</th>
-                    <th th:text="${cotation}"></th>
+                    <th scope="row" th:text="${cotation}"></th>
                 </tr>
                 <tr th:if="${site.officiel}">
                     <th scope="row">Officiel</th>
-                    <th th:text="${site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
+                    <th scope="row" th:text="${site.officiel} ? 'Site officiel les amis de l\'escalade !' : ''"></th>
                 </tr>
                 </tbody>
             </table>
