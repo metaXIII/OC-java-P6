@@ -86,7 +86,7 @@ La suite du démarrage du projet suppose que vous ayez des notions en java et qu
    
    ##Copyright
    Ce projet est en licence libre, toutefois n'hésitez pas à ajouter une étoile à ce projet s'il vous a été utile.
-   Vous pouvez également me contacter par mail à l'adresse [lehchibi.gael@gmail.com](mailto:lehchibi.gael@gmail.com).
+   Vous pouvez également me contacter par mail à l'adresse [gael.lehchibi@outlook.com](mailto:gael.lehchibi@outlook.com).
    
    Merci.
    
