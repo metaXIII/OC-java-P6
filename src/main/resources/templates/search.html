@@ -18,7 +18,7 @@
                 <div>
                     <ul>
                         <li>
-                            Location
+                            <span th:text="${result.getDescription()}"></span>
                         </li>
                         <li class="text-right">
                             <a th:href="@{'/details-site/' + ${result.id}}" class="text-black">
