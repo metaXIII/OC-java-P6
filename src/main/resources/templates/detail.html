@@ -62,7 +62,7 @@
     </div>
     <section id="container" class="pt-2">
         <div class="row">
-            <div class="commentaire_list col-6">
+            <div class="commentaire_list col-md-6 col-12">
                 <div th:each="commentaire : ${commentaires}">
                     <div class="commentaire"
                          th:classappend="${commentaire.id % 2 == 0} ? 'commentaire commentaire_pair' : 'commentaire commentaire_impair'">
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <form th:action="@{/ajouter-commentaire/{id}(id = ${site.id})}" method="post"
-                  sec:authorize="isAuthenticated()" class="col-6"
+                  sec:authorize="isAuthenticated()" class="col-md-6 col-12"
                   th:include="form/new-commentaire" id="form_create_commentaire"></form>
             <h6 sec:authorize="!isAuthenticated()">Vous devez être connecté pour laisser un commentaire</h6>
         </div>
