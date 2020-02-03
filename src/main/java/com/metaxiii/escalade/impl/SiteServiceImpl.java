@@ -118,6 +118,15 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
+    public void setOfficialSite(long id) {
+        Optional<Site> site = siteRepository.findById(id);
+        if (site.isPresent()) {
+            site.get().setOfficiel(true);
+            siteRepository.save(site.get());
+        }
+    }
+
+    @Override
     public String calculateCotation(List<Voie> voiesList) {
         int moyenne = 0;
         for (Voie voie : voiesList) {

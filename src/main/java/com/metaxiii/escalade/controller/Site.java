@@ -8,7 +8,6 @@ import com.metaxiii.escalade.model.Commentaire;
 import com.metaxiii.escalade.model.Voie;
 import com.metaxiii.escalade.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -22,23 +21,17 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class Site extends AbstractController {
-    @Autowired
-    private transient IDepartementService departementService;
+    private final transient IDepartementService departementService;
 
-    @Autowired
-    private transient ISiteService siteService;
+    private final transient ISiteService siteService;
 
-    @Autowired
-    private transient ISecteurService secteurService;
+    private final transient ISecteurService secteurService;
 
-    @Autowired
-    private transient ILongueurService longueurService;
+    private final transient ILongueurService longueurService;
 
-    @Autowired
-    private transient IVoiesService voiesService;
+    private final transient IVoiesService voiesService;
 
-    @Autowired
-    private transient ICommentaireService commentaireService;
+    private final transient ICommentaireService commentaireService;
 
     private static final String REDIRECT = "redirect:/details-site/";
 
@@ -125,6 +118,12 @@ public class Site extends AbstractController {
             return new ModelAndView(REDIRECT + idSite);
         }
         return new ModelAndView("redirect:/404");
+    }
+
+    @GetMapping("/admin/officiel/{id}")
+    public ModelAndView setOfficialSite(@PathVariable String id) {
+        siteService.setOfficialSite(Long.parseLong(id));
+        return detailSite(id);
     }
 
 }

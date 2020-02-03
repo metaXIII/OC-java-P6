@@ -37,4 +37,6 @@ public interface ISiteService {
 	Site save(SiteDto siteDto, long id);
 
 	String calculateCotation(List<Voie> voiesList);
+
+	void setOfficialSite(long id);
 }
