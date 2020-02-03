@@ -15,47 +15,49 @@ import java.util.List;
 @Data
 @Table(name = "User")
 public class User implements UserDetails, Serializable {
-	@Id
-	@Column(name = "id")
-	private long id;
+    private static final long serialVersionUID = 176106855063096080L;
+    @Id
+    @Column(name = "id")
+    private long id;
 
-	@Column(name = "username")
-	private String username;
+    @Column(name = "username")
+    private String username;
 
-	@Column(name = "email")
-	private String email;
+    @Column(name = "email")
+    private String email;
 
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	@ManyToOne()
-	@JoinColumn(name = "roleId")
-	private Role roleId;
+    @ManyToOne()
+    @JoinColumn(name = "role")
+    private Role role;
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(roleId.getRole()));
-		return authorities;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (role != null)
+            authorities.add(new SimpleGrantedAuthority(role.getMember()));
+        return authorities;
+    }
 }

@@ -18,13 +18,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
-public class Connection {
-    private final IUserService userService;
+public class Connection extends AbstractController {
+    private final transient IUserService userService;
 
     @GetMapping("/user/new-user")
-    public ModelAndView create_user(Model model) {
+    public ModelAndView createUser(Model model) {
         UserDto userDto = new UserDto();
-        return new ModelAndView("registrate", "user", userDto);
+        return new ModelAndView(REGISTRATE, "user", userDto);
     }
 
     @GetMapping("/user/login")
@@ -33,32 +33,32 @@ public class Connection {
     }
 
     @PostMapping(value = "/user/new-user")
-    public Object post_create_user(@ModelAttribute("user") UserDto accountDto,
-                                   BindingResult result, WebRequest request, Errors errors) {
+    public Object postCreateUser(@ModelAttribute("user") UserDto accountDto,
+                                 BindingResult result, WebRequest request, Errors errors) {
         if (checkFieldIsValid(accountDto)) {
             User register = new User();
             if (!result.hasErrors())
-                register = createUserAccount(accountDto, result);
+                register = createUserAccount(accountDto);
             if (register == null)
                 result.rejectValue("email", "message.regError");
             if (result.hasErrors())
-                return new ModelAndView("registrate", "user", accountDto);
+                return new ModelAndView(REGISTRATE, "user", accountDto);
             else
                 return new RedirectView("/");
         } else {
             accountDto.setErrors("Certains champs ne sont pas identiques !");
-            return new ModelAndView("registrate", "user", accountDto);
+            return new ModelAndView(REGISTRATE, "user", accountDto);
         }
     }
 
     private boolean checkFieldIsValid(UserDto accountDto) {
-        if (accountDto.getEmail().equals(accountDto.getCheck_email())) {
-            return accountDto.getPassword().equals(accountDto.getCheck_password());
+        if (accountDto.getEmail().equals(accountDto.getCheckEmail())) {
+            return accountDto.getPassword().equals(accountDto.getCheckPassword());
         }
         return false;
     }
 
-    private User createUserAccount(UserDto accountDto, BindingResult result) {
+    private User createUserAccount(UserDto accountDto) {
         User registered;
         try {
             registered = userService.registerNewUserAccount(accountDto);

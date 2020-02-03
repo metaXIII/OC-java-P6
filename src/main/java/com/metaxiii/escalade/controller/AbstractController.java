@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 @Slf4j
 public abstract class AbstractController implements Serializable {
-    private static final long serialVersionUID = -7825179903556660950L;
+    private static final   long   serialVersionUID = -7825179903556660950L;
+    protected static final String REGISTRATE       = "registrate";
 
     protected User getUser() {
         User user;

@@ -20,41 +20,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements IUserService, UserDetailsService {
-	private final UserRepository  userRepository;
-	private final PasswordEncoder passwordEncoder;
+    private final UserRepository  userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-	@Override
-	public User registerNewUserAccount(UserDto accountDto) throws UserAlreadyExistException {
-		if (emailExist(accountDto.getEmail()))
-			throw new UserAlreadyExistException("Il exite déjà un utilisateur avec cette adresse mail : " + accountDto.getEmail());
-		if (userExist(accountDto.getUsername())) {
-			throw new UserAlreadyExistException("Ce nom d'utilisateur est déjà utilisé : " + accountDto.getUsername());
-		}
-		final User user = new User();
-		user.setUsername(accountDto.getUsername());
-		user.setEmail(accountDto.getEmail());
-		user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-		user.setRoleId(new Role(1, "USER"));
-		return userRepository.save(user);
-	}
+    @Override
+    public User registerNewUserAccount(UserDto accountDto) {
+        if (emailExist(accountDto.getEmail()))
+            throw new UserAlreadyExistException("Il exite déjà un utilisateur avec cette adresse mail : " + accountDto.getEmail());
+        if (userExist(accountDto.getUsername())) {
+            throw new UserAlreadyExistException("Ce nom d'utilisateur est déjà utilisé : " + accountDto.getUsername());
+        }
+        final User user = new User();
+        user.setUsername(accountDto.getUsername());
+        user.setEmail(accountDto.getEmail());
+        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+        user.setRole(new Role(1, "USER"));
+        return userRepository.save(user);
+    }
 
-	@Override
-	public Optional<User> findById(long id) {
-		return userRepository.findById(id);
-	}
+    @Override
+    public Optional<User> findById(long id) {
+        return userRepository.findById(id);
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("Il n'existe pas d'utilisateurs avec le nom d'utilisateur " + username));
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Il n'existe pas d'utilisateurs avec le nom d'utilisateur " + username));
+    }
 
-	private boolean emailExist(String email) {
-		return userRepository.findByEmail(email) != null;
-	}
+    private boolean emailExist(String email) {
+        return userRepository.findByEmail(email) != null;
+    }
 
-	private boolean userExist(String username) {
-		return userRepository.findByUsername(username).isPresent();
-	}
+    private boolean userExist(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
 
 }

@@ -7,7 +7,7 @@ import com.metaxiii.escalade.repository.TopoRepository;
 import com.metaxiii.escalade.service.IReservationService;
 import com.metaxiii.escalade.service.ITopoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,11 +20,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class TopoServiceImpl extends AbstractController implements ITopoService {
-    private final TopoRepository topoRepository;
+    private final transient TopoRepository topoRepository;
 
-    @Autowired
-    private IReservationService reservationService;
+    private final transient IReservationService reservationService;
 
     @Override
     public List<Topo> findAllTopos() {
@@ -50,7 +50,7 @@ public class TopoServiceImpl extends AbstractController implements ITopoService 
                 return "Une erreur s'est produite, veuillez réessayer plus tard";
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return "Une erreur s'est produite, veuillez réessayer plus tard";
         }
     }

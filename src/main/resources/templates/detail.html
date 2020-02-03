@@ -10,7 +10,8 @@
     <div class="row pb-1">
         <h2 th:text="${site.nom}" class="col-6">Titre</h2>
         <div class="col-6 d-flex flex-column align-items-end" sec:authorize="isAuthenticated() || hasAuthority('ADMIN')"
-             th:if="${(site.userId == #authentication.getPrincipal().getId())} or ${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'}">
+             th:if="${(site.userId == #authentication.getPrincipal().getId())}
+             or ${#authentication.getAuthorities()[0].getAuthority().equals('ADMIN')}">
             <button class="btn btn-info" id="add_longueur" data-toggle="modal" data-target="#longueurModal">
                 Ajouter une longueur / voie
             </button>
@@ -34,8 +35,8 @@
                     <th th:text="${site.type}"></th>
                 </tr>
                 <tr>
-                    <th scope="row" th:if="${!site.cotation.isEmpty()}">Cotation</th>
-                    <th th:text="${site.cotation}"></th>
+                    <th scope="row" th:if="${!cotation.isEmpty()}">Cotation</th>
+                    <th th:text="${cotation}"></th>
                 </tr>
                 <tr th:if="${site.officiel}">
                     <th scope="row">Officiel</th>
@@ -67,7 +68,7 @@
                                 th:text="${#dates.format(commentaire.date, 'dd/MM/YYYY à HH:mm')}">date/date/date</span>
                         </div>
                         <div class="d-flex" sec:authorize="isAuthenticated() || hasRole('ADMIN')"
-                             th:if="${#authentication.getPrincipal().getRoleId().getRole() == 'ADMIN'} or
+                             th:if="${#authentication.getAuthorities()[0].getAuthority().equals('ADMIN')} or
                              ${#authentication.getPrincipal().getId() == commentaire.userId}">
                             <button class="btn btn-success edit_commentaire"
                                     th:onclick="'javascript:edit(\'' + ${commentaire.id} + '\')'">Editer le commentaire

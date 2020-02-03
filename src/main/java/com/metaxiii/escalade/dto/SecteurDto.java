@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SecteurDto {
-	private String departement_id;
-	private String nom;
+    private String departementId;
+    private String nom;
 }
