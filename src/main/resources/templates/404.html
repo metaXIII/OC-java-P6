@@ -7,6 +7,9 @@
     <div class="alert alert-success temporal_message" th:if="${msg}">
         <span th:text="${msg}"></span>
     </div>
+    <div class="alert alert-success temporal_message" th:unless="${msg}">
+        <span>Une erreur s'est produite</span>
+    </div>
 </main>
 <footer th:replace="include/footer::footer"></footer>
 </body>
