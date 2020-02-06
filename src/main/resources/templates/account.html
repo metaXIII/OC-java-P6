@@ -63,6 +63,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nom du topo</th>
                 <th scope="col">Nom de l'utilisateur</th>
+                <th scope="col">Mail de l'utilisateur</th>
                 <th scope="col">Compléter réservation</th>
             </tr>
             </thead>
@@ -71,6 +72,7 @@
                 <th scope="row" th:text="${i.index + 1}"></th>
                 <td th:text="${reservation.getTopo().getNom()}"></td>
                 <td th:text="${reservation.getRequestUserId().getUsername()}"></td>
+                <td th:text="${reservation.getRequestUserId().getEmail()}"></td>
                 <td><a th:href="@{'/account/reservations/unsuscribe/' + ${reservation.getId()}}">
                     <button class="btn btn-success">Valider</button>
                 </a></td>
