@@ -1,7 +1,7 @@
 let form = document.getElementById("register")
 let user = document.getElementById("username")
 let password = document.getElementById("password")
-let check_password = document.getElementById("check_password")
+let check_password = document.getElementById("checkPassword")
 let email = document.getElementById("email")
 let check_email = document.getElementById("check_email")
 let valid = document.getElementById("valid")
@@ -11,7 +11,7 @@ form.setAttribute("disabled", "disabled")
 
 function isValid() {
     if (valid.checked === true) {
-        form.disabled = !((password.value && password.value === check_password.value) && (email.value && email.value === check_email.value));
+        form.disabled = !((password.value && password.value === checkPassword.value) && (email.value && email.value === check_email.value));
     }
 }
 
