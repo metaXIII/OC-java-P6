@@ -118,10 +118,10 @@ VALUES ('admin', 'admin@admin.fr', '$2a$10$5lTgw/P5j.npHHCqgP9S6O/P.rX3qIke1/4Km
 INSERT INTO SITE(NOM, SECTEURID, TYPE, USERID)
 VALUES ('Le Calvaire ', 1, 'Falaise', 1);
 
-INSERT INTO Site(NOM, SECTEURID, TYPE, OFFICIEL, USERID)
+INSERT INTO SITE(NOM, SECTEURID, TYPE, OFFICIEL, USERID)
 VALUES ('Chez Spiderman', 2, 'bloc', 1, 1);
 
-INSERT INTO Site (NOM, SECTEURID, TYPE, OFFICIEL, USERID)
+INSERT INTO SITE (NOM, SECTEURID, TYPE, OFFICIEL, USERID)
 VALUES ('DisneyLand', 1, 'Falaise', 1, 1);
 
 # Departement
@@ -254,12 +254,12 @@ INSERT INTO SECTEUR(NOM, DEPARTEMENTID)
 VALUES ('Malesherbes', 45);
 
 #topo
-INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+INSERT INTO TOPO(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
 VALUES ('Nom d\'un premier topo', 'description du premier topo', 'lieu du premier topo', '2019-12-05 15:25:37', 2);
 
-INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+INSERT INTO TOPO(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
 VALUES ('Nom d\'un deuxième topo', 'description d\'un autre topo', 'deuxième lieu génial', '2019-12-06 15:25:37', 2);
 
-INSERT INTO Topo(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
+INSERT INTO TOPO(`NOM`, `DESCRIPTION`, `LIEU`, `DATEPARUTION`, `USERID`)
 VALUES ('Nom d\'un troisième topo', 'description d\'un troisième topo', 'lieu d\'un troisième topo',
         '2019-12-07 15:25:37', 2);
